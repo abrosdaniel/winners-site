@@ -1,15 +1,16 @@
 import { NextRequest } from "next/server";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
+interface RouteParams {
+  id: string;
+}
 
-export async function GET(request: NextRequest, props: Props) {
+export async function GET(
+  request: NextRequest,
+  context: { params: RouteParams }
+) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${props.params.id}`
+      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${context.params.id}`
     );
 
     if (!response.ok) {
