@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
-
-export async function GET(req: NextRequest, context: Params) {
+export async function GET(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
   const { id } = context.params;
 
   if (!id) {
