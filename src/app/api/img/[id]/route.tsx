@@ -1,42 +1,32 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { id } = context.params;
-
-  if (!id) {
-    return NextResponse.json({ error: "Missing file ID" }, { status: 400 });
-  }
-
-  const directusBaseUrl = process.env.NEXT_PUBLIC_DIRECTUS_URL;
-  const url = `${directusBaseUrl}/assets/${id}`;
-
   try {
-    const res = await fetch(url);
-    if (!res.ok) {
-      return NextResponse.json(
-        { error: "Failed to fetch asset" },
-        { status: res.status }
-      );
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${params.id}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch image");
     }
 
-    const contentType =
-      res.headers.get("content-type") || "application/octet-stream";
-    const buffer = await res.arrayBuffer();
+    const buffer = await response.arrayBuffer();
 
-    return new NextResponse(buffer, {
-      headers: {
-        "Content-Type": contentType,
-        "Cache-Control": "public, max-age=31536000, immutable",
-      },
+    const headers = new Headers({
+      "Content-Type": response.headers.get("content-type") || "image/jpeg",
+      "Cache-Control": "public, max-age=31536000, immutable",
+      "Content-Length": buffer.byteLength.toString(),
+    });
+
+    return new Response(buffer, {
+      headers,
+      status: 200,
     });
   } catch (error) {
-    console.error("Error fetching asset:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    console.error("Error fetching image:", error);
+    return new Response("Error fetching image", { status: 500 });
   }
 }
