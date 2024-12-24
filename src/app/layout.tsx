@@ -173,9 +173,9 @@ export default async function RootLayout({
           {children}
           <Foot />
         </Providers>
-        <Suspense>
+        {/* <Suspense>
           <Metrika />
-        </Suspense>
+        </Suspense> */}
       </body>
     </html>
   );

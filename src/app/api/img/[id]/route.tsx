@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+export async function GET(req: NextRequest, context: Params) {
+  const { id } = context.params;
 
   if (!id) {
     return NextResponse.json({ error: "Missing file ID" }, { status: 400 });
