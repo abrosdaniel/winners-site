@@ -1,12 +1,15 @@
 import { NextRequest } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(request: NextRequest, props: Props) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${params.id}`
+      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${props.params.id}`
     );
 
     if (!response.ok) {
