@@ -28,6 +28,9 @@ const formatDate = (dateString: string) => {
   };
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   try {
     const [news, video, players, agency, gallery, contactsArray] =
@@ -121,10 +124,10 @@ export async function GET() {
         ...player.team,
         name:
           player.league?.name === "МХЛ"
-            ? `МХК«${player.team.name}»`
+            ? `МХК ${player.team.name}`
             : player.league?.name === "Без команды"
             ? player.team.name
-            : `ХК«${player.team.name}»`,
+            : `ХК ${player.team.name} `,
       },
     }));
 

@@ -43,7 +43,7 @@ export default function NewsArticle() {
   return (
     <div className="w-full box-border relative flex flex-col items-center">
       <img
-        className="w-full aspect-video object-cover object-top h-44 lg:h-[400px]"
+        className="w-full aspect-video object-cover object-center h-44 lg:h-[400px]"
         src={getImageUrl(article.image)}
       />
       <div className="flex flex-col lg:flex-row lg:gap-4">
@@ -71,12 +71,12 @@ export default function NewsArticle() {
                   className="w-full aspect-video object-cover object-center rounded-xl"
                   src={getImageUrl(item.image)}
                 />
-                <p className="font-inter font-medium text-[#888888] text-xs">
-                  {item.date_created.day} {item.date_created.month}
-                </p>
                 <h3 className="font-inter font-semibold text-lg text-[#171D3D]">
                   {item.title}
                 </h3>
+                <p className="font-inter font-medium text-[#888888] text-xs">
+                  {item.date_created.day} {item.date_created.month}
+                </p>
               </Link>
             ))}
           </div>

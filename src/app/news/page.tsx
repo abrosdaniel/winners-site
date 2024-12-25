@@ -49,9 +49,6 @@ export default function News() {
           src={getImageUrl(image)}
         />
         <div className="w-1/2 font-inter flex flex-col gap-2 lg:gap-5 p-4 justify-center">
-          <p className="text-xs font-medium text-[#B3B3B3]">
-            {day} {month}
-          </p>
           <h3 className="font-bold text-sm text-[#171D3D] line-clamp-2 lg:text-xl lg:line-clamp-3">
             {title}
           </h3>
@@ -59,6 +56,9 @@ export default function News() {
             className="article font-normal text-xs text-[#5B5B5B] line-clamp-2 lg:text-base lg:line-clamp-3"
             dangerouslySetInnerHTML={{ __html: article }}
           />
+          <p className="text-xs font-medium text-[#B3B3B3]">
+            {day} {month}
+          </p>
         </div>
       </Link>
     );
@@ -106,7 +106,7 @@ export default function News() {
   );
 
   const MobileLayout = () => (
-    <div className="px-2 w-full">
+    <div className="px-2 w-full mb-5">
       <Tabs defaultValue="news" className="w-full">
         <TabsList className="w-full mt-5 mb-6 bg-transparent font-inter flex flex-row gap-2">
           <TabsTrigger
