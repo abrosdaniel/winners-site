@@ -1,3 +1,5 @@
+import { headers } from "next/headers";
+
 export async function getServerData() {
   try {
     const response = await fetch(
