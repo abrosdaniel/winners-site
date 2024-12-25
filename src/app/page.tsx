@@ -18,12 +18,14 @@ export default function Page() {
     <>
       <div>
         <div className="bg-[#171D3D] h-16 lg:h-0"></div>
-        <Suspense fallback={null}>
-          <HomeCarousel />
-        </Suspense>
-        <Suspense fallback={null}>
-          <HomeWelcome />
-        </Suspense>
+        <div className="flex flex-col">
+          <Suspense fallback={null}>
+            <HomeCarousel />
+          </Suspense>
+          <Suspense fallback={null}>
+            <HomeWelcome />
+          </Suspense>
+        </div>
         <Suspense fallback={null}>
           <HomePlayers data={data.players} />
         </Suspense>

@@ -150,7 +150,7 @@ export function PlayersClient({ initialData }: { initialData: any }) {
             {["all", "Нападающий", "Защитник", "Вратарь"].map((role) => (
               <ToggleGroupItem
                 key={role}
-                className="h-8 lg:w-44 rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white"
+                className="h-8 lg:w-44 text-base rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white"
                 value={role}
               >
                 {role === "all" ? "все игроки" : role.toLowerCase()}

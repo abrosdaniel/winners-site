@@ -48,6 +48,7 @@ export async function GET() {
             ],
             filter: { status: { _eq: "published" } },
             sort: "-date_created",
+            limit: -1,
           })
         ),
         client.request(
@@ -63,6 +64,7 @@ export async function GET() {
             ],
             filter: { status: { _eq: "published" } },
             sort: "-date_created",
+            limit: -1,
           })
         ),
         client.request(
@@ -83,17 +85,20 @@ export async function GET() {
               "stats",
             ],
             filter: { status: { _eq: "published" } },
+            limit: -1,
           })
         ),
         client.request(
           readItems("agency", {
             fields: ["id", "photo", "name", "type", "email"],
+            limit: -1,
           })
         ),
         client.request(
           readItems("about_gallery", {
             fields: ["id", "image"],
             filter: { status: { _eq: "published" } },
+            limit: -1,
           })
         ),
         client.request(
@@ -106,6 +111,7 @@ export async function GET() {
               "email",
               "phone",
             ],
+            limit: -1,
           })
         ),
       ]);

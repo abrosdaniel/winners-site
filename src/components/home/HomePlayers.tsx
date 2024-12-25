@@ -11,6 +11,18 @@ interface HomePlayersProps {
 export function HomePlayers({ data }: HomePlayersProps) {
   const [mounted, setMounted] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  // Перемешиваем игроков один раз при инициализации
+  const [shuffledPlayers] = useState(() => {
+    const indices = Array.from({ length: data.length }, (_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    return indices.map((index) => data[index]);
+  });
+
+  // Отдельное состояние для отображаемых игроков
   const [displayedPlayers, setDisplayedPlayers] = useState<any[]>([]);
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
 
@@ -20,16 +32,9 @@ export function HomePlayers({ data }: HomePlayersProps) {
       const isLarge = window.matchMedia("(min-width: 1024px)").matches;
       setIsLargeScreen(isLarge);
 
-      const indices = Array.from({ length: data.length }, (_, i) => i);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
-      }
-
+      // Берем первые N игроков из уже перемешанного массива
       const limit = isLarge ? 8 : 4;
-      const randomPlayers = indices.slice(0, limit).map((index) => data[index]);
-
-      setDisplayedPlayers(randomPlayers);
+      setDisplayedPlayers(shuffledPlayers.slice(0, limit));
     };
 
     if (mounted) {
@@ -37,7 +42,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
       window.addEventListener("resize", updateDisplayedItems);
       return () => window.removeEventListener("resize", updateDisplayedItems);
     }
-  }, [data, mounted]);
+  }, [mounted, shuffledPlayers]);
 
   if (!mounted) return null;
 

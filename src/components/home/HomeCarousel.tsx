@@ -29,7 +29,7 @@ export function HomeCarousel() {
                 media="(min-width: 1024px)"
               />
               <img
-                className="object-cover object-top h-[545px] w-full lg:h-[462px]"
+                className="object-cover object-top w-full"
                 src={`/assets/img/head/${item.mob}.png`}
                 alt={`${item.base}`}
               />
