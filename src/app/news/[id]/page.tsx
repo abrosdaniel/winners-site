@@ -1,12 +1,12 @@
 "use client";
 
-import { useData } from "@hooks/useData";
+import { useDataContext } from "@/context/DataContext";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function NewsArticle() {
-  const { data, isLoading } = useData();
+  const { data, isLoading } = useDataContext();
   const params = useParams();
   const [isDesktop, setIsDesktop] = useState(false);
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;

@@ -1,12 +1,12 @@
 "use client";
 
-import { useData } from "@hooks/useData";
+import { useDataContext } from "@/context/DataContext";
 
 import { Button } from "@ui/button";
 import Link from "next/link";
 
 export default function Agency() {
-  const { data, isLoading } = useData();
+  const { data, isLoading } = useDataContext();
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
   const splitName = (name: string) => {
     const [first, ...rest] = name.trim().split(/\s+/);

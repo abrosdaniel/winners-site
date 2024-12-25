@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useData } from "@hooks/useData";
+import { useDataContext } from "@/context/DataContext";
 import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/tabs";
 import { Video } from "@/components/kit/Video";
@@ -16,7 +16,7 @@ interface NewsItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
 }
 
 export default function News() {
-  const { data, isLoading } = useData();
+  const { data, isLoading } = useDataContext();
   const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;

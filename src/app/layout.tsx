@@ -8,6 +8,8 @@ import { Metrika } from "@/components/analytics/YaMetrika";
 import { fontBebas, fontInter } from "@assets/fonts/fonts";
 import Head from "@/components/Head/Head";
 import Foot from "@/components/Foot/Foot";
+import { DataProvider } from "@/context/DataContext";
+import { getServerData } from "@/lib/server-utils";
 
 export const metadata: Metadata = {
   title: "Главная",
@@ -149,15 +151,7 @@ export default async function RootLayout({
 
   await queryClient.prefetchQuery({
     queryKey: ["data"],
-    queryFn: async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/data`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      return response.json();
-    },
+    queryFn: async () => getServerData(),
   });
 
   const dehydratedState = dehydrate(queryClient);

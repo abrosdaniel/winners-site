@@ -1,4 +1,7 @@
+"use client";
+
 import { Suspense } from "react";
+import { useDataContext } from "@/context/DataContext";
 import Foot from "@/components/Foot/Foot";
 
 import { HomeCarousel } from "@/components/home/HomeCarousel";
@@ -8,16 +11,8 @@ import { HomeAgency } from "@/components/home/HomeAgency";
 import { HomePartners } from "@/components/home/HomePartners";
 import { HomeWelcome } from "@/components/home/HomeWelcome";
 
-async function getData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data`, {
-    cache: "no-store",
-  });
-  if (!res.ok) throw new Error("Failed to fetch data");
-  return res.json();
-}
-
-export default async function Page() {
-  const data = await getData();
+export default function Page() {
+  const { data, isLoading } = useDataContext();
 
   return (
     <>
