@@ -21,7 +21,10 @@ export function PlayersClient({ initialData }: { initialData: any }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [playersPerPage, setPlayersPerPage] = useState(8);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [shuffledPlayers, setShuffledPlayers] = useState<any[]>([]);
+
+  const [shuffledPlayers] = useState(() =>
+    [...(initialData?.players || [])].sort(() => Math.random() - 0.5)
+  );
 
   const splitName = (name: string) => {
     const [first, ...rest] = name.trim().split(/\s+/);
@@ -43,13 +46,6 @@ export function PlayersClient({ initialData }: { initialData: any }) {
   useEffect(() => {
     setPlayersPerPage(isDesktop ? 16 : 8);
   }, [isDesktop]);
-
-  useEffect(() => {
-    if (data?.players) {
-      const shuffled = [...data.players].sort(() => Math.random() - 0.5);
-      setShuffledPlayers(shuffled);
-    }
-  }, [data]);
 
   const filteredPlayers = useMemo(() => {
     if (!shuffledPlayers || isLoading) return [];
