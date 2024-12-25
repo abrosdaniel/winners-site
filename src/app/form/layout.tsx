@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Foot from "@/components/Foot/Foot";
 
 export const metadata: Metadata = {
   title: "Анкета",
@@ -23,6 +24,7 @@ export default function RootLayout({
     <div>
       <div className="bg-[#171D3D] h-16 lg:h-0"></div>
       {children}
+      <Foot />
     </div>
   );
 }

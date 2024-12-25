@@ -1,13 +1,7 @@
-"use client";
-
-import { useData } from "@hooks/useData";
-
 import { Button } from "@ui/button";
 import Link from "next/link";
 
 export default function Foot() {
-  const { data } = useData();
-
   return (
     <footer
       id="contacts"
@@ -43,18 +37,18 @@ export default function Foot() {
           />
         </div>
         <div className="text-white font-bold text-3xl leading-none flex flex-col gap-3 items-start font-inter pb-12 lg:pb-0 lg:text-[40px]">
-          <a href={`mailto:${data.contacts.email}`}>{data.contacts.email}</a>
+          <a href={`mailto:info@wnrs.ru`}>info@wnrs.ru</a>
           <div className="flex gap-2 justify-center items-center">
             <img
               className="h-7 w-7 p-2 rounded-full bg-white"
               src="/assets/icons/social/phone.svg"
             />
             <a
-              href={data.contacts.whatsapp}
+              href="https://wa.me/79688658761"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {data.contacts.phone}
+              +7 968 865 87 61
             </a>
           </div>
         </div>
@@ -103,7 +97,7 @@ export default function Foot() {
               asChild
             >
               <Link
-                href={data.contacts.instagram}
+                href="https://www.instagram.com/winners_hockey"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -120,7 +114,7 @@ export default function Foot() {
               asChild
             >
               <Link
-                href={data.contacts.telegram}
+                href="https://t.me/winnershockey"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -137,7 +131,7 @@ export default function Foot() {
               asChild
             >
               <Link
-                href={data.contacts.whatsapp}
+                href="https://wa.me/79688658761"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -153,7 +147,7 @@ export default function Foot() {
               variant="link"
               asChild
             >
-              <Link href={`mailto:${data.contacts.email}`}>
+              <Link href={`mailto:info@wnrs.ru`}>
                 <img
                   className="h-7 w-7 p-2 rounded-full bg-white"
                   src="/assets/icons/social/email.svg"

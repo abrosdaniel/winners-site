@@ -10,14 +10,12 @@ declare global {
   }
 }
 
-const { ym } = window;
-
 export function Metrika() {
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && window.ym) {
       window.ym(
         Number(process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID),
         "hit",
@@ -35,7 +33,7 @@ export function Metrika() {
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        ym(XXXXXXXX, "init", {
+        ym(${process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID}, "init", {
           defer: true,
           clickmap:true,
           trackLinks:true,

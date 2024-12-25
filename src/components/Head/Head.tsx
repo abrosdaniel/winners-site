@@ -1,6 +1,5 @@
 "use client";
 
-import { useData } from "@hooks/useData";
 import { useEffect, useState } from "react";
 
 import { Button } from "@ui/button";
@@ -16,7 +15,6 @@ import {
 import { Menu, MoveLeft } from "lucide-react";
 
 export default function Head() {
-  const { data } = useData();
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -195,20 +193,18 @@ export default function Head() {
                   </Button>
                 </SheetClose>
                 <div className="text-white font-bold text-2xl leading-none flex flex-col gap-3 items-center font-inter">
-                  <a href={`mailto:${data.contacts.email}`}>
-                    {data.contacts.email}
-                  </a>
+                  <a href={`mailto:info@wnrs.ru`}>info@wnrs.ru</a>
                   <div className="flex gap-2 justify-center items-center">
                     <img
                       className="h-7 w-7 p-2 rounded-full bg-white"
                       src="/assets/icons/social/phone.svg"
                     />
                     <a
-                      href={data.contacts.whatsapp}
+                      href="https://wa.me/79688658761"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {data.contacts.phone}
+                      +7 968 865 87 61
                     </a>
                   </div>
                 </div>

@@ -10,11 +10,12 @@ export const fetchData = async () => {
   return response.json();
 };
 
-export const useData = () => {
+export const useData = (initialData?: any) => {
   return useQuery({
     queryKey: ["data"],
     queryFn: fetchData,
     staleTime: 1000 * 60 * 5,
     retry: 2,
+    initialData,
   });
 };

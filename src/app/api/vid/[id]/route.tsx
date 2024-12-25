@@ -1,46 +1,33 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
+  const id = request.nextUrl.pathname.split("/").pop();
+
   try {
-    const range = request.headers.get("range");
-    if (!range) {
-      return new NextResponse("Requires range header", { status: 400 });
-    }
-
-    const videoUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${params.id}`;
-    const response = await fetch(videoUrl, {
-      headers: { Range: range },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${id}`
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch video");
     }
 
-    const headers = new Headers();
-    response.headers.forEach((value, key) => {
-      headers.set(key, value);
+    const buffer = await response.arrayBuffer();
+
+    const headers = new Headers({
+      "Content-Type": response.headers.get("content-type") || "video/mp4",
+      "Cache-Control": "public, max-age=31536000, immutable",
+      "Content-Length": buffer.byteLength.toString(),
     });
 
-    headers.set("Accept-Ranges", "bytes");
-    if (response.headers.get("Content-Range")) {
-      headers.set("Content-Range", response.headers.get("Content-Range")!);
-    }
-    headers.set("Content-Type", "video/mp4");
-
-    return new NextResponse(response.body, {
-      status: response.status,
+    return new Response(buffer, {
       headers,
+      status: 200,
     });
   } catch (error) {
     console.error("Error fetching video:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch video" },
-      { status: 500 }
-    );
+    return new Response("Error fetching video", { status: 500 });
   }
 }

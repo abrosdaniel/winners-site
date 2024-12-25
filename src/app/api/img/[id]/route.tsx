@@ -1,16 +1,13 @@
 import { NextRequest } from "next/server";
 
-interface RouteParams {
-  id: string;
-}
+export const dynamic = "force-dynamic";
 
-export async function GET(
-  request: NextRequest,
-  context: { params: RouteParams }
-) {
+export async function GET(request: NextRequest) {
+  const id = request.nextUrl.pathname.split("/").pop();
+
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${context.params.id}`
+      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${id}`
     );
 
     if (!response.ok) {

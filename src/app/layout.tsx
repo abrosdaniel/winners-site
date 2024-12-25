@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import { Providers } from "@/app/providers";
 import { Metrika } from "@/components/analytics/YaMetrika";
 import { fontBebas, fontInter } from "@assets/fonts/fonts";
-
 import Head from "@/components/Head/Head";
 import Foot from "@/components/Foot/Foot";
 
@@ -171,11 +170,10 @@ export default async function RootLayout({
         <Providers dehydratedState={dehydratedState}>
           <Head />
           {children}
-          <Foot />
         </Providers>
-        {/* <Suspense>
+        <Suspense>
           <Metrika />
-        </Suspense> */}
+        </Suspense>
       </body>
     </html>
   );

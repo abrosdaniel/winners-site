@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Foot from "@/components/Foot/Foot";
 
 export const metadata: Metadata = {
   title: "История агентства",
@@ -19,5 +20,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      {children}
+      <Foot />
+    </div>
+  );
 }

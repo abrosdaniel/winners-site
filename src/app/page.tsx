@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import Foot from "@/components/Foot/Foot";
+
 import { HomeCarousel } from "@/components/home/HomeCarousel";
 import { HomeNews } from "@/components/home/HomeNews";
 import { HomePlayers } from "@/components/home/HomePlayers";
@@ -18,26 +20,29 @@ export default async function Page() {
   const data = await getData();
 
   return (
-    <div>
-      <div className="bg-[#171D3D] h-16 lg:h-0"></div>
-      <Suspense fallback={null}>
-        <HomeCarousel />
-      </Suspense>
-      <Suspense fallback={null}>
-        <HomeWelcome />
-      </Suspense>
-      <Suspense fallback={null}>
-        <HomePlayers data={data.players} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <HomeNews data={data.news} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <HomePartners />
-      </Suspense>
-      <Suspense fallback={null}>
-        <HomeAgency data={data.agency} />
-      </Suspense>
-    </div>
+    <>
+      <div>
+        <div className="bg-[#171D3D] h-16 lg:h-0"></div>
+        <Suspense fallback={null}>
+          <HomeCarousel />
+        </Suspense>
+        <Suspense fallback={null}>
+          <HomeWelcome />
+        </Suspense>
+        <Suspense fallback={null}>
+          <HomePlayers data={data.players} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <HomeNews data={data.news} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <HomePartners />
+        </Suspense>
+        <Suspense fallback={null}>
+          <HomeAgency data={data.agency} />
+        </Suspense>
+      </div>
+      <Foot />
+    </>
   );
 }
