@@ -22,67 +22,33 @@ export default function AboutBlock2() {
 
     if (cirl && cirr) {
       const ctx = gsap.context(() => {
-        const mm = gsap.matchMedia();
-        // Десктоп анимация
-        mm.add("(min-width: 1024px)", () => {
-          gsap.fromTo(
-            cirl,
-            { x: 40 },
-            {
-              x: 10,
-              scrollTrigger: {
-                trigger: b2Ref.current,
-                start: "top 75%",
-                end: "top 25%",
-                scrub: true,
-              },
-            }
-          );
+        gsap.fromTo(
+          cirl,
+          { x: 1.5 },
+          {
+            x: -25,
+            scrollTrigger: {
+              trigger: b2Ref.current,
+              start: "top 60%",
+              end: "top top",
+              scrub: true,
+            },
+          }
+        );
 
-          gsap.fromTo(
-            cirr,
-            { x: -60 },
-            {
-              x: -35,
-              scrollTrigger: {
-                trigger: b2Ref.current,
-                start: "top 75%",
-                end: "top 25%",
-                scrub: true,
-              },
-            }
-          );
-        });
-        // Мобильная анимация
-        mm.add("(max-width: 1023px)", () => {
-          gsap.fromTo(
-            cirl,
-            { x: 30 },
-            {
-              x: 9,
-              scrollTrigger: {
-                trigger: b2Ref.current,
-                start: "top 75%",
-                end: "top 25%",
-                scrub: true,
-              },
-            }
-          );
-
-          gsap.fromTo(
-            cirr,
-            { x: -50 },
-            {
-              x: -29,
-              scrollTrigger: {
-                trigger: b2Ref.current,
-                start: "top 75%",
-                end: "top 25%",
-                scrub: true,
-              },
-            }
-          );
-        });
+        gsap.fromTo(
+          cirr,
+          { x: -1.5 },
+          {
+            x: 25,
+            scrollTrigger: {
+              trigger: b2Ref.current,
+              start: "top 60%",
+              end: "top top",
+              scrub: true,
+            },
+          }
+        );
       }, b2Ref);
 
       return () => ctx.revert();
@@ -114,11 +80,16 @@ export default function AboutBlock2() {
               1999
             </p>
             <div className="bg-white w-[80px] lg:w-[104px] h-[4px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"></div>
-            <img
-              className="cirl z-0 scale-[0.59]"
-              src="/assets/img/about/b2-circle-l.svg"
-            />
-            <img className="cirr z-0" src="/assets/img/about/b2-circle-r.svg" />
+            <div className="relative w-[100px] h-[100px] lg:w-[124px] lg:h-[124px]">
+              <img
+                className="cirl z-0 rotate-180 absolute inset-0"
+                src="/assets/img/about/b2-circle-r.svg"
+              />
+              <img
+                className="cirr z-0 absolute inset-0"
+                src="/assets/img/about/b2-circle-r.svg"
+              />
+            </div>
           </div>
           <div className="w-[100px] h-[100px] bg-[#171D3D] rounded-full flex justify-center items-center relative after:h-[2px] after:w-32 after:bg-[#5B5B5B] after:absolute after:right-1/2 after:-z-10 lg:w-[124px] lg:h-[124px]">
             <p className="font-normal text-lg text-white">2001</p>

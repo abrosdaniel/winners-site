@@ -119,7 +119,7 @@ export default function About() {
         <AboutBlock19 />
       </div>
       <div className="relative bg-[#F5F5F5]">
-        <TextBlock type="description" className="mt-5 lg:mt-7 mb-12 lg:mb-20">
+        <TextBlock type="description" className="mt-5 lg:mt-7 mb-28 lg:mb-20">
           Игроки спустя года
         </TextBlock>
         <AboutBlock20 />

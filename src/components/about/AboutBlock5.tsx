@@ -22,67 +22,33 @@ export default function AboutBlock3() {
 
     if (akb && map) {
       const ctx = gsap.context(() => {
-        const mm = gsap.matchMedia();
-        // Десктоп анимация
-        mm.add("(min-width: 1024px)", () => {
-          gsap.fromTo(
-            akb,
-            { scale: 0 },
-            {
-              scale: 1,
-              scrollTrigger: {
-                trigger: b3Ref.current,
-                start: "top 30%",
-                end: "top 10%",
-                scrub: true,
-              },
-            }
-          );
+        gsap.fromTo(
+          akb,
+          { scale: 0 },
+          {
+            scale: 1,
+            scrollTrigger: {
+              trigger: b3Ref.current,
+              start: "50% 90%",
+              end: "50% 40%",
+              scrub: true,
+            },
+          }
+        );
 
-          gsap.fromTo(
-            map,
-            { opacity: 0 },
-            {
-              opacity: 1,
-              scrollTrigger: {
-                trigger: b3Ref.current,
-                start: "top 50%",
-                end: "top 30%",
-                scrub: true,
-              },
-            }
-          );
-        });
-        // Мобильная анимация
-        mm.add("(max-width: 1023px)", () => {
-          gsap.fromTo(
-            akb,
-            { scale: 0 },
-            {
-              scale: 1,
-              scrollTrigger: {
-                trigger: b3Ref.current,
-                start: "top 30%",
-                end: "top 10%",
-                scrub: true,
-              },
-            }
-          );
-
-          gsap.fromTo(
-            map,
-            { opacity: 0 },
-            {
-              opacity: 1,
-              scrollTrigger: {
-                trigger: b3Ref.current,
-                start: "top 50%",
-                end: "top 30%",
-                scrub: true,
-              },
-            }
-          );
-        });
+        gsap.fromTo(
+          map,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            scrollTrigger: {
+              trigger: b3Ref.current,
+              start: "50% 100%",
+              end: "50% 50%",
+              scrub: true,
+            },
+          }
+        );
       }, b3Ref);
 
       return () => ctx.revert();
@@ -92,10 +58,7 @@ export default function AboutBlock3() {
   if (!mounted) return null;
 
   return (
-    <div
-      ref={b3Ref}
-      className="font-inter px-5 py-24 overflow-hidden h-[680px] lg:px-80 bg-white"
-    >
+    <div className="font-inter px-5 py-24 overflow-hidden h-[680px] lg:px-80 bg-white">
       <div className="z-10 relative font-normal flex flex-col gap-5 lg:w-10/12 lg:h-full lg:justify-center">
         <h3 className="text-3xl lg:text-4xl text-[#171D3D]">
           Одной из первых команд, с которой он сотрудничал, был{" "}
@@ -107,7 +70,10 @@ export default function AboutBlock3() {
           успеху для каждого игрока.
         </p>
       </div>
-      <div className="z-0 relative translate-x-[40px] -translate-y-[220px] lg:translate-x-[80%] lg:-translate-y-full">
+      <div
+        ref={b3Ref}
+        className="z-0 relative translate-x-[40px] -translate-y-[220px] lg:translate-x-[80%] lg:-translate-y-full"
+      >
         <img
           className="akb absolute h-[44.5px] lg:h-[55px] top-[310px] lg:top-[390px] left-[220px] lg:left-[280px]"
           src="/assets/img/about/b4-akb.png"

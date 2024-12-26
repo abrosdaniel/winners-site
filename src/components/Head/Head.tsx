@@ -81,7 +81,7 @@ export default function Head() {
             </Button>
           </div>
           <Button
-            className="bg-orange-500 hover:bg-[#171D3D] py-1 h-auto rounded-none font-normal text-lg leading-none font-inter"
+            className="bg-orange-500 hover:bg-[#171D3D] py-1 h-auto rounded-none font-normal text-lg leading-none font-inter border border-orange-500 hover:border-white"
             asChild
           >
             <Link href="/form">заполнить анкету</Link>
@@ -102,12 +102,15 @@ export default function Head() {
                 src="/assets/icons/logo/logo.png"
               />
             </Link>
-            <div className="text-white flex flex-col justify-center mt-2">
+            <Link
+              className="text-white flex flex-col justify-center mt-2"
+              href="/"
+            >
               <p className="text-sm leading-none font-bold">
                 ХОККЕЙНОЕ АГЕНТСТВО
               </p>
               <h1 className="text-3xl leading-none font-bold">WINNERS</h1>
-            </div>
+            </Link>
           </div>
           <Sheet>
             <SheetTrigger asChild>
@@ -130,10 +133,14 @@ export default function Head() {
                   </Link>
                 </SheetClose>
                 <SheetTitle>
-                  <div className="text-white font-bold">
-                    <p className="text-lg leading-none">ХОККЕЙНОЕ АГЕНТСТВО</p>
-                    <h1 className="text-5xl leading-none">WINNERS</h1>
-                  </div>
+                  <SheetClose asChild>
+                    <Link className="text-white font-bold" href="/">
+                      <p className="text-lg leading-none">
+                        ХОККЕЙНОЕ АГЕНТСТВО
+                      </p>
+                      <h1 className="text-5xl leading-none">WINNERS</h1>
+                    </Link>
+                  </SheetClose>
                 </SheetTitle>
               </SheetHeader>
               <div className="text-white mt-14 flex flex-col gap-3">
@@ -186,7 +193,7 @@ export default function Head() {
               <div className="text-white mt-14 flex flex-col gap-16">
                 <SheetClose asChild>
                   <Button
-                    className="bg-orange-500 hover:bg-[#171D3D] py-1 h-auto rounded-none font-bold text-lg"
+                    className="bg-orange-500 hover:bg-[#171D3D] py-1 h-auto rounded-none font-normal text-lg font-inter"
                     asChild
                   >
                     <Link href="/form">заполнить анкету</Link>

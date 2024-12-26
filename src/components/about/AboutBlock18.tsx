@@ -1,8 +1,8 @@
 export default function AboutBlock18() {
   return (
     <div className="flex flex-col gap-7 font-inter font-normal px-5 lg:px-14">
-      <div className="flex flex-col gap-5 lg:pl-52 lg:w-8/12">
-        <h2 className="text-[#171D3D] text-3xl">
+      <div className="flex flex-col gap-5 lg:pl-24 lg:w-9/12">
+        <h2 className="text-[#171D3D] text-3xl lg:text-4xl">
           Количество молодых талантов стремительно росло. Юрий Николаев и
           Александр Черных начали привлекать скаутов и агентов.
         </h2>
@@ -15,19 +15,19 @@ export default function AboutBlock18() {
       <div className="flex flex-col lg:flex-row gap-2">
         <div className="flex-1 rounded-xl overflow-hidden">
           <img
-            className="object-cover object-center h-full"
+            className="object-cover object-center aspect-video lg:aspect-[16/12]"
             src="/assets/img/about/b18-1.jpeg"
           />
         </div>
         <div className="flex-1 rounded-xl overflow-hidden">
           <img
-            className="object-cover object-center h-full"
+            className="object-cover object-center aspect-video lg:aspect-[16/12]"
             src="/assets/img/about/b18-2.jpeg"
           />
         </div>
         <div className="flex-1 rounded-xl overflow-hidden">
           <img
-            className="object-cover object-center h-full"
+            className="object-cover object-center aspect-video lg:aspect-[16/12]"
             src="/assets/img/about/b18-3.jpeg"
           />
         </div>

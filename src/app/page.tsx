@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { useDataContext } from "@/context/DataContext";
 import Foot from "@/components/Foot/Foot";
 
-import { HomeCarousel } from "@/components/home/HomeCarousel";
 import { HomeNews } from "@/components/home/HomeNews";
 import { HomePlayers } from "@/components/home/HomePlayers";
 import { HomeAgency } from "@/components/home/HomeAgency";
@@ -18,14 +17,9 @@ export default function Page() {
     <>
       <div>
         <div className="bg-[#171D3D] h-16 lg:h-0"></div>
-        <div className="flex flex-col">
-          <Suspense fallback={null}>
-            <HomeCarousel />
-          </Suspense>
-          <Suspense fallback={null}>
-            <HomeWelcome />
-          </Suspense>
-        </div>
+        <Suspense fallback={null}>
+          <HomeWelcome />
+        </Suspense>
         <Suspense fallback={null}>
           <HomePlayers data={data.players} />
         </Suspense>

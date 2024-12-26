@@ -139,7 +139,7 @@ export default function Foot() {
                   className="h-7 w-7 p-2 rounded-full bg-white"
                   src="/assets/icons/social/phone.svg"
                 />
-                whatsapp
+                what’sapp
               </Link>
             </Button>
             <Button
@@ -159,7 +159,7 @@ export default function Foot() {
         </div>
         <div className="pb-14 lg:pb-0">
           <Button
-            className="bg-orange-500 hover:bg-transparent py-1 h-8 rounded-none font-normal text-lg leading-none font-inter"
+            className="bg-orange-500 hover:bg-transparent py-1 h-8 rounded-none font-normal text-lg leading-none font-inter border border-orange-500 hover:border-white"
             asChild
           >
             <Link href="/form">заполнить анкету</Link>

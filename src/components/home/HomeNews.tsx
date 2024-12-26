@@ -37,11 +37,11 @@ export function HomeNews({ data }: HomeNewsProps) {
               <span className="bg-orange-500 absolute top-4 right-4 py-[1.5px] px-3 font-normal text-xs rounded-full lg:py-[9.5px]">
                 НОВОЕ
               </span>
-              <p className="font-semibold text-[#171D3D] text-base line-clamp-3 lg:text-2xl">
+              <p className="font-semibold text-[#171D3D] text-base leading-4 line-clamp-3 lg:text-2xl lg:leading-6">
                 {data[0].title}
               </p>
               <div
-                className="font-normal text-sm text-[#5B5B5B] line-clamp-3 lg:text-base"
+                className="font-normal text-sm leading-4 text-[#5B5B5B] line-clamp-3 lg:text-base"
                 dangerouslySetInnerHTML={{ __html: data[0].article }}
               />
             </div>
@@ -60,7 +60,7 @@ export function HomeNews({ data }: HomeNewsProps) {
                     <span className="absolute top-3 left-3 py-[1.5px] px-3 font-normal text-xs text-[#D2D2D2] rounded-full border border-[#D2D2D2] lg:left-auto lg:right-3">
                       ПОСЛЕДНИЕ НОВОСТИ
                     </span>
-                    <p className="mt-14 font-semibold text-[#171D3D] text-base line-clamp-3">
+                    <p className="mt-14 font-semibold text-[#171D3D] text-base leading-4 line-clamp-3">
                       {item.title}
                     </p>
                     <p className="mb-4 font-medium text-[#D0D0D0] text-[10px]">

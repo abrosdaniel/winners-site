@@ -11,7 +11,9 @@ export default function AboutBlock9() {
             className="rounded-full w-[135px]"
             src="/assets/img/about/b9-chernyh.png"
           />
-          <h3 className="font-bold text-2xl w-max">Александр Черных</h3>
+          <h3 className="font-bebas font-bold text-2xl leading-6 w-max">
+            Александр Черных
+          </h3>
           <p className="text-lg text-[#ECECEC] w-max">
             Хоккейный агент с 2007 года
           </p>
@@ -24,16 +26,16 @@ export default function AboutBlock9() {
             </span>
           </h3>
           <img
-            className="rounded-xl object-cover object-center"
+            className="rounded-xl object-cover object-top aspect-[16/8]"
             src="/assets/img/about/b9-1.png"
           />
           <div className="flex flex-row gap-2 lg:gap-5">
             <img
-              className="rounded-xl object-cover object-center w-[calc(50%-0.25rem)] lg:w-[calc(50%-0.5rem)]"
+              className="rounded-xl object-cover object-top aspect-[16/8] w-[calc(50%-0.25rem)] lg:w-[calc(50%-0.5rem)]"
               src="/assets/img/about/b9-2.png"
             />
             <img
-              className="rounded-xl object-cover object-center w-[calc(50%-0.25rem)] lg:w-[calc(50%-0.5rem)]"
+              className="rounded-xl object-cover object-top aspect-[16/8] w-[calc(50%-0.25rem)] lg:w-[calc(50%-0.5rem)]"
               src="/assets/img/about/b9-3.jpeg"
             />
           </div>

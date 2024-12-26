@@ -12,6 +12,11 @@ export function HomePlayers({ data }: HomePlayersProps) {
   const [mounted, setMounted] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
+  const splitName = (name: string) => {
+    const [first, ...rest] = name.trim().split(/\s+/);
+    return { first, rest: rest.join(" ") };
+  };
+
   // Перемешиваем игроков один раз при инициализации
   const [shuffledPlayers] = useState(() => {
     const indices = Array.from({ length: data.length }, (_, i) => i);
@@ -74,7 +79,9 @@ export function HomePlayers({ data }: HomePlayersProps) {
               </div>
               <div>
                 <h3 className="font-bold text-2xl text-[#171D3D] lg:text-[26px] leading-[21.6px] lg:leading-[26px] w-min lg:w-max">
-                  {item.name}
+                  {splitName(item.name).first}
+                  <br />
+                  {splitName(item.name).rest}
                 </h3>
                 <p className="font-inter font-semibold text-sm text-[#5B5B5B] h-7 lg:text-base leading-none lg:leading-none">
                   {item.team.name}
@@ -112,7 +119,6 @@ export function HomePlayers({ data }: HomePlayersProps) {
       </div>
       <Button
         className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto hover:bg-orange-500 hover:text-white font-normal text-lg leading-none font-inter"
-        variant="link"
         asChild
       >
         <Link href="/players">смотреть всех игроков</Link>

@@ -48,7 +48,7 @@ export function HomeAgency({ data }: HomeAgencyProps) {
               src={getImageUrl(item.photo)}
               alt={item.name}
             />
-            <h3 className="font-bold text-2xl text-[#171D3D] lg:text-4xl">
+            <h3 className="font-bold text-2xl leading-6 text-[#171D3D] lg:text-4xl lg:leading-9">
               {splitName(item.name).first}
               <br />
               {splitName(item.name).rest}
@@ -77,7 +77,6 @@ export function HomeAgency({ data }: HomeAgencyProps) {
       </div>
       <Button
         className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto hover:bg-orange-500 hover:text-white font-normal text-lg leading-none font-inter"
-        variant="link"
         asChild
       >
         <Link href="/agency">вся команда агентства</Link>

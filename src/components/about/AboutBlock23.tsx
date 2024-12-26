@@ -35,7 +35,7 @@ export default function AboutBlock23() {
           src="/assets/img/about/b23-2.jpeg"
         />
       </div>
-      <p className="text-3xl lg:text-4xl">продолжение следует...</p>
+      <p className="text-lg lg:text-4xl">продолжение следует...</p>
     </div>
   );
 }

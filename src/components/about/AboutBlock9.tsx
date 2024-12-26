@@ -5,7 +5,7 @@ export default function AboutBlock8() {
         <div className="flex flex-col gap-2 lg:w-[366px]">
           <img
             className="h-full object-cover object-center rounded-xl"
-            src="/assets/img/about/b8-radulov.png"
+            src="/assets/img/about/b8-radulov.jpg"
           />
           <p className="font-normal text-base text-[#B1B1B1]">
             Александр Радулов

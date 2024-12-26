@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 export function HomePartners() {
   const [mounted, setMounted] = useState(false);
-  const [coloredPartners, setColoredPartners] = useState<
-    { name: string; color: string }[]
-  >([]);
+  const partnersRef = useRef<HTMLDivElement>(null);
 
   const partners: string[] = [
     "Чупин Алексей ",
@@ -16,15 +15,15 @@ export function HomePartners() {
     "Царев Андрей ",
     "Варламов Евгений ",
     "Атюшов Виталий ",
-    "Добрыш Алексей ",
+    "Добрышкин Юрий ",
     "Никитенко Андрей ",
     "Шаргородский Олег ",
     "Жиру Раймон ",
     "Морозов Алексей ",
     "Зарипов Данис ",
     "Федоров Евгений ",
-    "Валиулин Марат ",
-    "Хабибуллин Николай ",
+    "Валиуллин Марат ",
+    "Хабибулин Николай ",
     "Ковальчук Илья ",
     "Сапрыкин Олег ",
     "Кудашов Алексей ",
@@ -35,7 +34,7 @@ export function HomePartners() {
     "Зубов Сергей ",
     "Марков Даниил ",
     "Кольцов Кирилл ",
-    "Вишневский Виталий ",
+    "Прошкин Виталий ",
     "Мирнов Игорь ",
     "Кайгородов Алексей ",
     "Епачинцев Вадим ",
@@ -47,18 +46,16 @@ export function HomePartners() {
     "Завьялов Александр ",
     "Волченков Антон ",
     "Петров Алексей ",
-    "Власенков Дмитрий ",
     "Радулов Игорь ",
-    "Прошкин Виталий ",
-    "Калинин Дима ",
-    "Кутейкин Алексей ",
+    "Калинин Дмитрий ",
+    "Кутейкин Андрей ",
     "Костицын Андрей ",
     "Костицын Сергей ",
     "Жамнов Алексей ",
-    "Марков Даниил ",
-    "Бойков Саша ",
+    "Бойков Александр ",
     "Буцаев Вячеслав ",
-    "Чистов Виктор ",
+    "Буцаев Юрий ",
+    "Чистов Станислав ",
     "Свитов Александр ",
     "Пережогин Александр ",
     "Ячанов Дмитрий ",
@@ -69,9 +66,7 @@ export function HomePartners() {
     "Козлов Вячеслав ",
     "Платонов Денис ",
     "Панков Александр ",
-    "Калинин Дмитрий ",
     "Арекаев Сергей ",
-    "Гонолев Дмитрий ",
     "Карпов Валерий ",
     "Макаров Константин ",
     "Вышедкевич Сергей ",
@@ -82,15 +77,14 @@ export function HomePartners() {
     "Никулин Александр ",
     "Цыплаков Владимир ",
     "Березин Сергей ",
-    "Агаков Павел ",
+    "Агарков Павел ",
     "Кондратьев Максим ",
     "Востриков Сергей ",
-    "Бирюков Миша ",
+    "Бирюков Михаил ",
     "Дерлюк Роман ",
-    "Осипов Саша ",
+    "Осипов Александр ",
     "Антоненко Олег ",
     "Волошенко Роман ",
-    "Зайнуллин Руслан ",
     "Калачик Виктор ",
     "Столяров Геннадий ",
     "Галимов Станислав ",
@@ -99,13 +93,12 @@ export function HomePartners() {
     "Комаров Никита ",
     "Ежов Илья ",
     "Григорьев Михаил ",
-    "Кольцов Николай ",
+    "Кольцов Константин ",
     "Кольцов Кирилл ",
     "Моня Дмитрий ",
     "Филатов Никита ",
     "Потапов Алексей ",
     "Гончаров Максим ",
-    "Яласваара Янне ",
     "Кувалдин Александр ",
     "Шафигулин Григорий ",
     "Давыдов Марат ",
@@ -124,35 +117,55 @@ export function HomePartners() {
     "Суглобов Александр ",
     "Клементьев Сергей ",
     "Кузнецов Александр ",
-    "Калинин Дмитрий ",
   ];
 
   useEffect(() => {
     setMounted(true);
-    if (mounted) {
-      const indices = Array.from({ length: partners.length }, (_, i) => i);
-      for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
+    if (!partnersRef.current) return;
+
+    const names = partnersRef.current.children;
+    const totalNames = names.length;
+
+    const animateRandomNames = () => {
+      // Сначала сбрасываем все имена на базовый цвет
+      gsap.set(names, { color: "#ECECEC" });
+
+      // Выбираем 12 случайных индексов (6 для каждого цвета)
+      const randomIndices = new Set<number>();
+      while (randomIndices.size < 12) {
+        randomIndices.add(Math.floor(Math.random() * totalNames));
       }
-      const selectedIndices = indices.slice(0, 6);
 
-      const colors = [
-        "text-orange-500",
-        "text-orange-500",
-        "text-orange-500",
-        "text-[#171D3D]",
-        "text-[#171D3D]",
-        "text-[#171D3D]",
-      ].sort(() => Math.random() - 0.5);
+      // Преобразуем Set в массив и разделяем на две группы по 6
+      const indexArray = Array.from(randomIndices);
+      const firstGroup = indexArray.slice(0, 6);
+      const secondGroup = indexArray.slice(6, 12);
 
-      const selectedPartners = selectedIndices.map((index, i) => ({
-        name: partners[index],
-        color: colors[i],
-      }));
+      // Анимируем первую группу в оранжевый
+      firstGroup.forEach((index) => {
+        gsap.to(names[index], {
+          color: "#FF730A",
+          duration: 1,
+          ease: "power2.inOut",
+          delay: Math.random() * 0.5,
+        });
+      });
 
-      setColoredPartners(selectedPartners);
-    }
+      // Анимируем вторую группу в темно-синий
+      secondGroup.forEach((index) => {
+        gsap.to(names[index], {
+          color: "#171D3D",
+          duration: 1,
+          ease: "power2.inOut",
+          delay: Math.random() * 0.5,
+        });
+      });
+    };
+
+    // Запускаем анимацию каждые 3 секунды
+    const interval = setInterval(animateRandomNames, 3000);
+
+    return () => clearInterval(interval);
   }, [mounted]);
 
   if (!mounted) return null;
@@ -164,18 +177,16 @@ export function HomePartners() {
           С НАМИ РАБОТАЛИ ТАКИЕ ИЗВЕСТНЫЕ ИГРОКИ КАК
         </h2>
       </div>
-      <p className="font-bold text-[17px] lg:text-[32px] leading-[17px] lg:leading-[32px] text-[#ECECEC] text-justify lg:w-10/12">
-        {partners.map((partner, index) => (
-          <span
-            key={index}
-            className={
-              coloredPartners.find((p) => p.name === partner)?.color || ""
-            }
-          >
-            {partner}
+      <div
+        ref={partnersRef}
+        className="font-bold text-[17px] lg:text-[32px] leading-[17px] lg:leading-[32px] text-[#ECECEC] text-justify lg:w-10/12"
+      >
+        {partners.map((name, index) => (
+          <span key={index} className="transition-colors duration-300">
+            {name}
           </span>
         ))}
-      </p>
+      </div>
     </div>
   );
 }

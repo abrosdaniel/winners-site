@@ -2,7 +2,7 @@ export default function AboutBlock19() {
   return (
     <div className="flex flex-col gap-7 font-inter font-normal mt-20 overflow-hidden mb-12">
       <div className="flex flex-col items-center">
-        <div className="px-5 lg:px-56">
+        <div className="px-5 lg:px-40">
           <h2 className="text-[#171D3D] text-3xl lg:text-4xl lg:w-9/12 lg:translate-y-20">
             Со временем "Winners" создало целую сеть скаутов по всей России и за
             рубежом

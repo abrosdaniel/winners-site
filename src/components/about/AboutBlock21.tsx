@@ -8,7 +8,7 @@ export default function AboutBlock21() {
               className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
               src="/assets/img/about/b21-1.png"
             />
-            <p>Сергей Зубов</p>
+            <p>Зубов Сергей</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
