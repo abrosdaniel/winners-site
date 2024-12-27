@@ -55,20 +55,20 @@ export function HomeWelcome() {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col h-[calc(100vh+170px)] lg:h-screen">
+    <div className="flex flex-col">
       <div
         ref={containerRef}
-        className="relative w-full h-full overflow-hidden"
+        className="relative w-full h-full lg:h-[462px] overflow-hidden"
       >
         {slides.map((item) => (
-          <div key={item.key} className="w-full h-full">
+          <div key={item.key} className="w-full h-full lg:h-[462px]">
             <picture>
               <source
                 srcSet={`/assets/img/head/${item.base}.png`}
                 media="(min-width: 1024px)"
               />
               <img
-                className="object-cover object-top w-full h-full"
+                className="object-cover object-top w-full h-full lg:h-[462px]"
                 src={`/assets/img/head/${item.mob}.png`}
                 alt={`${item.base}`}
               />
