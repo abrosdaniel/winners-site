@@ -153,7 +153,7 @@ export function Video({
           )}
           {allVideos && recommendedVideos.length > 0 && (
             <div className="pt-6">
-              <DialogDescription className="font-bold text-4xl text-white mb-5">
+              <DialogDescription className="font-bold text-4xl text-white mb-2">
                 ДРУГИЕ ВИДЕО WINNERS
               </DialogDescription>
               <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">

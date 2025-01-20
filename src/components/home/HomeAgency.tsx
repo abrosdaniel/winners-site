@@ -33,22 +33,22 @@ export function HomeAgency({ data }: HomeAgencyProps) {
   }, [data]);
 
   return (
-    <div className="justify-center items-center flex flex-col gap-3 my-12 px-2 lg:px-0 lg:my-16">
-      <h2 className="font-bold text-6xl w-full text-[#171D3D] lg:w-10/12">
+    <div className="justify-center items-center flex flex-col gap-3 my-12 px-2 lg:px-0 lg:my-10">
+      <h2 className="font-bold text-5xl lg:text-6xl w-full text-[#171D3D] max-w-5xl">
         наша команда
       </h2>
-      <div className="flex flex-wrap gap-2 pt-2 w-full lg:gap-5 lg:pt-5 lg:w-10/12">
+      <div className="flex flex-wrap gap-2 pt-2 w-full lg:gap-5 lg:pt-5 max-w-5xl">
         {displayedAgency.map((item) => (
           <div
             key={item.id}
-            className="w-[calc(50%-0.25rem)] flex flex-col gap-2 pb-6 lg:w-[calc(25%-0.94rem)]"
+            className="w-[calc(50%-0.25rem)] flex flex-col pb-6 lg:w-[calc(25%-0.94rem)]"
           >
             <img
               className="w-full aspect-square object-cover object-center rounded-xl lg:aspect-[6/5]"
               src={getImageUrl(item.photo)}
               alt={item.name}
             />
-            <h3 className="font-bold text-2xl leading-6 text-[#171D3D] lg:text-4xl lg:leading-9">
+            <h3 className="font-bold text-2xl leading-6 text-[#171D3D] pt-4 lg:text-3xl lg:leading-8">
               {splitName(item.name).first}
               <br />
               {splitName(item.name).rest}
@@ -57,7 +57,7 @@ export function HomeAgency({ data }: HomeAgencyProps) {
               {item.type}
             </p>
             <Button
-              className="hover:bg-transparent font-normal text-lg leading-none font-inter h-auto pl-0 justify-start"
+              className="hover:bg-transparent font-normal text-lg leading-none font-inter h-auto pl-0 justify-start py-0"
               variant="link"
               asChild
             >
@@ -76,7 +76,7 @@ export function HomeAgency({ data }: HomeAgencyProps) {
         ))}
       </div>
       <Button
-        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto hover:bg-orange-500 hover:text-white font-normal text-lg leading-none font-inter"
+        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto hover:bg-orange-500 hover:text-white font-normal text-base lg:text-lg leading-none font-inter"
         asChild
       >
         <Link href="/agency">вся команда агентства</Link>

@@ -27,11 +27,50 @@ export default function NewsArticle() {
     (item: any) => item.id.toString() === params.id
   );
 
-  const getRandomArticles = () => {
-    const otherArticles = data.news.filter(
-      (item: any) => item.id !== article?.id
+  const parseDate = (dateStr: { day: string; month: string }) => {
+    const months: { [key: string]: number } = {
+      января: 0,
+      февраля: 1,
+      марта: 2,
+      апреля: 3,
+      мая: 4,
+      июня: 5,
+      июля: 6,
+      августа: 7,
+      сентября: 8,
+      октября: 9,
+      ноября: 10,
+      декабря: 11,
+    };
+    const year = new Date().getFullYear();
+    return new Date(
+      year,
+      months[dateStr.month.toLowerCase()],
+      parseInt(dateStr.day)
     );
-    return otherArticles
+  };
+
+  const getRandomArticles = () => {
+    if (!data?.news) return [];
+
+    const currentDate = new Date();
+    const daysAgo = 5;
+    const dateThreshold = new Date();
+    dateThreshold.setDate(currentDate.getDate() - daysAgo);
+
+    const recentArticles = data.news.filter((item: any) => {
+      if (item.id === article?.id) return false;
+
+      const articleDate = parseDate(item.date_created);
+      return articleDate >= dateThreshold;
+    });
+
+    const articlesToUse =
+      recentArticles.length > 0
+        ? recentArticles
+        : data.news.filter((item: any) => item.id !== article?.id);
+
+    return articlesToUse
       .sort(() => Math.random() - 0.5)
       .slice(0, isDesktop ? 5 : 2);
   };
@@ -41,13 +80,13 @@ export default function NewsArticle() {
   const recommendedArticles = getRandomArticles();
 
   return (
-    <div className="w-full box-border relative flex flex-col items-center">
+    <div className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto">
       <img
-        className="w-full aspect-video object-cover object-center h-44 lg:h-[400px]"
+        className="w-full aspect-video object-cover object-top h-44 lg:h-[400px]"
         src={getImageUrl(article.image)}
       />
       <div className="flex flex-col lg:flex-row lg:gap-4">
-        <div className="px-2 lg:px-0 lg:w-4/6 lg:pl-40 mt-5 lg:mt-14">
+        <div className="px-2 lg:px-0 lg:w-4/6 mt-5 lg:mt-7">
           <h1 className="font-inter font-bold text-2xl leading-7 text-[#171D3D] lg:text-4xl mb-6">
             {article.title}
           </h1>
@@ -56,11 +95,11 @@ export default function NewsArticle() {
             dangerouslySetInnerHTML={{ __html: article.article }}
           />
         </div>
-        <div className="bg-[#F5F5F5] px-2 py-10 lg:w-2/6 lg:pl-14 lg:py-14 lg:pr-40">
+        <div className="bg-[#F5F5F5] px-2 py-5 lg:w-2/6 lg:px-7 lg:py-7 flex flex-col gap-5 lg:gap-0">
           <h2 className="font-bold text-4xl text-[#171D3D] lg:text-4xl lg:mb-4">
             Другие новости
           </h2>
-          <div className="grid grid-cols-1 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-8">
             {recommendedArticles.map((item: any) => (
               <Link
                 key={item.id}
@@ -71,7 +110,7 @@ export default function NewsArticle() {
                   className="w-full aspect-video object-cover object-center rounded-xl"
                   src={getImageUrl(item.image)}
                 />
-                <h3 className="font-inter font-semibold text-lg text-[#171D3D]">
+                <h3 className="font-inter font-semibold text-base line-clamp-4 text-[#171D3D]">
                   {item.title}
                 </h3>
                 <p className="font-inter font-medium text-[#888888] text-xs">

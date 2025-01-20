@@ -21,6 +21,7 @@ export default function Form() {
     "name",
     "birthday",
     "email",
+    "phone",
     "height",
     "weight",
     "citizenship",
@@ -49,6 +50,7 @@ export default function Form() {
     "salary",
     "new-salary",
     "youtube",
+    "photo",
     "policy",
   ];
 
@@ -141,7 +143,7 @@ export default function Form() {
         className="object-cover object-top h-44 w-full lg:h-[400px]"
         src="/assets/img/head/form.png"
       />
-      <div className="py-8 w-full box-border lg:w-10/12 lg:left-1/2 lg:-translate-x-1/2 relative">
+      <div className="py-8 w-full box-border max-w-5xl mx-auto relative">
         <div className="px-2 mb-7">
           <h2 className="font-bold text-5xl text-[#171D3D] lg:text-8xl">
             анкета
@@ -213,6 +215,15 @@ export default function Form() {
                 value={(formData["email"] || "") as string}
                 onChange={(e) => handleInputChange("email", e.target.value)}
                 error={errors["email"]}
+              />
+              <Field
+                id="phone"
+                label="Номер телефона"
+                placeholder="+7 (999) 999-99-99"
+                type="phone"
+                value={(formData["phone"] || "") as string}
+                onChange={(e) => handleInputChange("phone", e.target.value)}
+                error={errors["phone"]}
               />
             </div>
             <div className="flex flex-col gap-6 lg:flex-row">
@@ -532,9 +543,18 @@ export default function Form() {
               onChange={(e) => handleInputChange("youtube", e.target.value)}
               error={errors["youtube"]}
             />
+            <Field
+              id="photo"
+              label="Ссылки на вашу фотографию (Яндекс.Диск или другое облачное хранилище)"
+              placeholder={"Указать"}
+              isTextarea
+              value={(formData["photo"] || "") as string}
+              onChange={(e) => handleInputChange("photo", e.target.value)}
+              error={errors["photo"]}
+            />
           </div>
           <div
-            className="mx-5 lg:mx-0 my-6 flex items-center gap-2"
+            className="mx-5 lg:mx-0 my-6 lg:my-0 flex items-center gap-2"
             style={
               {
                 "--primary": "26, 100%, 52%, 1",

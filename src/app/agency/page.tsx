@@ -19,21 +19,21 @@ export default function Agency() {
         className="object-cover object-top h-44 w-full lg:h-[400px]"
         src="/assets/img/head/agency.png"
       />
-      <div className="py-8 px-2 w-full box-border lg:w-10/12 lg:left-1/2 lg:-translate-x-1/2 relative">
+      <div className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative">
         <h2 className="font-bold text-5xl text-[#171D3D] lg:text-8xl">
           команда агентства
         </h2>
         <div className="flex flex-wrap gap-2 w-full pt-2 lg:gap-5 lg:pt-5">
           {data.agency.map((item: any) => (
             <div
-              className="w-[calc(50%-0.25rem)] flex flex-col gap-2 pb-6 lg:w-[calc(25%-1rem)]"
+              className="w-[calc(50%-0.25rem)] flex flex-col pb-6 lg:w-[calc(25%-1rem)]"
               key={item.id}
             >
               <img
                 className="w-full aspect-square object-cover object-center rounded-xl lg:aspect-[6/5]"
                 src={getImageUrl(item.photo)}
               />
-              <h3 className="font-bold text-2xl text-[#171D3D] lg:text-4xl">
+              <h3 className="font-bold text-[29px] leading-7 lg:leading-[30px] pt-3 text-[#171D3D] lg:text-3xl">
                 {splitName(item.name).first}
                 <br />
                 {splitName(item.name).rest}
@@ -42,7 +42,7 @@ export default function Agency() {
                 {item.type}
               </p>
               <Button
-                className="hover:bg-transparent font-normal text-lg leading-none font-inter  h-auto pl-0 justify-start"
+                className="hover:bg-transparent font-normal text-lg leading-none font-inter  h-auto pl-0 justify-start py-0"
                 variant="link"
                 asChild
               >

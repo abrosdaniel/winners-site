@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { Button } from "../ui/button";
 
 interface HomeNewsProps {
   data: any[];
@@ -19,10 +20,10 @@ export function HomeNews({ data }: HomeNewsProps) {
 
   return (
     <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-14 px-2">
-      <h2 className="font-bold text-5xl w-full lg:text-6xl lg:w-10/12">
+      <h2 className="font-bold text-5xl w-full max-w-5xl lg:text-6xl">
         Новости
       </h2>
-      <div className="flex flex-col gap-3 mt-4 mb-12 lg:w-10/12 lg:flex-row lg:h-[490px]">
+      <div className="flex flex-col gap-3 my-4 max-w-5xl lg:flex-row lg:h-[490px]">
         {data[0] && (
           <Link
             className="flex border border-[#D0D0D0] rounded-lg bg-white overflow-hidden h-64 lg:border-none lg:h-auto lg:w-2/3"
@@ -33,7 +34,7 @@ export function HomeNews({ data }: HomeNewsProps) {
               src={getImageUrl(data[0].image)}
               alt={data[0].title}
             />
-            <div className="w-1/2 pl-2 relative font-inter flex flex-col justify-center gap-2">
+            <div className="w-1/2 px-2 relative font-inter flex flex-col justify-center gap-2">
               <span className="bg-orange-500 absolute top-4 right-4 py-[1.5px] px-3 font-normal text-xs rounded-full lg:py-[9.5px]">
                 НОВОЕ
               </span>
@@ -77,8 +78,10 @@ export function HomeNews({ data }: HomeNewsProps) {
           )}
         </div>
       </div>
-      <h2 className="font-bold text-5xl w-full lg:text-6xl lg:w-10/12">ЛИГИ</h2>
-      <div className="flex flex-row justify-center items-center mt-4 gap-3 lg:gap-20">
+      <h2 className="font-bold text-5xl mt-4 w-full max-w-5xl lg:text-6xl">
+        ЛИГИ
+      </h2>
+      <div className="flex flex-row justify-around items-center mt-4 w-full max-w-5xl">
         <img
           className="h-[43px] lg:h-[90px]"
           src="/assets/img/home/khl.png"

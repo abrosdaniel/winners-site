@@ -5,7 +5,7 @@ export default function Foot() {
   return (
     <footer
       id="contacts"
-      className="relative bg-[#171D3D] rounded-b-none rounded-t-3xl w-full py-10 px-14 overflow-hidden lg:rounded-full lg:py-24 lg:px-20 lg:w-10/12 lg:left-1/2 lg:-translate-x-1/2"
+      className="relative bg-[#171D3D] rounded-b-none rounded-t-3xl w-full max-w-6xl mx-auto py-10 px-14 overflow-hidden lg:rounded-full lg:py-24 lg:px-20"
     >
       <div className="absolute top-0 left-0 flex w-full h-full z-10 pt-20 lg:py-20 lg:justify-center lg:gap-32  lg:px-36 lg:box-border">
         <div className="flex-1 px-10 pt-20 lg:flex-none lg:flex lg:px-0 lg:pt-0 lg:gap-32">
@@ -36,7 +36,7 @@ export default function Foot() {
             src="/assets/icons/logo/logo.png"
           />
         </div>
-        <div className="text-white font-bold text-3xl leading-none flex flex-col gap-3 items-start font-inter pb-12 lg:pb-0 lg:text-[40px]">
+        <div className="text-white font-bold text-3xl leading-none flex flex-col gap-3 items-start font-inter pb-12 lg:pb-0">
           <a href={`mailto:info@wnrs.ru`}>info@wnrs.ru</a>
           <div className="flex gap-2 justify-center items-center">
             <img

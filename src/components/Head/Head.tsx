@@ -39,53 +39,55 @@ export default function Head() {
   return (
     <>
       {isLargeScreen ? (
-        <nav className="fixed top-2 left-1/2 -translate-x-1/2 bg-[#171D3D] rounded-full h-16 w-10/12 flex justify-between items-center py-2 px-20 z-50">
-          <Link className="h-full" href="/">
-            <img className="h-full" src="/assets/icons/logo/logo.png" />
-          </Link>
-          <div>
+        <nav className="fixed top-0 bg-[#171D3D] h-16 w-full z-50">
+          <div className="flex justify-between items-center py-2 h-16 max-w-5xl mx-auto">
+            <Link className="h-full" href="/">
+              <img className="h-full" src="/assets/icons/logo/logo.png" />
+            </Link>
+            <div>
+              <Button
+                className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
+                variant="link"
+                asChild
+              >
+                <Link href="/players">игроки</Link>
+              </Button>
+              <Button
+                className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
+                variant="link"
+                asChild
+              >
+                <Link href="/about">о нас</Link>
+              </Button>
+              <Button
+                className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
+                variant="link"
+                asChild
+              >
+                <Link href="/news">новости</Link>
+              </Button>
+              <Button
+                className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
+                variant="link"
+                asChild
+              >
+                <Link href="/agency">команда</Link>
+              </Button>
+              <Button
+                className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
+                variant="link"
+                asChild
+              >
+                <Link href="#contacts">контакты</Link>
+              </Button>
+            </div>
             <Button
-              className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
-              variant="link"
+              className="bg-orange-500 hover:bg-[#171D3D] py-1 h-auto rounded-none font-normal text-lg leading-none font-inter border border-orange-500 hover:border-white"
               asChild
             >
-              <Link href="/players">игроки</Link>
-            </Button>
-            <Button
-              className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
-              variant="link"
-              asChild
-            >
-              <Link href="/about">о нас</Link>
-            </Button>
-            <Button
-              className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
-              variant="link"
-              asChild
-            >
-              <Link href="/news">новости</Link>
-            </Button>
-            <Button
-              className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
-              variant="link"
-              asChild
-            >
-              <Link href="/agency">команда</Link>
-            </Button>
-            <Button
-              className="text-white hover:bg-transparent hover:text-white font-normal text-lg leading-none font-inter"
-              variant="link"
-              asChild
-            >
-              <Link href="#contacts">контакты</Link>
+              <Link href="/form">заполнить анкету</Link>
             </Button>
           </div>
-          <Button
-            className="bg-orange-500 hover:bg-[#171D3D] py-1 h-auto rounded-none font-normal text-lg leading-none font-inter border border-orange-500 hover:border-white"
-            asChild
-          >
-            <Link href="/form">заполнить анкету</Link>
-          </Button>
         </nav>
       ) : (
         <nav
@@ -93,14 +95,9 @@ export default function Head() {
             isScrolled ? "rounded-[50px] h-14 top-1" : "rounded-none h-16 top-0"
           } transition-all duration-1000`}
         >
-          <div className="flex h-full gap-10">
+          <div className="flex h-10 gap-10">
             <Link className="h-full" href="/">
-              <img
-                className={`${
-                  isScrolled ? "h-10" : "h-20"
-                } transition-all duration-1000`}
-                src="/assets/icons/logo/logo.png"
-              />
+              <img className="h-full" src="/assets/icons/logo/logo.png" />
             </Link>
             <Link
               className="text-white flex flex-col justify-center mt-2"

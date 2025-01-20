@@ -55,20 +55,20 @@ export function HomeWelcome() {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-[calc(100vh-4rem)]">
       <div
         ref={containerRef}
-        className="relative w-full h-full lg:h-[462px] overflow-hidden"
+        className="relative w-full h-full overflow-hidden"
       >
         {slides.map((item) => (
-          <div key={item.key} className="w-full h-full lg:h-[462px]">
+          <div key={item.key} className="w-full h-full">
             <picture>
               <source
                 srcSet={`/assets/img/head/${item.base}.png`}
                 media="(min-width: 1024px)"
               />
               <img
-                className="object-cover object-top w-full h-full lg:h-[462px]"
+                className="object-cover object-top w-full h-full"
                 src={`/assets/img/head/${item.mob}.png`}
                 alt={`${item.base}`}
               />
@@ -76,16 +76,16 @@ export function HomeWelcome() {
           </div>
         ))}
       </div>
-      <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white pt-5 pb-12 px-2">
-        <div className="lg:w-10/12">
+      <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-5 px-2">
+        <div className="max-w-5xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:gap-28 lg:items-center">
             <div className="flex flex-col font-bold">
               <h2 className="text-4xl lg:text-[40px]">ХОККЕЙНОЕ АГЕНТСТВО</h2>
-              <h1 className="text-[128px] lg:text-[160px] leading-[128px] lg:leading-[160px]">
+              <h1 className="text-[128px] lg:text-[160px] leading-[128px] lg:leading-[160px] lg:h-[130px]">
                 WINNERS
               </h1>
             </div>
-            <div className="flex lg:hidden text-[#171D3D] px-9 py-5 flex-row gap-5 bg-white rounded-full mb-7">
+            <div className="flex lg:hidden text-[#171D3D] px-5 py-4 flex-row gap-5 bg-white rounded-full mb-7">
               <div className="flex flex-col">
                 <p className="font-bold text-5xl">18</p>
                 <p className="font-inter font-normal text-xs leading-[14.5px]">
@@ -103,7 +103,7 @@ export function HomeWelcome() {
                 </p>
               </div>
               <div className="flex flex-col">
-                <p className="font-bold text-5xl">21</p>
+                <p className="font-bold text-5xl">52+</p>
                 <p className="font-inter font-normal text-xs leading-[14.5px]">
                   игрок
                   <br />
@@ -120,13 +120,13 @@ export function HomeWelcome() {
               </div>
             </div>
             <p className="font-inter font-normal text-lg leading-[21.8px] lg:w-6/12">
-              <span className="text-[32px] leading-[38.5px] lg:text-lg lg:leading-5">
+              <span className="text-2xl lg:text-lg lg:leading-5">
                 Winners — агентство спортивного менеджмента.
               </span>
               <br />
               <span className="font-semibold text-orange-500">
-                Мы занимаемся поиском контрактов, юридической и медийной
-                поддержкой
+                Мы занимаемся сопровождением хоккейных контрактов, обеспечивая
+                юридическую и медийную поддержку
               </span>
               , чтобы наши клиенты могли сосредоточиться на игре.{" "}
               <span className="hidden lg:block">
@@ -136,7 +136,7 @@ export function HomeWelcome() {
               </span>
             </p>
           </div>
-          <div className="hidden lg:flex text-[#171D3D] flex-row justify-center py-5 gap-28 bg-white rounded-full my-7">
+          <div className="hidden lg:flex text-[#171D3D] flex-row justify-around py-5 bg-white rounded-full my-7">
             <div className="flex flex-col">
               <p className="font-bold text-7xl">18</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
@@ -158,7 +158,7 @@ export function HomeWelcome() {
               </p>
             </div>
             <div className="flex flex-col">
-              <p className="font-bold text-7xl">21</p>
+              <p className="font-bold text-7xl">52+</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
                 игрок НХЛ
               </p>

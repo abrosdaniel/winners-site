@@ -48,7 +48,7 @@ export default function News() {
           className="w-1/2 aspect-video object-cover object-center"
           src={getImageUrl(image)}
         />
-        <div className="w-1/2 font-inter flex flex-col gap-2 lg:gap-5 p-4 justify-center">
+        <div className="w-1/2 font-inter flex flex-col gap-2 p-4 justify-center">
           <h3 className="font-bold text-sm text-[#171D3D] line-clamp-2 lg:text-xl lg:line-clamp-3">
             {title}
           </h3>
@@ -66,8 +66,8 @@ export default function News() {
   NewsItem.displayName = "NewsItem";
 
   const DesktopLayout = () => (
-    <div className="w-full box-border flex gap-12">
-      <div className="py-8 w-8/12 pl-28">
+    <div className="w-full box-border flex gap-12 max-w-5xl mx-auto">
+      <div className="py-8 w-8/12">
         <h2 className="font-bold text-6xl text-[#171D3D] mb-6">
           ПОСЛЕДНИЕ НОВОСТИ
         </h2>
@@ -85,7 +85,7 @@ export default function News() {
           ))}
         </div>
       </div>
-      <div className="py-8 w-4/12 pr-28 pl-14 bg-[#F5F5F5]">
+      <div className="py-8 w-4/12 px-14 bg-[#F5F5F5]">
         <h2 className="font-bold text-4xl text-[#171D3D] mb-6">
           ПОПУЛЯРНЫЕ ВИДЕО
         </h2>

@@ -21,6 +21,7 @@ export function PlayersClient({ initialData }: { initialData: any }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [playersPerPage, setPlayersPerPage] = useState(8);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [sortName, setSortName] = useState("В перемешку");
 
   const [shuffledPlayers] = useState(() =>
     [...(initialData?.players || [])].sort(() => Math.random() - 0.5)
@@ -49,7 +50,8 @@ export function PlayersClient({ initialData }: { initialData: any }) {
 
   const filteredPlayers = useMemo(() => {
     if (!shuffledPlayers || isLoading) return [];
-    return shuffledPlayers.filter((player) => {
+
+    let filtered = shuffledPlayers.filter((player) => {
       const searchWords = searchTerm
         .toLowerCase()
         .split(/\s+/)
@@ -71,7 +73,18 @@ export function PlayersClient({ initialData }: { initialData: any }) {
 
       return matchesSearch && matchesRole;
     });
-  }, [shuffledPlayers, searchTerm, filterRole, isLoading]);
+
+    // Применяем сортировку в зависимости от выбранного значения
+    if (sortName === "А-Я") {
+      filtered.sort((a, b) => a.name.localeCompare(b.name, "ru"));
+    } else if (sortName === "Я-А") {
+      filtered.sort((a, b) => b.name.localeCompare(a.name, "ru"));
+    } else if (sortName === "В перемешку") {
+      filtered.sort(() => Math.random() - 0.5);
+    }
+
+    return filtered;
+  }, [shuffledPlayers, searchTerm, filterRole, isLoading, sortName]);
 
   const totalPages = useMemo(
     () => Math.ceil(filteredPlayers.length / playersPerPage),
@@ -126,22 +139,22 @@ export function PlayersClient({ initialData }: { initialData: any }) {
       />
       <div
         id="plrs-grid"
-        className="py-8 px-2 w-full box-border lg:w-10/12 lg:left-1/2 lg:-translate-x-1/2 relative"
+        className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative"
       >
         <h2 className="font-bold text-5xl text-[#171D3D] lg:text-8xl">
           игроки агентства
         </h2>
-        <div className="flex flex-col gap-2 my-5 font-inter lg:flex-row lg:gap-4">
+        <div className="flex flex-col gap-1 my-5 font-inter lg:flex-row lg:gap-2">
           <Input
             id="input-25"
-            className="h-8 lg:w-44 rounded-none focus-visible:ring-[#FF730A]"
+            className="h-8 rounded-none focus-visible:ring-[#FF730A] w-full lg:w-2/12"
             placeholder="поиск игрока"
             type="search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <ToggleGroup
-            className="flex justify-between gap-1 rounded-none lg:gap-4"
+            className="flex justify-between gap-1 rounded-none lg:gap-2 w-full lg:w-6/12"
             type="single"
             variant="outline"
             value={filterRole}
@@ -150,10 +163,27 @@ export function PlayersClient({ initialData }: { initialData: any }) {
             {["all", "Нападающий", "Защитник", "Вратарь"].map((role) => (
               <ToggleGroupItem
                 key={role}
-                className="h-8 lg:w-44 text-base rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white px-2 lg:px-3"
+                className="h-8 text-base rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white px-0 w-full"
                 value={role}
               >
                 {role === "all" ? "все игроки" : role.toLowerCase()}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+          <ToggleGroup
+            className="flex justify-between gap-1 rounded-none lg:gap-2 w-full lg:w-4/12"
+            type="single"
+            variant="outline"
+            value={sortName}
+            onValueChange={(value) => value && setSortName(value)}
+          >
+            {["В перемешку", "А-Я", "Я-А"].map((sort) => (
+              <ToggleGroupItem
+                key={sort}
+                className="h-8 text-base rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white px-0 w-full"
+                value={sort}
+              >
+                {sort.toLowerCase()}
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
@@ -198,16 +228,16 @@ export function PlayersClient({ initialData }: { initialData: any }) {
                   </p>
                 </div>
                 <div>
-                  <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
+                  <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg lowercase">
                     {item.role}
                   </p>
-                  <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
+                  <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg lowercase">
                     {item.grip}
                   </p>
                 </div>
               </div>
               <Button
-                className="bg-orange-500 hover:bg-[#171D3D] mx-3 h-auto rounded-none font-normal text-lg leading-none font-inter"
+                className="bg-orange-500 hover:bg-[#171D3D] mx-3 h-auto rounded-none font-normal text-base lg:text-lg leading-none font-inter"
                 asChild
               >
                 <Link href={item.stats} target="_blank">

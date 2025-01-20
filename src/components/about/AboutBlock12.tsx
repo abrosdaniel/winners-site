@@ -1,12 +1,12 @@
 export default function AboutBlock12() {
   return (
     <div className="flex flex-col lg:flex-row gap-3 lg:gap-48 lg:items-end px-5 lg:mx-28 lg:mb-[203px] font-inter font-normal relative z-20">
-      <div className="flex flex-col lg:gap-2 relative">
+      <div className="flex flex-1 flex-col lg:gap-2 relative">
         <h3 className="text-[#D0D0D03B] text-3xl lg:text-5xl text-right">
           Артемий Панарин
         </h3>
         <img
-          className="rounded-xl object-cover object-center"
+          className="rounded-xl object-cover object-center aspect-[16/12]"
           src="/assets/img/about/b12-1.png"
         />
         <img
@@ -14,7 +14,7 @@ export default function AboutBlock12() {
           src="/assets/img/about/b12-quote.png"
         />
       </div>
-      <div className="flex flex-col gap-2 lg:gap-5">
+      <div className="flex flex-1 flex-col gap-2 lg:gap-5">
         <h2 className="text-3xl lg:text-4xl text-[#171D3D]">
           Одним из знаковых игроков агентства стал Артемий Панарин
         </h2>

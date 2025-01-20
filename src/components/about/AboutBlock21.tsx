@@ -5,61 +5,61 @@ export default function AboutBlock21() {
         <div className="flex flex-col gap-5 flex-1">
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-1.png"
             />
-            <p>Зубов Сергей</p>
+            <p>Сергей Зубов</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-2.png"
             />
-            <p>Бабенко Юрий</p>
+            <p>Юрий Бабенко</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-3.png"
             />
-            <p>Епанчинцев Вадим</p>
+            <p>Вадим Епанчинцев</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-4.png"
             />
-            <p>Атюшов Виталий</p>
+            <p>Виталий Атюшов</p>
           </div>
         </div>
         <div className="flex flex-col gap-5 flex-1">
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-5.png"
             />
-            <p>Буцаев Вячеслав</p>
+            <p>Вячеслав Буцаев</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-6.png"
             />
-            <p>Гелашвили Георгий</p>
+            <p>Георгий Гелашвили</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-7.png"
             />
-            <p>Хабибулин Николай</p>
+            <p>Николай Хабибулин</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
-              src="/assets/img/about/b21-8.png"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
+              src="/assets/img/about/b21-8.jpg"
             />
-            <p>Тернавский Артём</p>
+            <p>Дмитрий Кокорев</p>
           </div>
         </div>
       </div>
@@ -67,61 +67,61 @@ export default function AboutBlock21() {
         <div className="flex flex-col gap-5 flex-1">
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-9.png"
             />
-            <p>Кудашов Алексей</p>
+            <p>Алексей Кудашов</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-10.png"
             />
-            <p>Козлов Вячеслав</p>
+            <p>Вячеслав Козлов</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-11.png"
             />
-            <p>Царев Андрей</p>
+            <p>Андрей Царев</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
-              src="/assets/img/about/b21-12.png"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
+              src="/assets/img/about/b21-12.jpg"
             />
-            <p>Тертышный Алексей</p>
+            <p>Сергей Фёдоров</p>
           </div>
         </div>
         <div className="flex flex-col gap-5 flex-1">
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-13.png"
             />
-            <p>Завьялов Александр</p>
+            <p>Александр Завьялов</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-14.png"
             />
-            <p>Трубачев Юрий</p>
+            <p>Юрий Трубачев</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
               src="/assets/img/about/b21-15.png"
             />
-            <p>Ореховский Олег</p>
+            <p>Олег Ореховский</p>
           </div>
           <div className="flex flex-col gap-2">
             <img
-              className="rounded-xl object-cover object-center aspect-square lg:aspect-video"
-              src="/assets/img/about/b21-16.jpeg"
+              className="rounded-xl object-cover object-top aspect-square lg:aspect-video"
+              src="/assets/img/about/b21-16.jpg"
             />
-            <p>Бойков Александр</p>
+            <p>Дмитрий Гоголев</p>
           </div>
         </div>
       </div>

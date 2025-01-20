@@ -22,7 +22,6 @@ export default function RootLayout({
 }>) {
   return (
     <div>
-      <div className="bg-[#171D3D] h-16 lg:h-0"></div>
       {children}
       <Foot />
     </div>

@@ -163,6 +163,7 @@ export default async function RootLayout({
       >
         <Providers dehydratedState={dehydratedState}>
           <Head />
+          <div className="bg-[#171D3D] h-16"></div>
           {children}
         </Providers>
         <Suspense>

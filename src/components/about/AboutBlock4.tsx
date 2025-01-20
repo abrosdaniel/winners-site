@@ -6,9 +6,8 @@ export default function AboutBlock3() {
           className="rounded-xl object-cover lg:h-[300px]"
           src="/assets/img/about/b3-yuriy.png"
         />
-        <p className="font-normal text-base text-[#E3E3E3]">Юрий Леонидович</p>
       </div>
-      <h3 className="font-normal text-3xl leading-9 text-white mb-6 z-20">
+      <h3 className="font-normal text-3xl leading-9 text-white z-20">
         Тогда Юрий Леонидович Николаев начал свой независимый путь
       </h3>
     </div>

@@ -30,7 +30,7 @@ export default function About() {
 
       <div className="relative">
         <TextBlock type="scroller" className="sticky">
-          1999
+          1991
         </TextBlock>
         <AboutBlock2 />
       </div>
