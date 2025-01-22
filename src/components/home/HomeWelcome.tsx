@@ -78,7 +78,7 @@ export function HomeWelcome() {
       </div>
       <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-5 px-2">
         <div className="max-w-5xl mx-auto zoomer">
-          <div className="flex flex-col lg:flex-row lg:gap-28 lg:items-center">
+          <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-center">
             <div className="flex flex-col font-bold">
               <h2 className="text-4xl lg:text-[40px]">ХОККЕЙНОЕ АГЕНТСТВО</h2>
               <h1 className="text-[128px] lg:text-[160px] leading-[128px] lg:leading-[160px] lg:h-[130px]">
