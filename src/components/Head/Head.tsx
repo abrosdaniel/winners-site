@@ -40,7 +40,7 @@ export default function Head() {
     <>
       {isLargeScreen ? (
         <nav className="fixed top-0 bg-[#171D3D] h-16 w-full z-50">
-          <div className="flex justify-between items-center py-2 h-16 max-w-5xl mx-auto">
+          <div className="flex justify-between items-center py-2 h-16 max-w-4xl mx-auto">
             <Link className="h-full" href="/">
               <img className="h-full" src="/assets/icons/logo/logo.png" />
             </Link>

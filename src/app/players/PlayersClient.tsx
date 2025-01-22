@@ -21,7 +21,6 @@ export function PlayersClient({ initialData }: { initialData: any }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [playersPerPage, setPlayersPerPage] = useState(8);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [sortName, setSortName] = useState("В перемешку");
 
   const [shuffledPlayers] = useState(() =>
     [...(initialData?.players || [])].sort(() => Math.random() - 0.5)
@@ -74,17 +73,8 @@ export function PlayersClient({ initialData }: { initialData: any }) {
       return matchesSearch && matchesRole;
     });
 
-    // Применяем сортировку в зависимости от выбранного значения
-    if (sortName === "А-Я") {
-      filtered.sort((a, b) => a.name.localeCompare(b.name, "ru"));
-    } else if (sortName === "Я-А") {
-      filtered.sort((a, b) => b.name.localeCompare(a.name, "ru"));
-    } else if (sortName === "В перемешку") {
-      filtered.sort(() => Math.random() - 0.5);
-    }
-
     return filtered;
-  }, [shuffledPlayers, searchTerm, filterRole, isLoading, sortName]);
+  }, [shuffledPlayers, searchTerm, filterRole, isLoading]);
 
   const totalPages = useMemo(
     () => Math.ceil(filteredPlayers.length / playersPerPage),
@@ -140,14 +130,13 @@ export function PlayersClient({ initialData }: { initialData: any }) {
       <div
         id="plrs-grid"
         className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative"
+        style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
       >
-        <h2 className="font-bold text-5xl text-[#171D3D] lg:text-8xl">
-          игроки агентства
-        </h2>
+        <h2 className="font-bold text-6xl text-[#171D3D]">игроки агентства</h2>
         <div className="flex flex-col gap-1 my-5 font-inter lg:flex-row lg:gap-2">
           <Input
             id="input-25"
-            className="h-8 rounded-none focus-visible:ring-[#FF730A] w-full lg:w-2/12"
+            className="h-8 text-sm lg:text-base rounded-none focus-visible:ring-transparent w-full lg:w-2/12 border-2 border-[#D2D2D2]"
             placeholder="поиск игрока"
             type="search"
             value={searchTerm}
@@ -163,27 +152,10 @@ export function PlayersClient({ initialData }: { initialData: any }) {
             {["all", "Нападающий", "Защитник", "Вратарь"].map((role) => (
               <ToggleGroupItem
                 key={role}
-                className="h-8 text-base rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white px-0 w-full"
+                className="h-8 text-sm lg:text-base rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white px-0 w-full"
                 value={role}
               >
                 {role === "all" ? "все игроки" : role.toLowerCase()}
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-          <ToggleGroup
-            className="flex justify-between gap-1 rounded-none lg:gap-2 w-full lg:w-4/12"
-            type="single"
-            variant="outline"
-            value={sortName}
-            onValueChange={(value) => value && setSortName(value)}
-          >
-            {["В перемешку", "А-Я", "Я-А"].map((sort) => (
-              <ToggleGroupItem
-                key={sort}
-                className="h-8 text-base rounded-none border-[#5B5B5B] text-[#5B5B5B] data-[state=on]:bg-[#FF730A] data-[state=on]:border-[#FF730A] data-[state=on]:text-white px-0 w-full"
-                value={sort}
-              >
-                {sort.toLowerCase()}
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
@@ -198,7 +170,7 @@ export function PlayersClient({ initialData }: { initialData: any }) {
                 className="w-full aspect-[6/5] object-cover object-top lg:aspect-[6/5]"
                 src={getImageUrl(item.photo)}
               />
-              <div className="border-y border-[#D0D0D0] flex p-3 gap-3 items-center">
+              <div className="border-y border-[#D0D0D0] flex p-2 gap-3 items-center">
                 <div>
                   {item.team.icon && (
                     <img
@@ -218,7 +190,7 @@ export function PlayersClient({ initialData }: { initialData: any }) {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-between p-3">
+              <div className="flex justify-between p-2">
                 <div>
                   <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
                     {item.birthday}
@@ -237,7 +209,7 @@ export function PlayersClient({ initialData }: { initialData: any }) {
                 </div>
               </div>
               <Button
-                className="bg-orange-500 hover:bg-[#171D3D] mx-3 h-auto rounded-none font-normal text-base lg:text-lg leading-none font-inter"
+                className="bg-orange-500 hover:bg-[#171D3D] mx-3 lg:py-1 lg:px-2 h-auto rounded-none font-normal text-base lg:text-lg leading-none font-inter"
                 asChild
               >
                 <Link href={item.stats} target="_blank">

@@ -77,7 +77,10 @@ export function HomeWelcome() {
         ))}
       </div>
       <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-5 px-2">
-        <div className="max-w-5xl mx-auto">
+        <div
+          className="max-w-5xl mx-auto"
+          style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+        >
           <div className="flex flex-col lg:flex-row lg:gap-28 lg:items-center">
             <div className="flex flex-col font-bold">
               <h2 className="text-4xl lg:text-[40px]">ХОККЕЙНОЕ АГЕНТСТВО</h2>
@@ -85,7 +88,7 @@ export function HomeWelcome() {
                 WINNERS
               </h1>
             </div>
-            <div className="flex lg:hidden text-[#171D3D] px-5 py-4 flex-row gap-5 bg-white rounded-full mb-7">
+            <div className="flex lg:hidden text-[#171D3D] px-5 py-4 flex-row gap-5 bg-white rounded-full">
               <div className="flex flex-col">
                 <p className="font-bold text-5xl">18</p>
                 <p className="font-inter font-normal text-xs leading-[14.5px]">
@@ -105,7 +108,7 @@ export function HomeWelcome() {
               <div className="flex flex-col">
                 <p className="font-bold text-5xl">52+</p>
                 <p className="font-inter font-normal text-xs leading-[14.5px]">
-                  игрок
+                  игрока
                   <br />
                   НХЛ
                 </p>
@@ -119,7 +122,7 @@ export function HomeWelcome() {
                 </p>
               </div>
             </div>
-            <p className="font-inter font-normal text-lg leading-[21.8px] lg:w-6/12">
+            <p className="hidden lg:block font-inter font-normal text-lg leading-[21.8px] lg:w-6/12">
               <span className="text-2xl lg:text-lg lg:leading-5">
                 Winners — агентство спортивного менеджмента.
               </span>
@@ -128,15 +131,13 @@ export function HomeWelcome() {
                 Мы занимаемся сопровождением хоккейных контрактов, обеспечивая
                 юридическую и медийную поддержку
               </span>
-              , чтобы наши клиенты могли сосредоточиться на игре.{" "}
-              <span className="hidden lg:block">
-                Нас выбирают звезды, такие как Артемий Панарин, Илья Ковальчук,
-                Данис Зарипов, и многие другие ведущие игроки, доверяя нашему
-                опыту и профессионализму.
-              </span>
+              , чтобы наши клиенты могли сосредоточиться на игре. Нас выбирают
+              звезды, такие как Артемий Панарин, Илья Ковальчук, Данис Зарипов,
+              и многие другие ведущие игроки, доверяя нашему опыту и
+              профессионализму.
             </p>
           </div>
-          <div className="hidden lg:flex text-[#171D3D] flex-row justify-around py-5 bg-white rounded-full my-7">
+          <div className="hidden lg:flex text-[#171D3D] flex-row justify-around py-3 bg-white rounded-full my-3">
             <div className="flex flex-col">
               <p className="font-bold text-7xl">18</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
@@ -160,7 +161,7 @@ export function HomeWelcome() {
             <div className="flex flex-col">
               <p className="font-bold text-7xl">52+</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
-                игрок НХЛ
+                игрока НХЛ
               </p>
             </div>
           </div>

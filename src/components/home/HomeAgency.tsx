@@ -33,7 +33,10 @@ export function HomeAgency({ data }: HomeAgencyProps) {
   }, [data]);
 
   return (
-    <div className="justify-center items-center flex flex-col gap-3 my-12 px-2 lg:px-0 lg:my-10">
+    <div
+      className="justify-center items-center flex flex-col my-5 px-2 lg:px-0 lg:my-6"
+      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+    >
       <h2 className="font-bold text-5xl lg:text-6xl w-full text-[#171D3D] max-w-5xl">
         наша команда
       </h2>
@@ -53,7 +56,7 @@ export function HomeAgency({ data }: HomeAgencyProps) {
               <br />
               {splitName(item.name).rest}
             </h3>
-            <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
+            <p className="font-inter font-normal text-sm text-[#5B5B5B] lg:text-base">
               {item.type}
             </p>
             <Button

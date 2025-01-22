@@ -19,14 +19,17 @@ export function HomeNews({ data }: HomeNewsProps) {
   if (!mounted || !data || data.length === 0) return null;
 
   return (
-    <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-14 px-2">
+    <div
+      className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-6 px-2"
+      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+    >
       <h2 className="font-bold text-5xl w-full max-w-5xl lg:text-6xl">
-        Новости
+        <a href="/news">Новости</a>
       </h2>
-      <div className="flex flex-col gap-3 my-4 max-w-5xl lg:flex-row lg:h-[490px]">
+      <div className="flex flex-col gap-3 my-4 max-w-5xl lg:flex-row lg:h-[300px]">
         {data[0] && (
           <Link
-            className="flex border border-[#D0D0D0] rounded-lg bg-white overflow-hidden h-64 lg:border-none lg:h-auto lg:w-2/3"
+            className="flex border border-[#D0D0D0] rounded-lg bg-white overflow-hidden h-64 lg:border-none lg:h-auto lg:w-3/5"
             href={`/news/${data[0].id}`}
           >
             <img
@@ -48,7 +51,7 @@ export function HomeNews({ data }: HomeNewsProps) {
             </div>
           </Link>
         )}
-        <div className="flex flex-row gap-3 lg:w-1/3">
+        <div className="flex flex-row gap-3 lg:w-2/5">
           {data.slice(1, 3).map(
             (item) =>
               item && (

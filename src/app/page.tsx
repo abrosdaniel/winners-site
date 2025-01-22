@@ -9,6 +9,7 @@ import { HomePlayers } from "@/components/home/HomePlayers";
 import { HomeAgency } from "@/components/home/HomeAgency";
 import { HomePartners } from "@/components/home/HomePartners";
 import { HomeWelcome } from "@/components/home/HomeWelcome";
+import { HomeWelcomeMob } from "@/components/home/HomeWelcomeMob";
 
 export default function Page() {
   const { data, isLoading } = useDataContext();
@@ -18,6 +19,7 @@ export default function Page() {
       <div>
         <Suspense fallback={null}>
           <HomeWelcome />
+          <HomeWelcomeMob />
         </Suspense>
         <Suspense fallback={null}>
           <HomePlayers data={data.players} />

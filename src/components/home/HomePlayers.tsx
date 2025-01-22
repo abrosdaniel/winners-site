@@ -19,12 +19,16 @@ export function HomePlayers({ data }: HomePlayersProps) {
 
   // Перемешиваем игроков один раз при инициализации
   const [shuffledPlayers] = useState(() => {
-    const indices = Array.from({ length: data.length }, (_, i) => i);
+    const filteredPlayers = data.filter(
+      (player) => player.league?.name === "НХЛ" || player.league?.name === "КХЛ"
+    );
+
+    const indices = Array.from({ length: filteredPlayers.length }, (_, i) => i);
     for (let i = indices.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [indices[i], indices[j]] = [indices[j], indices[i]];
     }
-    return indices.map((index) => data[index]);
+    return indices.map((index) => filteredPlayers[index]);
   });
 
   // Отдельное состояние для отображаемых игроков
@@ -52,11 +56,14 @@ export function HomePlayers({ data }: HomePlayersProps) {
   if (!mounted) return null;
 
   return (
-    <div className="justify-center items-center flex flex-col gap-3 my-12 px-2 max-w-5xl mx-auto lg:px-0 lg:my-10">
+    <div
+      className="justify-center items-center flex flex-col my-5 px-2 max-w-5xl mx-auto lg:px-0 lg:my-6"
+      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+    >
       <h2 className="font-bold text-5xl w-full text-[#171D3D] lg:text-6xl">
         клиенты агентства
       </h2>
-      <div className="flex flex-wrap gap-2 pt-2 w-full lg:gap-5 lg:pt-5">
+      <div className="flex flex-wrap gap-2 pt-2 w-full lg:gap-5 lg:pt-3">
         {displayedPlayers.map((item) => (
           <div
             key={item.id}
@@ -67,7 +74,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
               src={getImageUrl(item.photo)}
               alt={item.name}
             />
-            <div className="border-y border-[#D0D0D0] flex p-3 gap-3 items-center">
+            <div className="border-y border-[#D0D0D0] flex p-2 gap-3 items-center">
               <div>
                 {item.team.icon && (
                   <img
@@ -88,7 +95,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
                 </p>
               </div>
             </div>
-            <div className="flex justify-between p-3">
+            <div className="flex justify-between p-2">
               <div>
                 <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
                   {item.birthday}
@@ -107,7 +114,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
               </div>
             </div>
             <Button
-              className="bg-orange-500 hover:bg-[#171D3D] mx-3 h-auto rounded-none font-normal text-base lg:text-lg leading-none font-inter"
+              className="bg-orange-500 hover:bg-[#171D3D] mx-3 lg:py-1 lg:px-2 h-auto rounded-none font-normal text-base lg:text-lg leading-none font-inter"
               asChild
             >
               <Link href={item.stats} target="_blank">
@@ -118,7 +125,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
         ))}
       </div>
       <Button
-        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto mt-6 hover:bg-orange-500 hover:text-white font-normal text-lg leading-none font-inter"
+        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto mt-6 hover:bg-orange-500 hover:text-white font-normal text-base lg:text-lg leading-none font-inter"
         asChild
       >
         <Link href="/players">смотреть всех игроков</Link>

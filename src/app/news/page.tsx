@@ -66,7 +66,10 @@ export default function News() {
   NewsItem.displayName = "NewsItem";
 
   const DesktopLayout = () => (
-    <div className="w-full box-border flex gap-12 max-w-5xl mx-auto">
+    <div
+      className="w-full box-border flex gap-12 max-w-5xl mx-auto"
+      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+    >
       <div className="py-8 w-8/12">
         <h2 className="font-bold text-6xl text-[#171D3D] mb-6">
           ПОСЛЕДНИЕ НОВОСТИ

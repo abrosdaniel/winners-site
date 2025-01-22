@@ -5,9 +5,12 @@ export default function Policy() {
         className="object-cover object-top h-44 w-full lg:h-[400px]"
         src="/assets/img/head/form.png"
       />
-      <div className="py-8 w-full box-border max-w-5xl mx-auto relative">
+      <div
+        className="py-8 w-full box-border max-w-5xl mx-auto relative"
+        style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+      >
         <div className="px-2 mb-7">
-          <h2 className="font-bold text-5xl text-[#171D3D] lg:text-8xl">
+          <h2 className="font-bold text-6xl text-[#171D3D]">
             Политика конфиденциальности
           </h2>
         </div>

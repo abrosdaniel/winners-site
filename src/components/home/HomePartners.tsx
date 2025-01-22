@@ -171,7 +171,10 @@ export function HomePartners() {
   if (!mounted) return null;
 
   return (
-    <div className="justify-center items-center flex flex-col my-12 px-2 lg:px-0 lg:my-16">
+    <div
+      className="justify-center items-center flex flex-col my-7 px-2 lg:px-0 lg:my-6"
+      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+    >
       <div className="w-full max-w-5xl">
         <h2 className="font-bold text-3xl leading-7 lg:leading-9 text-[#171D3D] lg:text-4xl w-10/12">
           С НАМИ РАБОТАЛИ ТАКИЕ ИЗВЕСТНЫЕ ИГРОКИ КАК

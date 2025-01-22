@@ -27,7 +27,7 @@ export default function NewsArticle() {
     (item: any) => item.id.toString() === params.id
   );
 
-  const parseDate = (dateStr: { day: string; month: string }) => {
+  const parseDate = (dateStr: { day: string; month: string; year: number }) => {
     const months: { [key: string]: number } = {
       января: 0,
       февраля: 1,
@@ -42,9 +42,8 @@ export default function NewsArticle() {
       ноября: 10,
       декабря: 11,
     };
-    const year = new Date().getFullYear();
     return new Date(
-      year,
+      dateStr.year,
       months[dateStr.month.toLowerCase()],
       parseInt(dateStr.day)
     );
@@ -53,26 +52,19 @@ export default function NewsArticle() {
   const getRandomArticles = () => {
     if (!data?.news) return [];
 
-    const currentDate = new Date();
-    const daysAgo = 5;
-    const dateThreshold = new Date();
-    dateThreshold.setDate(currentDate.getDate() - daysAgo);
+    const otherArticles = data.news.filter(
+      (item: any) => item.id !== article?.id
+    );
 
-    const recentArticles = data.news.filter((item: any) => {
-      if (item.id === article?.id) return false;
-
-      const articleDate = parseDate(item.date_created);
-      return articleDate >= dateThreshold;
+    const sortedArticles = otherArticles.sort((a: any, b: any) => {
+      const dateA = parseDate(a.date_created);
+      const dateB = parseDate(b.date_created);
+      return dateB.getTime() - dateA.getTime();
     });
 
-    const articlesToUse =
-      recentArticles.length > 0
-        ? recentArticles
-        : data.news.filter((item: any) => item.id !== article?.id);
+    const latestArticles = sortedArticles.slice(0, isDesktop ? 5 : 2);
 
-    return articlesToUse
-      .sort(() => Math.random() - 0.5)
-      .slice(0, isDesktop ? 5 : 2);
+    return latestArticles.sort(() => Math.random() - 0.5);
   };
 
   if (!article) return <div>Статья не найдена</div>;
@@ -80,7 +72,10 @@ export default function NewsArticle() {
   const recommendedArticles = getRandomArticles();
 
   return (
-    <div className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto">
+    <div
+      className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto"
+      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+    >
       <img
         className="w-full aspect-video object-cover object-top h-44 lg:h-[400px]"
         src={getImageUrl(article.image)}

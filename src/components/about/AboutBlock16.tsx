@@ -3,7 +3,7 @@ export default function AboutBlock16() {
     <div className="flex flex-col gap-4 lg:gap-9 font-inter font-normal px-5 lg:px-9">
       <h3 className="text-3xl text-[#171D3D] lg:w-10/12 lg:pl-28">
         Среди других игроков агентства чьи имена также стали известны,
-        выделяются Александр Никишин, Владимир Ткачев и Егор Яковлев и другие
+        выделяются Александр Никишин, Владимир Ткачев, Егор Яковлев и другие
       </h3>
       <div className="flex flex-col lg:flex-row gap-3 lg:gap-5">
         <div className="flex flex-col gap-2 lg:flex-1">
