@@ -5,7 +5,7 @@ export default function Foot() {
   return (
     <footer
       id="contacts"
-      className="relative bg-[#171D3D] rounded-b-none rounded-t-3xl w-full max-w-6xl mx-auto py-10 px-14 overflow-hidden lg:rounded-full lg:py-24 lg:px-20"
+      className="relative bg-[#171D3D] rounded-b-none rounded-t-3xl w-full max-w-6xl mx-auto py-10 px-14 overflow-hidden lg:rounded-full lg:py-24 lg:px-20 zoomer"
     >
       <div className="absolute top-0 left-0 flex w-full h-full z-10 pt-20 lg:py-20 lg:justify-center lg:gap-32  lg:px-36 lg:box-border">
         <div className="flex-1 px-10 pt-20 lg:flex-none lg:flex lg:px-0 lg:pt-0 lg:gap-32">

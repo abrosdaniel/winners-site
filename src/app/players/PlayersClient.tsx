@@ -129,8 +129,7 @@ export function PlayersClient({ initialData }: { initialData: any }) {
       />
       <div
         id="plrs-grid"
-        className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative"
-        style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
+        className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative zoomer"
       >
         <h2 className="font-bold text-6xl text-[#171D3D]">игроки агентства</h2>
         <div className="flex flex-col gap-1 my-5 font-inter lg:flex-row lg:gap-2">

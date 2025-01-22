@@ -19,10 +19,7 @@ export default function Agency() {
         className="object-cover object-top h-44 w-full lg:h-[400px]"
         src="/assets/img/head/agency.png"
       />
-      <div
-        className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative"
-        style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
-      >
+      <div className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative zoomer">
         <h2 className="font-bold text-6xl text-[#171D3D]">команда агентства</h2>
         <div className="flex flex-wrap gap-2 w-full pt-2 lg:gap-5 lg:pt-5">
           {data.agency.map((item: any) => (

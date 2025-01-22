@@ -143,10 +143,7 @@ export default function Form() {
         className="object-cover object-top h-44 w-full lg:h-[400px]"
         src="/assets/img/head/form.png"
       />
-      <div
-        className="py-8 w-full box-border max-w-5xl mx-auto relative"
-        style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
-      >
+      <div className="py-8 w-full box-border max-w-5xl mx-auto relative zoomer">
         <div className="px-2 mb-7">
           <h2 className="font-bold text-6xl text-[#171D3D]">анкета</h2>
           <h3 className="font-inter font-normal text-sm bg-orange-500 text-white rounded-full py-1 px-5 text-center w-max">

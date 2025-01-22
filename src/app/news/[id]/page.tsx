@@ -72,10 +72,7 @@ export default function NewsArticle() {
   const recommendedArticles = getRandomArticles();
 
   return (
-    <div
-      className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto"
-      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
-    >
+    <div className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto zoomer">
       <img
         className="w-full aspect-video object-cover object-top h-44 lg:h-[400px]"
         src={getImageUrl(article.image)}

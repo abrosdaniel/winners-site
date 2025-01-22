@@ -33,10 +33,7 @@ export function HomeAgency({ data }: HomeAgencyProps) {
   }, [data]);
 
   return (
-    <div
-      className="justify-center items-center flex flex-col my-5 px-2 lg:px-0 lg:my-6"
-      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
-    >
+    <div className="justify-center items-center flex flex-col my-5 px-2 lg:px-0 lg:my-6 zoomer">
       <h2 className="font-bold text-5xl lg:text-6xl w-full text-[#171D3D] max-w-5xl">
         наша команда
       </h2>

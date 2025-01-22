@@ -19,10 +19,7 @@ export function HomeNews({ data }: HomeNewsProps) {
   if (!mounted || !data || data.length === 0) return null;
 
   return (
-    <div
-      className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-6 px-2"
-      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
-    >
+    <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-6 px-2 zoomer">
       <h2 className="font-bold text-5xl w-full max-w-5xl lg:text-6xl">
         <a href="/news">Новости</a>
       </h2>

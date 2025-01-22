@@ -125,10 +125,7 @@ export function Video({
           </h3>
         </div>
       </DialogTrigger>
-      <DialogContent
-        className="max-w-[95vw] border-none lg:max-w-[60vw] p-0 bg-transparent"
-        style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
-      >
+      <DialogContent className="max-w-[95vw] border-none lg:max-w-[60vw] p-0 bg-transparent zoomer">
         <div className="flex flex-col">
           {isDialogOpen && (
             <div className="relative bg-[#171D3D] rounded-xl overflow-hidden">

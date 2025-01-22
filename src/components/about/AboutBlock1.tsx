@@ -1,7 +1,7 @@
 export default function AboutBlock1() {
   return (
     <div className="bg-[#171D3D] h-screen flex justify-center items-center">
-      <div className="font-bold text-white lg:flex lg:items-center lg:gap-32">
+      <div className="font-bold text-white lg:flex lg:items-center lg:gap-32 lg:scale-75">
         <h2 className="text-5xl lg:text-[64px] lg:leading-[64px]">
           История
           <br />

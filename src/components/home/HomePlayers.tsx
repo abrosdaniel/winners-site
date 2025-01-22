@@ -56,10 +56,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
   if (!mounted) return null;
 
   return (
-    <div
-      className="justify-center items-center flex flex-col my-5 px-2 max-w-5xl mx-auto lg:px-0 lg:my-6"
-      style={{ zoom: window.innerWidth >= 1024 ? 0.9 : 1 }}
-    >
+    <div className="justify-center items-center flex flex-col my-5 px-2 max-w-5xl mx-auto lg:px-0 lg:my-6 zoomer">
       <h2 className="font-bold text-5xl w-full text-[#171D3D] lg:text-6xl">
         клиенты агентства
       </h2>
