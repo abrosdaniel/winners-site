@@ -543,7 +543,7 @@ export default function Form() {
             />
             <Field
               id="photo"
-              label="Ссылки на вашу фотографию (Яндекс.Диск или другое облачное хранилище)"
+              label="Ссылка на вашу фотографию (Яндекс.Диск или другое облачное хранилище)"
               placeholder={"Указать"}
               isTextarea
               value={(formData["photo"] || "") as string}
