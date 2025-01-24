@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import client from "@services/directus";
 import { readItem } from "@directus/sdk";
 
@@ -32,7 +32,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
@@ -51,10 +51,7 @@ export async function GET(
     );
 
     if (!news || news.status !== "published") {
-      return NextResponse.json(
-        { error: "News not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "News not found" }, { status: 404 });
     }
 
     const newsWithFormattedDate = {
