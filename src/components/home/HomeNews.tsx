@@ -118,7 +118,7 @@ export function HomeNews({ data }: HomeNewsProps) {
           alt="National League"
         />
         <img
-          className="h-[43px] lg:h-[90px]"
+          className="h-[43px] lg:h-[90px] scale-125"
           src="/assets/img/home/extraliga.png"
           alt="Extra League"
         />

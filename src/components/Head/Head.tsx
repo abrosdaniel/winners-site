@@ -120,7 +120,7 @@ export default function Head() {
               <SheetClose className="absolute left-8" asChild>
                 <MoveLeft className="h-9 w-9 text-white" />
               </SheetClose>
-              <SheetHeader className="flex flex-col justify-center items-center gap-14">
+              <SheetHeader className="flex flex-col justify-center items-center gap-10">
                 <SheetClose asChild>
                   <Link href="/">
                     <img
@@ -140,7 +140,7 @@ export default function Head() {
                   </SheetClose>
                 </SheetTitle>
               </SheetHeader>
-              <div className="text-white mt-14 flex flex-col gap-3">
+              <div className="text-white mt-10 flex flex-col gap-3">
                 <SheetClose asChild>
                   <Button
                     className="hover:bg-transparent hover:text-white font-bold text-4xl leading-none"
@@ -187,7 +187,7 @@ export default function Head() {
                   </Button>
                 </SheetClose>
               </div>
-              <div className="text-white mt-14 flex flex-col gap-16">
+              <div className="text-white mt-10 flex flex-col gap-16">
                 <SheetClose asChild>
                   <Button
                     className="bg-orange-500 hover:bg-[#171D3D] py-1 h-auto rounded-none font-normal text-lg font-inter"

@@ -101,10 +101,9 @@ export default function Foot() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img
-                  className="h-7 w-7 p-2 rounded-full bg-white"
-                  src="/assets/icons/social/inst.svg"
-                />
+                <div className="h-7 w-7 p-2 rounded-full bg-white flex justify-center items-center">
+                  <img src="/assets/icons/social/inst.svg" />
+                </div>
                 instagram*
               </Link>
             </Button>
@@ -118,10 +117,9 @@ export default function Foot() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img
-                  className="h-7 w-7 p-2 rounded-full bg-white"
-                  src="/assets/icons/social/telegram.svg"
-                />
+                <div className="h-7 w-7 p-2 rounded-full bg-white flex justify-center items-center">
+                  <img src="/assets/icons/social/telegram.svg" />
+                </div>
                 telegram
               </Link>
             </Button>
@@ -135,10 +133,9 @@ export default function Foot() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img
-                  className="h-7 w-7 p-2 rounded-full bg-white"
-                  src="/assets/icons/social/phone.svg"
-                />
+                <div className="h-7 w-7 p-2 rounded-full bg-white flex justify-center items-center">
+                  <img src="/assets/icons/social/phone.svg" />
+                </div>
                 what’sapp
               </Link>
             </Button>
@@ -148,10 +145,9 @@ export default function Foot() {
               asChild
             >
               <Link href={`mailto:info@wnrs.ru`}>
-                <img
-                  className="h-7 w-7 p-2 rounded-full bg-white"
-                  src="/assets/icons/social/email.svg"
-                />
+                <div className="h-7 w-7 p-2 rounded-full bg-white flex justify-center items-center">
+                  <img src="/assets/icons/social/email.svg" />
+                </div>
                 email
               </Link>
             </Button>
