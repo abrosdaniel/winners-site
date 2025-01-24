@@ -55,10 +55,10 @@ export function HomeWelcome() {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)]">
+    <div className="flex flex-col h-screen lg:h-auto">
       <div
         ref={containerRef}
-        className="relative w-full h-full overflow-hidden"
+        className="relative w-full h-full overflow-hidden lg:h-[530px]"
       >
         {slides.map((item) => (
           <div key={item.key} className="w-full h-full">
@@ -76,9 +76,9 @@ export function HomeWelcome() {
           </div>
         ))}
       </div>
-      <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-5 px-2">
+      <div className="justify-center items-center flex flex-col bg-[#171D3D] text-white py-5 px-2 lg:py-8">
         <div className="max-w-5xl mx-auto zoomer">
-          <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-center">
+          <div className="flex flex-col justify-between lg:flex-row lg:gap- lg:items-center">
             <div className="flex flex-col font-bold">
               <h2 className="text-4xl lg:text-[40px]">ХОККЕЙНОЕ АГЕНТСТВО</h2>
               <h1 className="text-[128px] lg:text-[160px] leading-[128px] lg:leading-[160px] lg:h-[130px]">
@@ -134,7 +134,7 @@ export function HomeWelcome() {
               профессионализму.
             </p>
           </div>
-          <div className="hidden lg:flex text-[#171D3D] flex-row justify-around py-3 bg-white rounded-full my-3">
+          <div className="hidden lg:flex text-[#171D3D] flex-row justify-around py-3 bg-white rounded-full mt-2 mb-0">
             <div className="flex flex-col">
               <p className="font-bold text-7xl">18</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">

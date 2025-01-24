@@ -2,10 +2,17 @@
 
 import * as React from "react";
 import { useDataContext } from "@/context/DataContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/tabs";
 import { Video } from "@/components/kit/Video";
 import Link from "next/link";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+} from "@/components/ui/pagination";
 
 interface NewsItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
   image: string;
@@ -15,29 +22,95 @@ interface NewsItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
   month: string;
 }
 
-export default function News() {
-  const { data, isLoading } = useDataContext();
-  const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
-  const getVideoUrl = (fileId: string) => `/api/vid/${fileId}`;
+const PaginationComponent = ({
+  currentPage,
+  totalPages,
+  paginationItems,
+  setCurrentPage,
+  withScroll,
+}: {
+  currentPage: number;
+  totalPages: number;
+  paginationItems: (number | string)[];
+  setCurrentPage: (page: number) => void;
+  withScroll: boolean;
+}) => {
+  if (totalPages <= 1) return null;
+  return (
+    <Pagination className="mt-10">
+      <PaginationContent>
+        {paginationItems.map((item, index) => {
+          if (item === "ellipsis-start" || item === "ellipsis-end") {
+            return (
+              <PaginationItem key={`ellipsis-${index}`}>
+                <PaginationEllipsis />
+              </PaginationItem>
+            );
+          }
 
-  useEffect(() => {
-    setMounted(true);
-    const updateIsDesktop = () => {
-      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
-    };
-    updateIsDesktop();
-    window.addEventListener("resize", updateIsDesktop);
-    return () => window.removeEventListener("resize", updateIsDesktop);
-  }, []);
+          return (
+            <PaginationItem key={index}>
+              <PaginationLink
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (typeof item === "number") {
+                    setCurrentPage(item);
+                    if (withScroll) {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }
+                }}
+                className={`font-inter font-normal text-base rounded-none ${
+                  currentPage === item
+                    ? "text-white bg-[#FF730A]"
+                    : "text-[#1E1E1E]"
+                }`}
+              >
+                {item}
+              </PaginationLink>
+            </PaginationItem>
+          );
+        })}
+      </PaginationContent>
+    </Pagination>
+  );
+};
 
-  if (!mounted || isLoading) return null;
+const generatePaginationItems = (currentPage: number, totalPages: number) => {
+  const items = [];
+  const maxVisiblePages = 5;
 
-  const NewsItem = React.forwardRef<
-    React.ElementRef<typeof Link>,
-    NewsItemProps
-  >(({ className, image, title, article, day, month, ...props }, ref) => {
+  if (totalPages <= maxVisiblePages) {
+    for (let i = 1; i <= totalPages; i++) {
+      items.push(i);
+    }
+  } else {
+    if (currentPage <= 3) {
+      for (let i = 1; i <= 4; i++) items.push(i);
+      items.push("ellipsis-end", totalPages);
+    } else if (currentPage >= totalPages - 2) {
+      items.push(1, "ellipsis-start");
+      for (let i = totalPages - 3; i <= totalPages; i++) items.push(i);
+    } else {
+      items.push(
+        1,
+        "ellipsis-start",
+        currentPage - 1,
+        currentPage,
+        currentPage + 1,
+        "ellipsis-end",
+        totalPages
+      );
+    }
+  }
+  return items;
+};
+
+const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
+  ({ className, image, title, article, day, month, ...props }, ref) => {
+    const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
+
     return (
       <Link
         className="flex flex-row border border-[#D0D0D0] rounded-xl overflow-hidden justify-center"
@@ -62,8 +135,69 @@ export default function News() {
         </div>
       </Link>
     );
-  });
-  NewsItem.displayName = "NewsItem";
+  }
+);
+NewsItem.displayName = "NewsItem";
+
+export default function News() {
+  const { data, isLoading } = useDataContext();
+  const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentVideoPage, setCurrentVideoPage] = useState(1);
+  const [activeTab, setActiveTab] = useState("news"); // Добавляем состояние для активной вкладки
+  const itemsPerPage = 10;
+
+  const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
+
+  const { totalPages, totalVideoPages } = useMemo(
+    () => ({
+      totalPages: Math.ceil((data?.news?.length || 0) / itemsPerPage),
+      totalVideoPages: Math.ceil((data?.video?.length || 0) / itemsPerPage),
+    }),
+    [data?.news?.length, data?.video?.length]
+  );
+
+  const { paginationItems, videoPaginationItems } = useMemo(
+    () => ({
+      paginationItems: generatePaginationItems(currentPage, totalPages),
+      videoPaginationItems: generatePaginationItems(
+        currentVideoPage,
+        totalVideoPages
+      ),
+    }),
+    [currentPage, currentVideoPage, totalPages, totalVideoPages]
+  );
+
+  const desktopVideos = useMemo(() => {
+    return data?.video?.slice(0, itemsPerPage) || [];
+  }, [data?.video]);
+
+  const { paginatedNews, paginatedVideos } = useMemo(() => {
+    const paginate = (items: any[], page: number) => {
+      const startIndex = (page - 1) * itemsPerPage;
+      return items?.slice(startIndex, startIndex + itemsPerPage) || [];
+    };
+
+    return {
+      paginatedNews: paginate(data?.news, currentPage),
+      paginatedVideos: isDesktop
+        ? desktopVideos
+        : paginate(data?.video, currentVideoPage),
+    };
+  }, [data, currentPage, currentVideoPage, isDesktop, desktopVideos]);
+
+  useEffect(() => {
+    setMounted(true);
+    const updateIsDesktop = () => {
+      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
+    };
+    updateIsDesktop();
+    window.addEventListener("resize", updateIsDesktop);
+    return () => window.removeEventListener("resize", updateIsDesktop);
+  }, []);
+
+  if (!mounted || isLoading) return null;
 
   const DesktopLayout = () => (
     <div className="w-full box-border flex gap-12 max-w-5xl mx-auto zoomer">
@@ -72,7 +206,7 @@ export default function News() {
           ПОСЛЕДНИЕ НОВОСТИ
         </h2>
         <div className="flex flex-col gap-5">
-          {data.news.map((item: any) => (
+          {paginatedNews.map((item: any) => (
             <NewsItem
               key={item.id}
               href={`/news/${item.id}`}
@@ -84,19 +218,26 @@ export default function News() {
             />
           ))}
         </div>
+        <PaginationComponent
+          currentPage={currentPage}
+          totalPages={totalPages}
+          paginationItems={paginationItems}
+          setCurrentPage={setCurrentPage}
+          withScroll={true}
+        />
       </div>
       <div className="py-8 w-4/12 px-14 bg-[#F5F5F5]">
         <h2 className="font-bold text-4xl text-[#171D3D] mb-6">
           ПОПУЛЯРНЫЕ ВИДЕО
         </h2>
         <div className="flex flex-col gap-10">
-          {data.video.map((video: any) => (
+          {desktopVideos.map((video: any) => (
             <Video
               key={video.id}
               video={video.video}
               preview={video.preview}
               title={video.title}
-              allVideos={data.video}
+              allVideos={desktopVideos}
               currentId={video.id}
             />
           ))}
@@ -107,7 +248,7 @@ export default function News() {
 
   const MobileLayout = () => (
     <div className="px-2 w-full mb-5">
-      <Tabs defaultValue="news" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="w-full mt-5 mb-6 bg-transparent font-inter flex flex-row gap-2">
           <TabsTrigger
             value="news"
@@ -124,7 +265,7 @@ export default function News() {
         </TabsList>
         <TabsContent value="news">
           <div className="flex flex-wrap gap-5">
-            {data.news.map((item: any) => (
+            {paginatedNews.map((item: any) => (
               <NewsItem
                 key={item.id}
                 href={`/news/${item.id}`}
@@ -136,10 +277,17 @@ export default function News() {
               />
             ))}
           </div>
+          <PaginationComponent
+            currentPage={currentPage}
+            totalPages={totalPages}
+            paginationItems={paginationItems}
+            setCurrentPage={setCurrentPage}
+            withScroll={true}
+          />
         </TabsContent>
         <TabsContent value="videos">
           <div className="flex flex-col gap-5">
-            {data.video.map((video: any) => (
+            {paginatedVideos.map((video: any) => (
               <Video
                 key={video.id}
                 video={video.video}
@@ -150,6 +298,15 @@ export default function News() {
               />
             ))}
           </div>
+          {!isDesktop && (
+            <PaginationComponent
+              currentPage={currentVideoPage}
+              totalPages={totalVideoPages}
+              paginationItems={videoPaginationItems}
+              setCurrentPage={setCurrentVideoPage}
+              withScroll={true}
+            />
+          )}
         </TabsContent>
       </Tabs>
     </div>

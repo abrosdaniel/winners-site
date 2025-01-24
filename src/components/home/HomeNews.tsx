@@ -23,7 +23,7 @@ export function HomeNews({ data }: HomeNewsProps) {
       <h2 className="font-bold text-5xl w-full max-w-5xl lg:text-6xl">
         <a href="/news">Новости</a>
       </h2>
-      <div className="flex flex-col gap-3 my-4 max-w-5xl lg:flex-row lg:h-[300px]">
+      <div className="flex flex-col gap-3 my-4 max-w-5xl lg:flex-row lg:h-[400px]">
         {data[0] && (
           <Link
             className="flex border border-[#D0D0D0] rounded-lg bg-white overflow-hidden h-64 lg:border-none lg:h-auto lg:w-3/5"

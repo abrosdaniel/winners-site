@@ -122,7 +122,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
         ))}
       </div>
       <Button
-        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto mt-6 hover:bg-orange-500 hover:text-white font-normal text-base lg:text-lg leading-none font-inter"
+        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto mt-6 hover:bg-orange-500 hover:text-white font-normal text-base lg:text-lg leading-none font-inter h-auto lg:py-1"
         asChild
       >
         <Link href="/players">смотреть всех игроков</Link>

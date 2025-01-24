@@ -53,7 +53,7 @@ export function HomeAgency({ data }: HomeAgencyProps) {
               <br />
               {splitName(item.name).rest}
             </h3>
-            <p className="font-inter font-normal text-sm text-[#5B5B5B] lg:text-base">
+            <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
               {item.type}
             </p>
             <Button
@@ -76,7 +76,7 @@ export function HomeAgency({ data }: HomeAgencyProps) {
         ))}
       </div>
       <Button
-        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto hover:bg-orange-500 hover:text-white font-normal text-base lg:text-lg leading-none font-inter"
+        className="text-orange-500 bg-white border border-orange-500 rounded-none mx-auto hover:bg-orange-500 hover:text-white font-normal text-base lg:text-lg leading-none font-inter h-auto lg:py-1"
         asChild
       >
         <Link href="/agency">вся команда агентства</Link>

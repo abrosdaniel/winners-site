@@ -102,12 +102,14 @@ export default function NewsArticle() {
                   className="w-full aspect-video object-cover object-center rounded-xl"
                   src={getImageUrl(item.image)}
                 />
-                <h3 className="font-inter font-semibold text-base line-clamp-4 text-[#171D3D]">
-                  {item.title}
-                </h3>
-                <p className="font-inter font-medium text-[#888888] text-xs">
-                  {item.date_created.day} {item.date_created.month}
-                </p>
+                <div className="flex flex-col">
+                  <h3 className="font-inter font-semibold text-base line-clamp-4 text-[#171D3D]">
+                    {item.title}
+                  </h3>
+                  <p className="font-inter font-medium text-[#888888] text-xs">
+                    {item.date_created.day} {item.date_created.month}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>

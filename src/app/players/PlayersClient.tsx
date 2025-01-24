@@ -131,8 +131,10 @@ export function PlayersClient({ initialData }: { initialData: any }) {
         id="plrs-grid"
         className="py-8 px-2 w-full box-border max-w-5xl mx-auto relative zoomer"
       >
-        <h2 className="font-bold text-6xl text-[#171D3D]">игроки агентства</h2>
-        <div className="flex flex-col gap-1 my-5 font-inter lg:flex-row lg:gap-2">
+        <h2 className="font-bold text-6xl text-[#171D3D] h-14">
+          игроки агентства
+        </h2>
+        <div className="flex flex-col gap-1 mt-1 mb-0 font-inter lg:flex-row lg:gap-2">
           <Input
             id="input-25"
             className="h-8 text-sm lg:text-base rounded-none focus-visible:ring-transparent w-full lg:w-2/12 border-2 border-[#D2D2D2]"

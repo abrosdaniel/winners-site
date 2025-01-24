@@ -36,7 +36,7 @@ export default function Agency() {
                 <br />
                 {splitName(item.name).rest}
               </h3>
-              <p className="font-inter font-normal text-sm text-[#5B5B5B] lg:text-base">
+              <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
                 {item.type}
               </p>
               <Button
