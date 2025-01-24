@@ -1,4 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
 import client from "@services/directus";
 import { readItem } from "@directus/sdk";
 
@@ -31,13 +30,12 @@ const formatDate = (dateString: string) => {
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: Request) {
+  const { pathname } = new URL(request.url);
+  const id = pathname.split("/").pop();
   try {
     const news = await client.request(
-      readItem("news", params.id, {
+      readItem("news", id!, {
         fields: [
           "id",
           "date_created",
@@ -51,7 +49,12 @@ export async function GET(
     );
 
     if (!news || news.status !== "published") {
-      return NextResponse.json({ error: "News not found" }, { status: 404 });
+      return new Response(JSON.stringify({ error: "News not found" }), {
+        status: 404,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     }
 
     const newsWithFormattedDate = {
@@ -59,12 +62,22 @@ export async function GET(
       date_created: formatDate(news.date_created),
     };
 
-    return NextResponse.json(newsWithFormattedDate);
+    return new Response(JSON.stringify(newsWithFormattedDate), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.error("Error fetching news item:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch news item" },
-      { status: 500 }
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch news item" }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
   }
 }
