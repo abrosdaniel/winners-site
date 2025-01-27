@@ -134,15 +134,15 @@ export function HomeWelcome() {
               профессионализму.
             </p>
           </div>
-          <div className="hidden lg:flex text-[#171D3D] flex-row justify-around py-3 bg-white rounded-full mt-2 mb-0">
+          <div className="hidden lg:flex text-[#171D3D] flex-row justify-around py-3 px-12 bg-white rounded-full mt-6 mb-2">
             <div className="flex flex-col">
-              <p className="font-bold text-7xl">18</p>
+              <p className="font-bold text-7xl h-16">18</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
                 лет работы агентства
               </p>
             </div>
             <div className="flex flex-col">
-              <p className="font-bold text-7xl">73%</p>
+              <p className="font-bold text-7xl h-16">73%</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
                 клиентов агенства
                 <br />
@@ -150,13 +150,13 @@ export function HomeWelcome() {
               </p>
             </div>
             <div className="flex flex-col">
-              <p className="font-bold text-7xl">200+</p>
+              <p className="font-bold text-7xl h-16">200+</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
                 игроков КХЛ
               </p>
             </div>
             <div className="flex flex-col">
-              <p className="font-bold text-7xl">52+</p>
+              <p className="font-bold text-7xl h-16">52+</p>
               <p className="font-inter font-normal text-lg leading-[21.5px]">
                 игрока НХЛ
               </p>

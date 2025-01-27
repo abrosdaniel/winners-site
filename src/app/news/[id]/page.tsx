@@ -87,7 +87,7 @@ export default function NewsArticle() {
             dangerouslySetInnerHTML={{ __html: article.article }}
           />
         </div>
-        <div className="bg-[#F5F5F5] px-2 py-5 lg:w-2/6 lg:px-7 lg:py-7 flex flex-col gap-5 lg:gap-0">
+        <div className="bg-[#F5F5F5] px-2 py-5 lg:w-2/6 lg:px-7 lg:py-7 flex flex-col gap-5 lg:gap-0 relative">
           <h2 className="font-bold text-4xl text-[#171D3D] lg:text-4xl lg:mb-4">
             Другие новости
           </h2>
@@ -113,6 +113,7 @@ export default function NewsArticle() {
               </Link>
             ))}
           </div>
+          <div className="absolute bg-[#F5F5F5] h-16 w-full -bottom-16 left-0"></div>
         </div>
       </div>
     </div>

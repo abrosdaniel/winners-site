@@ -168,8 +168,9 @@ export function PlayersClient({ initialData }: { initialData: any }) {
               key={item.id}
             >
               <img
-                className="w-full aspect-[6/5] object-cover object-top lg:aspect-[6/5]"
+                className="w-full aspect-[6/5] object-cover object-top"
                 src={getImageUrl(item.photo)}
+                alt={item.name}
               />
               <div className="border-y border-[#D0D0D0] flex p-2 gap-3 items-center">
                 <div>
@@ -177,11 +178,12 @@ export function PlayersClient({ initialData }: { initialData: any }) {
                     <img
                       className="w-7 object-center"
                       src={getImageUrl(item.team.icon)}
+                      alt={item.team.name}
                     />
                   )}
                 </div>
                 <div>
-                  <h3 className="font-bold text-2xl text-[#171D3D] lg:text-[26px] leading-[21.6px] lg:leading-[26px]">
+                  <h3 className="font-bold text-2xl text-[#171D3D] lg:text-[26px] leading-[21.6px] lg:leading-[26px] w-full">
                     {splitName(item.name).first}
                     <br />
                     {splitName(item.name).rest}

@@ -82,7 +82,7 @@ export function HomePlayers({ data }: HomePlayersProps) {
                 )}
               </div>
               <div>
-                <h3 className="font-bold text-2xl text-[#171D3D] lg:text-[26px] leading-[21.6px] lg:leading-[26px] w-min lg:w-max">
+                <h3 className="font-bold text-2xl text-[#171D3D] lg:text-[26px] leading-[21.6px] lg:leading-[26px] w-full">
                   {splitName(item.name).first}
                   <br />
                   {splitName(item.name).rest}

@@ -226,7 +226,7 @@ export default function News() {
           withScroll={true}
         />
       </div>
-      <div className="py-8 w-4/12 px-14 bg-[#F5F5F5]">
+      <div className="py-8 w-4/12 px-14 bg-[#F5F5F5] relative">
         <h2 className="font-bold text-4xl text-[#171D3D] mb-6">
           ПОПУЛЯРНЫЕ ВИДЕО
         </h2>
@@ -242,6 +242,7 @@ export default function News() {
             />
           ))}
         </div>
+        <div className="absolute bg-[#F5F5F5] h-16 w-full -bottom-16 left-0"></div>
       </div>
     </div>
   );
