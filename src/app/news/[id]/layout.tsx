@@ -21,13 +21,14 @@ async function getNews(id: string) {
   }
 }
 
-type Props = {
+type GenerateMetadataProps = {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const news = await getNews(params.id);
+export async function generateMetadata(
+  props: GenerateMetadataProps
+): Promise<Metadata> {
+  const news = await getNews(props.params.id);
 
   if (!news) {
     return {
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: title,
       description: description,
-      url: `${baseUrl}/news/${params.id}`,
+      url: `${baseUrl}/news/${props.params.id}`,
       siteName: "WINNERS Hockey Agency",
       images: [
         {
@@ -79,10 +80,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-interface LayoutProps {
+export default function NewsLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
-
-export default function NewsLayout({ children }: LayoutProps) {
+}) {
   return <>{children}</>;
 }
