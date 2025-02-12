@@ -21,11 +21,12 @@ async function getNews(id: string) {
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
+type Props = {
   params: { id: string };
-}): Promise<Metadata> {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const news = await getNews(params.id);
 
   if (!news) {
@@ -80,8 +81,10 @@ export async function generateMetadata({
 
 export default function NewsLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { id: string };
 }) {
   return <>{children}</>;
 }
