@@ -79,12 +79,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function NewsLayout({
-  children,
-  params,
-}: {
+interface LayoutProps {
   children: React.ReactNode;
-  params: { id: string };
-}) {
+}
+
+export default function NewsLayout({ children }: LayoutProps) {
   return <>{children}</>;
 }
