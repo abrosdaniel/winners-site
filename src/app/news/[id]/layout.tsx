@@ -21,14 +21,13 @@ async function getNews(id: string) {
   }
 }
 
-type GenerateMetadataProps = {
-  params: { id: string };
-};
-
-export async function generateMetadata(
-  props: GenerateMetadataProps
-): Promise<Metadata> {
-  const news = await getNews(props.params.id);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const news = await getNews(resolvedParams.id);
 
   if (!news) {
     return {
@@ -52,7 +51,7 @@ export async function generateMetadata(
     openGraph: {
       title: title,
       description: description,
-      url: `${baseUrl}/news/${props.params.id}`,
+      url: `${baseUrl}/news/${resolvedParams.id}`,
       siteName: "WINNERS Hockey Agency",
       images: [
         {
