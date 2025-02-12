@@ -1,15 +1,16 @@
 "use client";
 
-import { useDataContext } from "@/context/DataContext";
 import { useParams } from "next/navigation";
-import Link from "next/link";
+import RecommendedArticles from "./recommended-articles";
 import { useState, useEffect } from "react";
 
 export default function NewsArticle() {
-  const { data, isLoading } = useDataContext();
   const params = useParams();
   const [isDesktop, setIsDesktop] = useState(false);
+  const [article, setArticle] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
+  const articleId = typeof params?.id === "string" ? params.id : "";
 
   useEffect(() => {
     const updateIsDesktop = () => {
@@ -21,60 +22,47 @@ export default function NewsArticle() {
     return () => window.removeEventListener("resize", updateIsDesktop);
   }, []);
 
-  if (isLoading || !data?.news) return null;
+  useEffect(() => {
+    const fetchArticle = async () => {
+      if (!articleId) return;
 
-  const article = data.news.find(
-    (item: any) => item.id.toString() === params.id
-  );
+      try {
+        setIsLoading(true);
+        const res = await fetch(`/api/news/${articleId}`);
+        const data = await res.json();
 
-  const parseDate = (dateStr: { day: string; month: string; year: number }) => {
-    const months: { [key: string]: number } = {
-      января: 0,
-      февраля: 1,
-      марта: 2,
-      апреля: 3,
-      мая: 4,
-      июня: 5,
-      июля: 6,
-      августа: 7,
-      сентября: 8,
-      октября: 9,
-      ноября: 10,
-      декабря: 11,
+        if (!res.ok) throw new Error(data.error || "Failed to fetch article");
+
+        setArticle(data);
+      } catch (error) {
+        console.error("Error fetching article:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
-    return new Date(
-      dateStr.year,
-      months[dateStr.month.toLowerCase()],
-      parseInt(dateStr.day)
+
+    fetchArticle();
+  }, [articleId]);
+
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen justify-center items-center flex">
+        <p className="text-2xl">Загрузка...</p>
+      </div>
     );
-  };
+  }
 
-  const getRandomArticles = () => {
-    if (!data?.news) return [];
-
-    const otherArticles = data.news.filter(
-      (item: any) => item.id !== article?.id
+  if (!article)
+    return (
+      <div className="w-screen h-screen justify-center items-center flex">
+        <p className="text-2xl">Статья не найдена</p>
+      </div>
     );
-
-    const sortedArticles = otherArticles.sort((a: any, b: any) => {
-      const dateA = parseDate(a.date_created);
-      const dateB = parseDate(b.date_created);
-      return dateB.getTime() - dateA.getTime();
-    });
-
-    const latestArticles = sortedArticles.slice(0, isDesktop ? 5 : 2);
-
-    return latestArticles.sort(() => Math.random() - 0.5);
-  };
-
-  if (!article) return <div>Статья не найдена</div>;
-
-  const recommendedArticles = getRandomArticles();
 
   return (
     <div className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto zoomer">
       <img
-        className="w-full aspect-video object-cover object-top h-44 lg:h-[400px]"
+        className="w-full aspect-video object-cover object-top h-48 lg:h-[450px]"
         src={getImageUrl(article.image)}
       />
       <div className="flex flex-col lg:flex-row lg:gap-4">
@@ -91,28 +79,7 @@ export default function NewsArticle() {
           <h2 className="font-bold text-4xl text-[#171D3D] lg:text-4xl lg:mb-4">
             Другие новости
           </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-8">
-            {recommendedArticles.map((item: any) => (
-              <Link
-                key={item.id}
-                href={`/news/${item.id}`}
-                className="flex flex-col gap-2 lg:gap-4"
-              >
-                <img
-                  className="w-full aspect-video object-cover object-center rounded-xl"
-                  src={getImageUrl(item.image)}
-                />
-                <div className="flex flex-col">
-                  <h3 className="font-inter font-semibold text-base line-clamp-4 text-[#171D3D]">
-                    {item.title}
-                  </h3>
-                  <p className="font-inter font-medium text-[#888888] text-xs">
-                    {item.date_created.day} {item.date_created.month}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <RecommendedArticles currentId={articleId} isDesktop={isDesktop} />
           <div className="absolute bg-[#F5F5F5] h-16 w-full -bottom-16 left-0"></div>
         </div>
       </div>
