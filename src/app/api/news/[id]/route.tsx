@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import client from "@services/directus";
 import { readItem } from "@directus/sdk";
 
@@ -49,12 +50,7 @@ export async function GET(request: Request) {
     );
 
     if (!news || news.status !== "published") {
-      return new Response(JSON.stringify({ error: "News not found" }), {
-        status: 404,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return NextResponse.json({ error: "News not found" }, { status: 404 });
     }
 
     const newsWithFormattedDate = {
@@ -64,22 +60,12 @@ export async function GET(request: Request) {
 
     console.log("Formatted News Response:", newsWithFormattedDate);
 
-    return new Response(JSON.stringify(newsWithFormattedDate), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return NextResponse.json(newsWithFormattedDate, { status: 200 });
   } catch (error) {
     console.error("Error fetching news item:", error);
-    return new Response(
-      JSON.stringify({ error: "Failed to fetch news item" }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    return NextResponse.json(
+      { error: "Failed to fetch news item" },
+      { status: 500 }
     );
   }
 }
