@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 
 async function getNews(id: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
   try {
-    const headersList = await headers();
-    const domain = headersList.get("host") || "localhost:3000";
-    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const res = await fetch(`${protocol}://${domain}/api/news/${id}`, {
+    const res = await fetch(`${baseUrl}/api/news/${id}`, {
       next: { revalidate: 60 },
     });
     console.log("Article API Response:", res);
@@ -40,11 +37,7 @@ export async function generateMetadata({
   const title = news.title;
   const description =
     news.article.replace(/<[^>]*>/g, "").slice(0, 200) + "...";
-
-  const headersList = await headers();
-  const domain = headersList.get("host") || "localhost:3000";
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const baseUrl = `${protocol}://${domain}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
 
   return {
     title: `${title} | WINNERS`,
