@@ -62,6 +62,8 @@ export async function GET(request: Request) {
       date_created: formatDate(news.date_created),
     };
 
+    console.log("Formatted News Response:", newsWithFormattedDate);
+
     return new Response(JSON.stringify(newsWithFormattedDate), {
       status: 200,
       headers: {
