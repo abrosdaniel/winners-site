@@ -9,8 +9,7 @@ async function getNews(id: string) {
     const res = await fetch(`${protocol}://${domain}/api/news/${id}`, {
       next: { revalidate: 60 },
     });
-    const text = await res.text(); // Считать ответ как текст
-    console.log("API Response:", text);
+    console.log("Article API Response:", res);
 
     if (!res.ok) {
       throw new Error("Failed to fetch news");
