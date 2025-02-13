@@ -3,7 +3,7 @@
 import { useDataContext } from "@/context/DataContext";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export default function NewsArticle() {
   const { data, isLoading } = useDataContext();
@@ -23,9 +23,9 @@ export default function NewsArticle() {
 
   if (isLoading || !data?.news) return null;
 
-  const article = data.news.find(
-    (item: any) => item.id.toString() === params.id
-  );
+  const article = useMemo(() => {
+    return data.news.find((item: any) => item.id.toString() === params.id);
+  }, [data, params.id]);
 
   const parseDate = (dateStr: { day: string; month: string; year: number }) => {
     const months: { [key: string]: number } = {
@@ -69,7 +69,10 @@ export default function NewsArticle() {
 
   if (!article) return <div>Статья не найдена</div>;
 
-  const recommendedArticles = getRandomArticles();
+  const recommendedArticles = useMemo(
+    () => getRandomArticles(),
+    [data, isDesktop]
+  );
 
   return (
     <div className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto zoomer">
