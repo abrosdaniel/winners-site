@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // output: "standalone",
   experimental: {
     esmExternals: false,
   },
+  compress: false,
 };
 
 export default nextConfig;
