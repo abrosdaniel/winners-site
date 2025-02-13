@@ -8,6 +8,7 @@ import { useState, useEffect, useMemo } from "react";
 export default function NewsArticle() {
   const { data, isLoading } = useDataContext();
   const params = useParams();
+  console.log("Params ID:", params.id);
   const [isDesktop, setIsDesktop] = useState(false);
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
 
