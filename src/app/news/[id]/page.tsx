@@ -30,6 +30,8 @@ export default function NewsArticle() {
         setIsLoading(true);
         const res = await fetch(`/api/news/${articleId}`);
         const data = await res.json();
+        const text = await res.text(); // Считать ответ как текст
+        console.log("Article API Response:", text);
 
         if (!res.ok) throw new Error(data.error || "Failed to fetch article");
 
