@@ -17,9 +17,11 @@ async function fetchArticle(id: string): Promise<NewsArticleProps | null> {
       return null;
     }
     const text = await res.text();
-    console.log(text);
+    console.log("Text:", text);
     try {
-      const json = JSON.parse(text);
+      const cleanedText = text.replace(/^\uFEFF/, "").trim();
+      console.log("Clean Text:", cleanedText);
+      const json = JSON.parse(cleanedText);
       return json;
     } catch (error) {
       console.error("Error parsing JSON:", error, "Response:", text);
