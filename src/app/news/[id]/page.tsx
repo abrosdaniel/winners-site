@@ -65,7 +65,7 @@ export default function NewsArticle() {
 
     const latestArticles = sortedArticles.slice(0, isDesktop ? 5 : 2);
 
-    return latestArticles.sort(() => Math.random() - 0.5);
+    return latestArticles;
   };
 
   if (!article) return <div>Статья не найдена</div>;
