@@ -11,10 +11,6 @@ export function middleware(request: NextRequest) {
   const origin = request.headers.get("origin") ?? "";
   const isAllowedOrigin = allowedOrigins.includes(origin);
 
-  if (!origin) {
-    return new Response("CORS error: Origin not allowed", { status: 403 });
-  }
-
   const isPreflight = request.method === "OPTIONS";
 
   if (isPreflight) {
