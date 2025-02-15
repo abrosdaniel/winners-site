@@ -13,9 +13,17 @@ async function fetchArticle(id: string): Promise<NewsArticleProps | null> {
   try {
     const res = await fetch(`${baseUrl}/api/news/${id}`, { cache: "no-store" }); // Используем `no-store` для отключения кэширования
     if (!res.ok) {
+      console.error("Failed to fetch article:", res.status, res.statusText);
       return null;
     }
-    return res.json();
+    const text = await res.text();
+    try {
+      const json = JSON.parse(text); // Пробуем преобразовать в JSON
+      return json;
+    } catch (error) {
+      console.error("Error parsing JSON:", error, "Response:", text);
+      return null;
+    }
   } catch (error) {
     console.error("Error fetching article:", error);
     return null;
