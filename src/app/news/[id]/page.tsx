@@ -61,7 +61,7 @@ export default async function NewsArticlePage({
           </h1>
           <div
             className="article font-inter font-normal text-base leading-5 text-black lg:text-lg mb-16"
-            dangerouslySetInnerHTML={{ __html: article.article }}
+            // dangerouslySetInnerHTML={{ __html: article.article }}
           />
         </div>
         <div className="bg-[#F5F5F5] px-2 py-5 lg:w-2/6 lg:px-7 lg:py-7 flex flex-col gap-5 lg:gap-0 relative">
