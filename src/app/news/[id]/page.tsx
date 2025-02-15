@@ -17,8 +17,9 @@ async function fetchArticle(id: string): Promise<NewsArticleProps | null> {
       return null;
     }
     const text = await res.text();
+    console.log(text);
     try {
-      const json = JSON.parse(text); // Пробуем преобразовать в JSON
+      const json = JSON.parse(text);
       return json;
     } catch (error) {
       console.error("Error parsing JSON:", error, "Response:", text);
