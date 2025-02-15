@@ -31,7 +31,12 @@ const formatDate = (dateString: string) => {
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export async function GET(id: string) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
   console.log("Extracted ID:", id);
   try {
     const news = await client.request(
