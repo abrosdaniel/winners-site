@@ -7,26 +7,27 @@ type NewsArticleProps = {
   image: string;
 };
 
+async function fetchWithTimeout(resource: string, timeout = 5000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  const response = await fetch(resource, {
+    signal: controller.signal,
+  });
+  clearTimeout(id);
+  return response;
+}
+
 async function fetchArticle(id: string): Promise<NewsArticleProps | null> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   try {
-    const res = await fetch(`${baseUrl}/api/news/${id}`, { cache: "no-store" }); // Используем `no-store` для отключения кэширования
+    const res = await fetchWithTimeout(`${baseUrl}/api/news/${id}`, 5000);
     if (!res.ok) {
       console.error("Failed to fetch article:", res.status, res.statusText);
       return null;
     }
-    const text = await res.text();
-    console.log("Text:", text);
-    try {
-      const cleanedText = text.replace(/^\uFEFF/, "").trim();
-      console.log("Clean Text:", cleanedText);
-      const json = JSON.parse(cleanedText);
-      return json;
-    } catch (error) {
-      console.error("Error parsing JSON:", error, "Response:", text);
-      return null;
-    }
+    const json = await res.json();
+    return json;
   } catch (error) {
     console.error("Error fetching article:", error);
     return null;

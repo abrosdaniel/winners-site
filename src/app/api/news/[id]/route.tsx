@@ -37,7 +37,6 @@ export async function GET(
 ) {
   const resolvedParams = await params;
   const { id } = resolvedParams;
-  console.log("Extracted ID:", id);
   try {
     const news = await client.request(
       readItem("news", id!, {
