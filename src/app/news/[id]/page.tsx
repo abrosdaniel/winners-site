@@ -25,9 +25,10 @@ async function fetchArticle(id: string): Promise<NewsArticleProps | null> {
 export default async function NewsArticlePage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const article = await fetchArticle(params.id); // Загружаем данные на сервере
+  const resolvedParams = await params;
+  const article = await fetchArticle(resolvedParams.id); // Загружаем данные на сервере
 
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
 
