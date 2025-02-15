@@ -24,7 +24,6 @@ const formatDate = (dateString: string) => {
     day: String(date.getDate()).padStart(2, "0"),
     month: monthNames[date.getMonth()],
     year: date.getFullYear(),
-    time: date.toTimeString().slice(0, 5),
   };
 };
 
@@ -40,15 +39,7 @@ export async function GET(
   try {
     const news = await client.request(
       readItem("news", id!, {
-        fields: [
-          "id",
-          "date_created",
-          "date_updated",
-          "status",
-          "image",
-          "title",
-          "article",
-        ],
+        fields: ["id", "date_created", "status", "image", "title", "article"],
       })
     );
 

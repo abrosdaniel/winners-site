@@ -7,21 +7,11 @@ type NewsArticleProps = {
   image: string;
 };
 
-async function fetchWithTimeout(resource: string, timeout = 5000) {
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeout);
-  const response = await fetch(resource, {
-    signal: controller.signal,
-  });
-  clearTimeout(id);
-  return response;
-}
-
 async function fetchArticle(id: string): Promise<NewsArticleProps | null> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   try {
-    const res = await fetchWithTimeout(`${baseUrl}/api/news/${id}`, 5000);
+    const res = await fetch(`${baseUrl}/api/news/${id}`);
     if (!res.ok) {
       console.error("Failed to fetch article:", res.status, res.statusText);
       return null;
@@ -40,7 +30,7 @@ export default async function NewsArticlePage({
   params: Promise<{ id: string }>;
 }) {
   const resolvedParams = await params;
-  const article = await fetchArticle(resolvedParams.id); // Загружаем данные на сервере
+  const article = await fetchArticle(resolvedParams.id);
 
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
 
@@ -61,7 +51,7 @@ export default async function NewsArticlePage({
           </h1>
           <div
             className="article font-inter font-normal text-base leading-5 text-black lg:text-lg mb-16"
-            // dangerouslySetInnerHTML={{ __html: article.article }}
+            dangerouslySetInnerHTML={{ __html: article.article }}
           />
         </div>
         <div className="bg-[#F5F5F5] px-2 py-5 lg:w-2/6 lg:px-7 lg:py-7 flex flex-col gap-5 lg:gap-0 relative">
