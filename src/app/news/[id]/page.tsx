@@ -1,79 +1,39 @@
-"use client";
+import RecomendateArticle from "@/components/news/RecomendateArticle";
 
-import { useDataContext } from "@/context/DataContext";
-import { useParams } from "next/navigation";
-import Link from "next/link";
-import { useState, useEffect, useMemo } from "react";
+type NewsArticleProps = {
+  id: string;
+  title: string;
+  article: string;
+  image: string;
+};
 
-export default function NewsArticle() {
-  const { data, isLoading } = useDataContext();
-  const params = useParams();
-  console.log("Params ID:", params.id);
-  const [isDesktop, setIsDesktop] = useState(false);
+async function fetchArticle(id: string): Promise<NewsArticleProps | null> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+  try {
+    const res = await fetch(`${baseUrl}/api/news/${id}`, { cache: "no-store" }); // Используем `no-store` для отключения кэширования
+    if (!res.ok) {
+      return null;
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching article:", error);
+    return null;
+  }
+}
+
+export default async function NewsArticlePage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const article = await fetchArticle(params.id); // Загружаем данные на сервере
+
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
 
-  useEffect(() => {
-    const updateIsDesktop = () => {
-      setIsDesktop(window.matchMedia("(min-width: 1024px)").matches);
-    };
-
-    updateIsDesktop();
-    window.addEventListener("resize", updateIsDesktop);
-    return () => window.removeEventListener("resize", updateIsDesktop);
-  }, []);
-
-  if (isLoading || !data?.news) return null;
-
-  const article = useMemo(() => {
-    return data.news.find((item: any) => item.id.toString() === params.id);
-  }, [data, params.id]);
-
-  const parseDate = (dateStr: { day: string; month: string; year: number }) => {
-    const months: { [key: string]: number } = {
-      января: 0,
-      февраля: 1,
-      марта: 2,
-      апреля: 3,
-      мая: 4,
-      июня: 5,
-      июля: 6,
-      августа: 7,
-      сентября: 8,
-      октября: 9,
-      ноября: 10,
-      декабря: 11,
-    };
-    return new Date(
-      dateStr.year,
-      months[dateStr.month.toLowerCase()],
-      parseInt(dateStr.day)
-    );
-  };
-
-  const getRandomArticles = () => {
-    if (!data?.news) return [];
-
-    const otherArticles = data.news.filter(
-      (item: any) => item.id !== article?.id
-    );
-
-    const sortedArticles = otherArticles.sort((a: any, b: any) => {
-      const dateA = parseDate(a.date_created);
-      const dateB = parseDate(b.date_created);
-      return dateB.getTime() - dateA.getTime();
-    });
-
-    const latestArticles = sortedArticles.slice(0, isDesktop ? 5 : 2);
-
-    return latestArticles;
-  };
-
-  if (!article) return <div>Статья не найдена</div>;
-
-  const recommendedArticles = useMemo(
-    () => getRandomArticles(),
-    [data, isDesktop]
-  );
+  if (!article) {
+    return <div>Статья не найдена</div>;
+  }
 
   return (
     <div className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto zoomer">
@@ -95,29 +55,7 @@ export default function NewsArticle() {
           <h2 className="font-bold text-4xl text-[#171D3D] lg:text-4xl lg:mb-4">
             Другие новости
           </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-8">
-            {recommendedArticles.map((item: any) => (
-              <Link
-                key={item.id}
-                href={`/news/${item.id}`}
-                className="flex flex-col gap-2 lg:gap-4"
-              >
-                <img
-                  className="w-full aspect-video object-cover object-center rounded-xl"
-                  src={getImageUrl(item.image)}
-                  alt={item.title}
-                />
-                <div className="flex flex-col">
-                  <h3 className="font-inter font-semibold text-base line-clamp-4 text-[#171D3D]">
-                    {item.title}
-                  </h3>
-                  <p className="font-inter font-medium text-[#888888] text-xs">
-                    {item.date_created.day} {item.date_created.month}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <RecomendateArticle currentArticleId={article.id} />
           <div className="absolute bg-[#F5F5F5] h-16 w-full -bottom-16 left-0"></div>
         </div>
       </div>

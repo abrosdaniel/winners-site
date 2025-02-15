@@ -11,6 +11,10 @@ export function middleware(request: NextRequest) {
   const origin = request.headers.get("origin") ?? "";
   const isAllowedOrigin = allowedOrigins.includes(origin);
 
+  // if (!origin) {
+  //   return new Response("CORS error: Origin not allowed", { status: 403 });
+  // }
+
   const isPreflight = request.method === "OPTIONS";
 
   if (isPreflight) {
@@ -35,5 +39,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: "/api/:path*",
+  matcher: "/:path*",
 };
