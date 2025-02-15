@@ -31,9 +31,7 @@ const formatDate = (dateString: string) => {
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export async function GET(request: Request) {
-  const { pathname } = new URL(request.url);
-  const id = pathname.split("/").pop();
+export async function GET(id: string) {
   console.log("Extracted ID:", id);
   try {
     const news = await client.request(
