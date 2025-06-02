@@ -4,9 +4,9 @@ import { readItems } from "@directus/sdk";
 import RecomendateArticle from "@/components/news/RecomendateArticle";
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export const generateMetadata = async ({
