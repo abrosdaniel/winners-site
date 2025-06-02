@@ -3,9 +3,11 @@ import directus from "@services/directus";
 import { readItems } from "@directus/sdk";
 import RecomendateArticle from "@/components/news/RecomendateArticle";
 
-type Props = {
-  params: { id: string };
-};
+interface Props {
+  params: {
+    id: string;
+  };
+}
 
 export const generateMetadata = async ({
   params,
