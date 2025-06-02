@@ -73,7 +73,7 @@ export const generateMetadata = async ({
     twitter: {
       card: "summary_large_image",
       title: news.title,
-      description: news.article,
+      description: news.description,
       images: [`https://wnrs.ru/api/img/${news.image}`],
     },
   };
