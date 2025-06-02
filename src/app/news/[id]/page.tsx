@@ -17,7 +17,7 @@ type NewsArticleProps = {
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
-  const { id } = await params;
+  const { id } = params;
   const [news] = await directus.request(
     readItems("news", {
       filter: { id: { _eq: id }, status: { _eq: "published" } },
@@ -78,7 +78,7 @@ export const generateMetadata = async ({
     twitter: {
       card: "summary_large_image",
       title: news.title,
-      description: news.description,
+      description: news.article,
       images: [`https://wnrs.ru/api/img/${news.image}`],
     },
   };
