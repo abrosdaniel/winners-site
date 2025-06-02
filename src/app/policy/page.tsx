@@ -7,7 +7,7 @@ export default function Policy() {
       />
       <div className="py-8 w-full box-border max-w-5xl mx-auto relative zoomer">
         <div className="px-2 mb-7">
-          <h2 className="font-bold text-6xl text-[#171D3D]">
+          <h2 className="font-bold text-4xl lg:text-6xl text-[#171D3D]">
             Политика конфиденциальности
           </h2>
         </div>

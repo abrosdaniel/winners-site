@@ -39,7 +39,15 @@ export async function GET(
   try {
     const news = await client.request(
       readItem("news", id!, {
-        fields: ["id", "date_created", "status", "image", "title", "article"],
+        fields: [
+          "id",
+          "date_created",
+          "status",
+          "type",
+          "image",
+          "title",
+          "article",
+        ],
       })
     );
 

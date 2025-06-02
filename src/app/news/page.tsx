@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/pagination";
 
 interface NewsItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
+  type: string;
   image: string;
   title: string;
   article: string;
@@ -108,30 +109,39 @@ const generatePaginationItems = (currentPage: number, totalPages: number) => {
 };
 
 const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
-  ({ className, image, title, article, day, month, ...props }, ref) => {
+  ({ className, type, image, title, article, day, month, ...props }, ref) => {
     const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
 
     return (
       <Link
-        className="flex flex-row border border-[#D0D0D0] rounded-xl overflow-hidden justify-center"
+        className="flex flex-col border border-[#D0D0D0] rounded-xl overflow-hidden justify-center"
         ref={ref}
         {...props}
       >
-        <img
-          className="w-1/2 aspect-video object-cover object-center"
-          src={getImageUrl(image)}
-        />
-        <div className="w-1/2 font-inter flex flex-col gap-2 p-4 justify-center">
-          <h3 className="font-bold text-sm text-[#171D3D] line-clamp-2 lg:text-xl lg:line-clamp-3">
-            {title}
-          </h3>
-          <div
-            className="article font-normal text-xs text-[#5B5B5B] line-clamp-2 lg:text-base lg:line-clamp-3"
-            dangerouslySetInnerHTML={{ __html: article }}
+        {type === "exclusive" && (
+          <div className="font-inter bg-[#FF730A] text-white px-2 py-1">
+            <h4 className="font-bold text-center text-xs line-clamp-2 lg:text-lg lg:line-clamp-3">
+              Э К С К Л Ю З И В
+            </h4>
+          </div>
+        )}
+        <div className="flex flex-row">
+          <img
+            className="w-1/2 aspect-video object-cover object-center"
+            src={getImageUrl(image)}
           />
-          <p className="text-xs font-medium text-[#B3B3B3]">
-            {day} {month}
-          </p>
+          <div className="w-1/2 font-inter flex flex-col gap-2 p-4 justify-center">
+            <h3 className="font-bold text-sm text-[#171D3D] line-clamp-2 lg:text-xl lg:line-clamp-3">
+              {title}
+            </h3>
+            <div
+              className="article font-normal text-xs text-[#5B5B5B] line-clamp-2 lg:text-base lg:line-clamp-3"
+              dangerouslySetInnerHTML={{ __html: article }}
+            />
+            <p className="text-xs font-medium text-[#B3B3B3]">
+              {day} {month}
+            </p>
+          </div>
         </div>
       </Link>
     );
@@ -210,6 +220,7 @@ export default function News() {
             <NewsItem
               key={item.id}
               href={`/news/${item.id}`}
+              type={item.type}
               image={item.image}
               title={item.title}
               article={item.article}
@@ -270,6 +281,7 @@ export default function News() {
               <NewsItem
                 key={item.id}
                 href={`/news/${item.id}`}
+                type={item.type}
                 image={item.image}
                 title={item.title}
                 article={item.article}

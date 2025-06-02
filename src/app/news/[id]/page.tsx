@@ -1,10 +1,87 @@
+import type { Metadata } from "next";
+import directus from "@services/directus";
+import { readItems } from "@directus/sdk";
 import RecomendateArticle from "@/components/news/RecomendateArticle";
+
+type Props = {
+  params: { id: string };
+};
 
 type NewsArticleProps = {
   id: string;
   title: string;
   article: string;
   image: string;
+};
+
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const { id } = await params;
+  const [news] = await directus.request(
+    readItems("news", {
+      filter: { id: { _eq: id }, status: { _eq: "published" } },
+      fields: ["*"],
+    })
+  );
+
+  if (!news) {
+    return {
+      title: "Новость не найдена",
+      description: "Кажется, такой новости не существует. Попробуйте еще раз.",
+      openGraph: {
+        title: "Новость не найдена",
+        description:
+          "Кажется, такой новости не существует. Попробуйте еще раз.",
+        url: "https://wnrs.ru",
+        siteName: "WINNERS Hockey Agency",
+        images: [
+          {
+            url: "https://wnrs.ru/assets/img/og-players.png",
+            width: 1200,
+            height: 630,
+            alt: "Хоккейное агентство WINNERS",
+          },
+        ],
+        locale: "ru_RU",
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Новость не найдена",
+        description:
+          "Кажется, такой новости не существует. Попробуйте еще раз.",
+        images: ["https://wnrs.ru/assets/img/og-players.png"],
+      },
+    };
+  }
+
+  return {
+    title: news.title,
+    description: news.description,
+    openGraph: {
+      title: news.title,
+      description: news.description,
+      url: `https://wnrs.ru/news/${news.id}`,
+      siteName: "WINNERS Hockey Agency",
+      images: [
+        {
+          url: `https://wnrs.ru/api/img/${news.image}`,
+          width: 1200,
+          height: 630,
+          alt: "Хоккейное агентство WINNERS",
+        },
+      ],
+      locale: "ru_RU",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: news.title,
+      description: news.description,
+      images: [`https://wnrs.ru/api/img/${news.image}`],
+    },
+  };
 };
 
 async function fetchArticle(id: string): Promise<NewsArticleProps | null> {

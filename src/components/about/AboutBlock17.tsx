@@ -68,9 +68,11 @@ export default function AboutBlock17() {
           <div className="flex flex-col gap-1 flex-1">
             <img
               className="rounded-xl aspect-square object-cover object-center"
-              src="/assets/img/about/b17-8.jpeg"
+              src="/assets/img/about/b17-8.jpg"
             />
-            <p className="text-base text-[#B1B1B1] text-right">Иван Бочаров</p>
+            <p className="text-base text-[#B1B1B1] text-right">
+              Данил Аймурзин
+            </p>
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <img

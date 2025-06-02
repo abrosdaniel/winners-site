@@ -42,6 +42,7 @@ export async function GET() {
               "date_created",
               "date_updated",
               "status",
+              "type",
               "image",
               "title",
               "article",
