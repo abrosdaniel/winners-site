@@ -12,7 +12,7 @@ interface Props {
 export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
-  const { id } = params;
+  const { id } = await params;
   const [news] = await directus.request(
     readItems("news", {
       filter: { id: { _eq: id }, status: { _eq: "published" } },
@@ -80,7 +80,7 @@ export const generateMetadata = async ({
 };
 
 export default async function NewsArticlePage({ params }: Props) {
-  const { id } = params;
+  const { id } = await params;
   const [news] = await directus.request(
     readItems("news", {
       filter: { id: { _eq: id }, status: { _eq: "published" } },
