@@ -149,6 +149,8 @@ const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
 );
 NewsItem.displayName = "NewsItem";
 
+export const revalidate = 0;
+
 export default function News() {
   const { data, isLoading } = useDataContext();
   const [mounted, setMounted] = useState(false);

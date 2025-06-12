@@ -140,14 +140,21 @@ export async function GET() {
 
     const contacts = contactsArray.length > 0 ? contactsArray[0] : null;
 
-    return NextResponse.json({
-      news: newsWithFormattedDates,
-      video,
-      players: playersWithFormattedData,
-      agency,
-      gallery,
-      contacts,
-    });
+    return NextResponse.json(
+      {
+        news: newsWithFormattedDates,
+        video,
+        players: playersWithFormattedData,
+        agency,
+        gallery,
+        contacts,
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching data items:", error);
     return NextResponse.json(
