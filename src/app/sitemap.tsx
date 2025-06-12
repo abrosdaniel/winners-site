@@ -2,11 +2,14 @@ import type { MetadataRoute } from "next";
 import directus from "@services/directus";
 import { readItems } from "@directus/sdk";
 
+export const revalidate = 0;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const news = await directus.request(
     readItems("news", {
       filter: { status: { _eq: "published" } },
-      fields: ["id", "date_updated"],
+      fields: ["id", "date_updated", "title", "description"],
+      sort: "-date_updated",
     })
   );
 
