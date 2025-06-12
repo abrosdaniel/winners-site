@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Foot from "@/components/Foot/Foot";
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Новости",
   description: "Новости хоккейного агентства WINNERS",
