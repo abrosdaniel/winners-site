@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import directus from "@services/directus";
 import { readItems } from "@directus/sdk";
+import "./new.css";
 import RecomendateArticle from "@/components/news/RecomendateArticle";
 
 interface Props {
@@ -105,6 +106,13 @@ export default async function NewsArticlePage({ params }: Props) {
       />
       <div className="flex flex-col lg:flex-row lg:gap-4">
         <div className="px-2 lg:px-0 lg:w-4/6 mt-5 lg:mt-7">
+          {news.type === "exclusive" && (
+            <div className="flex flex-wrap gap-4 relative mb-6">
+              <h2 className="font-inter font-bold bg-[#FF730A] text-white flex justify-center items-center rounded-md h-fit uppercase px-2 py-1 text-sm">
+                Эксклюзив
+              </h2>
+            </div>
+          )}
           <h1 className="font-inter font-bold text-2xl leading-7 text-[#171D3D] lg:text-4xl mb-6">
             {news.title}
           </h1>
