@@ -108,12 +108,12 @@ export default async function NewsArticlePage({ params }: Props) {
         <div className="px-2 lg:px-0 lg:w-4/6">
           {news.type === "exclusive" && (
             <div className="flex flex-wrap gap-4 relative mt-4 lg:mt-6">
-              <h2 className="font-inter font-bold bg-[#FF730A] text-white flex justify-center items-center rounded-full h-fit uppercase px-2 py-1 text-xs">
+              <h2 className="font-inter font-bold bg-[#FF730A] text-white flex justify-center items-center rounded-full h-fit uppercase px-2 py-1 text-xs lg:text-base">
                 Эксклюзив
               </h2>
             </div>
           )}
-          <h1 className="font-inter font-bold text-2xl leading-7 text-[#171D3D] mt-4 lg:mt-6 lg:text-4xl mb-6">
+          <h1 className="font-inter font-bold text-2xl leading-7 text-[#171D3D] mt-4 lg:text-4xl mb-6">
             {news.title}
           </h1>
           <div
