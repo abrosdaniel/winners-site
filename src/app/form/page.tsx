@@ -1,15 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { MenuShape } from "@/components/MenuShape";
+import { Photo } from "@/components/Photo";
+import { Wrapper } from "@/components/Wrapper";
+
 import { Button } from "@ui/button";
 import Link from "next/link";
 import { Label } from "@ui/label";
 import { Checkbox } from "@ui/checkbox";
-import Field from "@kit/Field";
+import Field from "@/components/Field";
 import { DateField, DateInput, DateSegment } from "react-aria-components";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function Form() {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [formData, setFormData] = useState<Record<string, string | boolean>>(
     {}
   );
@@ -139,11 +145,14 @@ export default function Form() {
 
   return (
     <>
-      <img
-        className="object-cover object-top h-44 w-full lg:h-[400px]"
-        src="/assets/img/head/form.png"
+      <MenuShape className="bg-[#171D3D]" />
+      <Photo
+        className="h-44 lg:h-[540px]"
+        src="/assets/img/hero/home.png"
+        alt="Анкета"
+        position={isDesktop ? "center" : "top"}
       />
-      <div className="py-8 w-full box-border max-w-5xl mx-auto relative zoomer">
+      <Wrapper size="none" classWrapper="py-10 lg:py-[60px]">
         <div className="px-2 mb-7">
           <h2 className="font-bold text-6xl text-[#171D3D]">анкета</h2>
           <h3 className="font-inter font-normal text-sm bg-orange-500 text-white rounded-full py-1 px-5 text-center w-max">
@@ -594,7 +603,7 @@ export default function Form() {
             отправить
           </Button>
         </form>
-      </div>
+      </Wrapper>
     </>
   );
 }

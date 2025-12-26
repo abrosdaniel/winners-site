@@ -9,10 +9,10 @@ export default function AboutBlock17() {
           <div className="flex flex-col gap-1 flex-1">
             <img
               className="rounded-xl aspect-square object-cover object-center"
-              src="/assets/img/about/b17-1.jpeg"
+              src="/assets/img/about/b17-1.jpg"
             />
             <p className="text-base text-[#B1B1B1] text-right">
-              Максим Шабанов
+              Константин Окулов
             </p>
           </div>
           <div className="flex flex-col gap-1 flex-1">
@@ -27,14 +27,7 @@ export default function AboutBlock17() {
           <div className="flex flex-col gap-1 flex-1">
             <img
               className="rounded-xl aspect-square object-cover object-center"
-              src="/assets/img/about/b17-3.png"
-            />
-            <p className="text-base text-[#B1B1B1] text-right">Пётр Кочетков</p>
-          </div>
-          <div className="flex flex-col gap-1 flex-1">
-            <img
-              className="rounded-xl aspect-square object-cover object-center"
-              src="/assets/img/about/b17-4.jpeg"
+              src="/assets/img/about/b17-3.jpeg"
             />
             <p className="text-base text-[#B1B1B1] text-right">
               Евгений Аликин
@@ -43,10 +36,19 @@ export default function AboutBlock17() {
           <div className="flex flex-col gap-1 flex-1">
             <img
               className="rounded-xl aspect-square object-cover object-center"
-              src="/assets/img/about/b17-5.png"
+              src="/assets/img/about/b17-4.jpg"
             />
             <p className="text-base text-[#B1B1B1] text-right">
-              Богдан Тринеев
+              Максим Шабанов
+            </p>
+          </div>
+          <div className="flex flex-col gap-1 flex-1">
+            <img
+              className="rounded-xl aspect-square object-cover object-center"
+              src="/assets/img/about/b17-5.jpg"
+            />
+            <p className="text-base text-[#B1B1B1] text-right">
+              Павел Дорофеев
             </p>
           </div>
         </div>
@@ -61,18 +63,16 @@ export default function AboutBlock17() {
           <div className="flex flex-col gap-1 flex-1">
             <img
               className="rounded-xl aspect-square object-cover object-center"
-              src="/assets/img/about/b17-7.jpg"
+              src="/assets/img/about/b17-7.png"
             />
-            <p className="text-base text-[#B1B1B1] text-right">Артём Набиев</p>
+            <p className="text-base text-[#B1B1B1] text-right">Яков Рылов</p>
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <img
               className="rounded-xl aspect-square object-cover object-center"
               src="/assets/img/about/b17-8.jpg"
             />
-            <p className="text-base text-[#B1B1B1] text-right">
-              Данил Аймурзин
-            </p>
+            <p className="text-base text-[#B1B1B1] text-right">Иван Бочаров</p>
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <img
@@ -86,11 +86,9 @@ export default function AboutBlock17() {
           <div className="flex flex-col gap-1 flex-1">
             <img
               className="rounded-xl aspect-square object-cover object-center"
-              src="/assets/img/about/b17-10.jpeg"
+              src="/assets/img/about/b17-10.png"
             />
-            <p className="text-base text-[#B1B1B1] text-right">
-              Константин Окулов
-            </p>
+            <p className="text-base text-[#B1B1B1] text-right">Пётр Кочетков</p>
           </div>
         </div>
       </div>

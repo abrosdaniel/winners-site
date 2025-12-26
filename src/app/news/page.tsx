@@ -3,9 +3,13 @@
 import * as React from "react";
 import { useDataContext } from "@/context/DataContext";
 import { useState, useEffect, useMemo } from "react";
+import { Wrapper } from "@/components/Wrapper";
+import { MenuShape } from "@/components/MenuShape";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/tabs";
-import { Video } from "@/components/kit/Video";
+import { Video } from "@/components/Video";
+import { Photo } from "@/components/Photo";
 import Link from "next/link";
+import { sanitizeHtml } from "@/lib/sanitize-html";
 import {
   Pagination,
   PaginationContent,
@@ -110,8 +114,6 @@ const generatePaginationItems = (currentPage: number, totalPages: number) => {
 
 const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
   ({ className, type, image, title, article, day, month, ...props }, ref) => {
-    const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
-
     return (
       <Link
         className="flex flex-col border border-[#D0D0D0] rounded-xl overflow-hidden justify-center"
@@ -126,9 +128,10 @@ const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
           </div>
         )}
         <div className="flex flex-row">
-          <img
-            className="w-1/2 aspect-video object-cover object-center"
-            src={getImageUrl(image)}
+          <Photo
+            src={`/api/img/${image}`}
+            alt={title}
+            className="w-1/2 aspect-video"
           />
           <div className="w-1/2 font-inter flex flex-col gap-2 p-4 justify-center">
             <h3 className="font-bold text-sm text-[#171D3D] line-clamp-2 lg:text-xl lg:line-clamp-3">
@@ -136,7 +139,7 @@ const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
             </h3>
             <div
               className="article font-normal text-xs text-[#5B5B5B] line-clamp-2 lg:text-base lg:line-clamp-3"
-              dangerouslySetInnerHTML={{ __html: article }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(article) }}
             />
             <p className="text-xs font-medium text-[#B3B3B3]">
               {day} {month}
@@ -155,10 +158,8 @@ export default function News() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentVideoPage, setCurrentVideoPage] = useState(1);
-  const [activeTab, setActiveTab] = useState("news"); // Добавляем состояние для активной вкладки
+  const [activeTab, setActiveTab] = useState("news");
   const itemsPerPage = 10;
-
-  const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
 
   const { totalPages, totalVideoPages } = useMemo(
     () => ({
@@ -210,8 +211,8 @@ export default function News() {
   if (!mounted || isLoading) return null;
 
   const DesktopLayout = () => (
-    <div className="w-full box-border flex gap-12 max-w-5xl mx-auto zoomer">
-      <div className="py-8 w-8/12">
+    <Wrapper size="none" classContainer="flex flex-row gap-12">
+      <div className="py-[60px] w-8/12">
         <h2 className="font-bold text-6xl text-[#171D3D] mb-6">
           ПОСЛЕДНИЕ НОВОСТИ
         </h2>
@@ -237,7 +238,7 @@ export default function News() {
           withScroll={true}
         />
       </div>
-      <div className="py-8 w-4/12 px-14 bg-[#F5F5F5] relative">
+      <div className="py-[60px] w-4/12 px-14 bg-[#F5F5F5] relative">
         <h2 className="font-bold text-4xl text-[#171D3D] mb-6">
           ПОПУЛЯРНЫЕ ВИДЕО
         </h2>
@@ -254,8 +255,9 @@ export default function News() {
           ))}
         </div>
         <div className="absolute bg-[#F5F5F5] h-16 w-full -bottom-16 left-0"></div>
+        <div className="absolute bg-[#F5F5F5] h-[calc(100%+200px)] w-[calc(100%*3)] top-0 left-full"></div>
       </div>
-    </div>
+    </Wrapper>
   );
 
   const MobileLayout = () => (
@@ -327,9 +329,12 @@ export default function News() {
 
   return (
     <>
-      <img
-        className="object-cover object-top h-44 w-full lg:h-[400px]"
-        src="/assets/img/head/news.png"
+      <MenuShape className="bg-[#171D3D]" />
+      <Photo
+        src="/assets/img/hero/news.png"
+        alt="Новости"
+        className="h-44 lg:h-[540px]"
+        position={isDesktop ? "center" : "top"}
       />
       {isDesktop ? <DesktopLayout /> : <MobileLayout />}
     </>

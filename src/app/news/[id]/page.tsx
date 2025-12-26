@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import directus from "@services/directus";
-import { readItems } from "@directus/sdk";
+import { readItem } from "@directus/sdk";
 import "./new.css";
-import RecomendateArticle from "@/components/news/RecomendateArticle";
+import { Wrapper } from "@/components/Wrapper";
+import { MenuShape } from "@/components/MenuShape";
+import { Photo } from "@/components/Photo";
+import RecomendateArticle from "@/shared/RecomendateArticle";
+import { sanitizeHtml } from "@/lib/sanitize-html";
 
 interface Props {
   params: Promise<{
@@ -16,9 +20,9 @@ export const generateMetadata = async ({
   params,
 }: Props): Promise<Metadata> => {
   const { id } = await params;
-  const [news] = await directus.request(
-    readItems("news", {
-      filter: { id: { _eq: id }, status: { _eq: "published" } },
+  const news = await directus.request(
+    readItem("news", id!, {
+      filter: { status: { _eq: "published" } },
       fields: ["*"],
     })
   );
@@ -35,7 +39,7 @@ export const generateMetadata = async ({
         siteName: "WINNERS Hockey Agency",
         images: [
           {
-            url: "https://wnrs.ru/assets/img/og-players.png",
+            url: "https://wnrs.ru/assets/img/og.png",
             width: 1200,
             height: 630,
             alt: "Хоккейное агентство WINNERS",
@@ -49,7 +53,7 @@ export const generateMetadata = async ({
         title: "Новость не найдена",
         description:
           "Кажется, такой новости не существует. Попробуйте еще раз.",
-        images: ["https://wnrs.ru/assets/img/og-players.png"],
+        images: ["https://wnrs.ru/assets/img/og.png"],
       },
     };
   }
@@ -86,9 +90,9 @@ export const generateMetadata = async ({
 
 export default async function NewsArticlePage({ params }: Props) {
   const { id } = await params;
-  const [news] = await directus.request(
-    readItems("news", {
-      filter: { id: { _eq: id }, status: { _eq: "published" } },
+  const news = await directus.request(
+    readItem("news", id!, {
+      filter: { status: { _eq: "published" } },
       fields: ["*"],
     })
   );
@@ -98,37 +102,41 @@ export default async function NewsArticlePage({ params }: Props) {
   }
 
   return (
-    <div className="w-full box-border relative flex flex-col items-center max-w-5xl mx-auto zoomer">
-      <img
-        className="w-full aspect-video object-cover object-top h-48 lg:h-[450px]"
-        src={`${directus.url}assets/${news.image}`}
-        alt={news.title}
-      />
-      <div className="flex flex-col lg:flex-row lg:gap-4">
-        <div className="px-2 lg:px-0 lg:w-4/6">
-          {news.type === "exclusive" && (
-            <div className="flex flex-wrap gap-4 relative mt-4 lg:mt-6">
-              <h2 className="font-inter font-bold bg-[#FF730A] text-white flex justify-center items-center rounded-full h-fit uppercase px-2 py-1 text-xs lg:text-base">
-                Эксклюзив
-              </h2>
-            </div>
-          )}
-          <h1 className="font-inter font-bold text-2xl leading-7 text-[#171D3D] mt-4 lg:text-4xl mb-6">
-            {news.title}
-          </h1>
-          <div
-            className="article font-inter font-normal text-base leading-5 text-black lg:text-lg mb-16"
-            dangerouslySetInnerHTML={{ __html: news.article }}
-          />
+    <>
+      <MenuShape className="bg-[#171D3D]" />
+      <Wrapper size="none">
+        <Photo
+          className="w-full aspect-video h-48 lg:h-[450px]"
+          src={`/api/img/${news.image}`}
+          alt={news.title}
+          position="top"
+        />
+        <div className="flex flex-col lg:flex-row lg:gap-4">
+          <div className="px-2 lg:px-0 lg:w-4/6">
+            {news.type === "exclusive" && (
+              <div className="flex flex-wrap gap-4 relative mt-4 lg:mt-6">
+                <h2 className="font-inter font-bold bg-[#FF730A] text-white flex justify-center items-center rounded-full h-fit uppercase px-2 py-1 text-xs lg:text-base">
+                  Эксклюзив
+                </h2>
+              </div>
+            )}
+            <h1 className="font-inter font-bold text-2xl leading-7 text-[#171D3D] mt-4 lg:text-4xl mb-6">
+              {news.title}
+            </h1>
+            <div
+              className="article font-inter font-normal text-base leading-5 text-black lg:text-lg mb-16"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(news.article) }}
+            />
+          </div>
+          <div className="bg-[#F5F5F5] px-2 py-5 lg:w-2/6 lg:px-7 lg:py-7 flex flex-col gap-5 lg:gap-0 relative">
+            <h2 className="font-bold text-4xl text-[#171D3D] lg:text-4xl lg:mb-4">
+              Другие новости
+            </h2>
+            <RecomendateArticle currentArticleId={news.id} />
+            <div className="absolute bg-[#F5F5F5] h-16 w-full -bottom-16 left-0"></div>
+          </div>
         </div>
-        <div className="bg-[#F5F5F5] px-2 py-5 lg:w-2/6 lg:px-7 lg:py-7 flex flex-col gap-5 lg:gap-0 relative">
-          <h2 className="font-bold text-4xl text-[#171D3D] lg:text-4xl lg:mb-4">
-            Другие новости
-          </h2>
-          <RecomendateArticle currentArticleId={news.id} />
-          <div className="absolute bg-[#F5F5F5] h-16 w-full -bottom-16 left-0"></div>
-        </div>
-      </div>
-    </div>
+      </Wrapper>
+    </>
   );
 }

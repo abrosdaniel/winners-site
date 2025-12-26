@@ -73,9 +73,3 @@
 .article a {
   color: rgb(249 115 22);
 }
-
-@media (min-width: 1024px) {
-  .zoomer {
-    zoom: 0.9;
-  }
-}

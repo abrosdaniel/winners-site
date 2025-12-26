@@ -1,5 +1,4 @@
-import { getServerData } from "@/lib/server-utils";
-import { NotFoundClient } from "./NotFoundClient";
+import NotFound from "@/shared/NotFound";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,8 +17,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function NotFound() {
-  const initialData = await getServerData();
-
-  return <NotFoundClient initialData={initialData} />;
+export default async function NotFoundPage() {
+  return <NotFound />;
 }

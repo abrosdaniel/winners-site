@@ -39,7 +39,9 @@ export default function AboutBlock23() {
           />
         </div>
       </div>
-      <p className="text-lg lg:text-4xl">продолжение следует...</p>
+      <p className="font-bold text-lg lg:text-4xl max-w-3xl text-center">
+        История WNRS — это движение вперёд. Лучшие победы ещё впереди.
+      </p>
     </div>
   );
 }

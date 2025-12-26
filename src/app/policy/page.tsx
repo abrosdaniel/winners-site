@@ -1,11 +1,23 @@
+"use client";
+
+import { Photo } from "@/components/Photo";
+import { MenuShape } from "@/components/MenuShape";
+import { Wrapper } from "@/components/Wrapper";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+
 export default function Policy() {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   return (
     <>
-      <img
-        className="object-cover object-top h-44 w-full lg:h-[400px]"
-        src="/assets/img/head/form.png"
+      <MenuShape className="bg-[#171D3D]" />
+      <Photo
+        className="h-44 lg:h-[540px]"
+        src="/assets/img/hero/home.png"
+        alt="Политика конфиденциальности"
+        position={isDesktop ? "center" : "top"}
       />
-      <div className="py-8 w-full box-border max-w-5xl mx-auto relative zoomer">
+      <Wrapper size="small">
         <div className="px-2 mb-7">
           <h2 className="font-bold text-4xl lg:text-6xl text-[#171D3D]">
             Политика конфиденциальности
@@ -419,7 +431,7 @@ export default function Policy() {
           12.3. Актуальная версия Политики в свободном доступе расположена
           в сети Интернет по адресу https://wnrs.ru/policy.
         </p>
-      </div>
+      </Wrapper>
     </>
   );
 }

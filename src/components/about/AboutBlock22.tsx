@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { useData } from "@hooks/useData";
+import { useDataContext } from "@/context/DataContext";
 import gsap from "gsap";
 
 // Определяем интерфейс для элемента галереи
@@ -11,7 +11,7 @@ interface GalleryItem {
 }
 
 export default function AboutBlock22() {
-  const { data, isLoading } = useData();
+  const { data, isLoading } = useDataContext();
   const [mounted, setMounted] = useState(false);
   const [currentImages, setCurrentImages] = useState<string[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -24,10 +24,10 @@ export default function AboutBlock22() {
 
   // Предварительная загрузка изображений
   useEffect(() => {
-    if (!mounted || isLoading || !data?.gallery) return;
+    if (!mounted || isLoading || !data?.about_gallery) return;
 
     const preloadImages = () => {
-      const imagePromises = data.gallery.map((item: GalleryItem) => {
+      const imagePromises = data.about_gallery.map((item: GalleryItem) => {
         return new Promise((resolve, reject) => {
           const img = new Image();
           img.src = getImageUrl(item.image);
@@ -53,14 +53,14 @@ export default function AboutBlock22() {
     if (
       !mounted ||
       isLoading ||
-      !data?.gallery ||
+      !data?.about_gallery ||
       !galleryRef.current ||
       !imagesLoaded
     )
       return;
 
     const getRandomImages = () => {
-      const shuffled = [...data.gallery].sort(() => Math.random() - 0.5);
+      const shuffled = [...data.about_gallery].sort(() => Math.random() - 0.5);
       return shuffled.slice(0, 4).map((item: GalleryItem) => item.image);
     };
 
@@ -90,7 +90,8 @@ export default function AboutBlock22() {
     return () => clearInterval(interval);
   }, [mounted, isLoading, data, imagesLoaded]);
 
-  if (!mounted || isLoading || !data?.gallery || !imagesLoaded) return null;
+  if (!mounted || isLoading || !data?.about_gallery || !imagesLoaded)
+    return null;
 
   return (
     <div className="relative lg:mx-56">

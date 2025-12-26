@@ -1,39 +1,58 @@
-Это сайт [Хоккейного агентства WINNERS](https://wnrs.ru) созданный разработчиком [Daniel Abros](https://abros.dev).
+<img src="./public/assets/img/og.png">
 
-## Стек технологий
+## Introduction
 
-| Frontend       | Backend  |
-| -------------- | -------- |
-| Next.js        | Coolify  |
-| TanStack Query | Directus |
-| TypeScript     | N8N      |
-| TailwindCSS    |          |
-| PostCSS        |          |
-| Radix UI       |          |
-| ShadcnUI       |          |
-| Embla Carousel |          |
-| Framer Motion  |          |
-| GSAP           |          |
-| Lucide         |          |
-| reCAPTCHA      |          |
+WINNERS Hockey Agency is a modern, cutting-edge website built for the professional hockey industry. This project represents a comprehensive digital platform that bridges the gap between hockey talent and professional opportunities. Developed with the latest web technologies, the site delivers a seamless user experience across all devices while maintaining high performance standards.
 
-## Структура сайта
+Built with Next.js and powered by a headless CMS architecture, the website exemplifies modern web development practices in the sports industry, combining aesthetic design with robust functionality.
 
-- src/app/page.tsx - главная страница
-- src/app/players/page.tsx - страница игроков
-- src/app/about/page.tsx - страница истории агентства
-- src/app/news/page.tsx - страница новостей
-- src/app/agency/page.tsx - страница команды агентства
-- src/app/form/page.tsx - страница анкеты
-- src/app/sitemap.tsx - sitemap
-- src/app/robots.tsx - robots.txt
+# Table of Contents
 
-## Структура проекта
+1. [Features](#features)
+2. [Stack](#stack)
+3. [Architecture](#architecture)
+4. [Credits](#credits)
 
-- src/app - страницы сайта
-- src/app/api - внутренние api
-- src/assets - статические файлы для сайта
-- src/components - компоненты
-- src/lib - библиотеки
-- src/hooks - хуки
-- src/services - сервисы
+## Features
+
+- 🏒 **Hockey Player Profiles** - Comprehensive player database
+- 📰 **News & Updates** - Latest hockey industry news and agency updates
+- 👥 **Agency Team** - Comprehensive agency database
+- 📝 **Player Registration** - Online application form for aspiring players
+- 📱 **Responsive Design** - Optimized for all devices
+- 🚀 **Performance Optimized** - Fast loading with Next.js and modern stack
+- 🔍 **SEO Friendly** - Optimized for search engines
+- 📊 **Analytics** - Integrated Yandex Metrics for insights
+
+## Stack
+
+| Frontend       | Backend  | Tools & Services |
+| -------------- | -------- | ---------------- |
+| Next.js        | Directus | Git              |
+| TanStack Query | N8N      | ESLint           |
+| TypeScript     |          | Prettier         |
+| TailwindCSS    |          | Docker           |
+| PostCSS        |          |                  |
+| Radix UI       |          |                  |
+| ShadcnUI       |          |                  |
+| Embla Carousel |          |                  |
+| Framer Motion  |          |                  |
+| GSAP           |          |                  |
+| Lucide         |          |                  |
+| reCAPTCHA      |          |                  |
+| Yandex Metrics |          |                  |
+
+## Architecture
+
+- **Frontend:** Built with Next.js 14 using the App Router for optimal performance and SEO
+- **Backend:** Headless CMS powered by Directus for content management
+- **Automation:** N8N workflows for automated processes and integrations
+- **Deployment:** Containerized with Docker
+- **State Management:** TanStack Query for efficient server state management
+- **Styling:** TailwindCSS with custom design system and Radix UI primitives
+
+## Credits
+
+- **Developer:** [Daniel Abros](https://abros.dev)
+- **Design:** -
+- **Client:** [WINNERS Hockey Agency](https://wnrs.ru)

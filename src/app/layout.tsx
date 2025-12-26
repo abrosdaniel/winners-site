@@ -4,100 +4,40 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Suspense } from "react";
 
 import { Providers } from "@/app/providers";
-import { Metrika } from "@/components/analytics/YaMetrika";
+import Loader from "@/components/Loader";
+import { Metrika } from "@/components/YaMetrika";
 import { fontBebas, fontInter } from "@assets/fonts/fonts";
-import Head from "@/components/Head/Head";
-import Foot from "@/components/Foot/Foot";
-import { DataProvider } from "@/context/DataContext";
+import Menu from "@/shared/Menu";
+import Footer from "@/shared/Footer";
 import { getServerData } from "@/lib/server-utils";
 
 export const metadata: Metadata = {
-  title: "Главная",
-  description: "Хоккейное агентство WINNERS",
+  title:
+    "WINNERS — профессиональное хоккейное агентство | Представительство и сопровождение карьеры",
+  description:
+    "Хоккейное агентство WINNERS — профессиональное представительство хоккеистов и сопровождение карьеры. Контрактная работа, переговоры с клубами, юридическое сопровождение и коммуникационное сопровождение игрока. КХЛ, ВХЛ, МХЛ и североамериканские лиги.",
   applicationName: "WINNERS Hockey Agency",
   generator: "Next.js",
   keywords: [
-    "Хоккейное агентство",
-    "Игроки",
-    "WINNERS",
-    "Хоккей",
-    "Нападающие",
-    "Защитники",
-    "Вратари",
-    "Хоккейная статистика",
-    "Хоккеисты",
-    "Хоккейные агенты",
-    "Хоккейные мамы",
-    "Расшифровки лиг",
-    "Хоккейный агент",
-    "Игроки КХЛ",
-    "Молодежная хоккейная лига",
-    "Драфт КХЛ",
-    "НХЛ",
-    "Европейский хоккей",
-    "Хоккейные клубы",
-    "Юниорские лиги",
-    "Развитие хоккеистов",
-    "Агенты НХЛ",
-    "Трансферы в хоккее",
-    "Хоккейный рынок",
-    "Подготовка игроков",
-    "Агентские услуги",
-    "Личное развитие хоккеиста",
-    "Хоккейный тренер",
-    "Тренировочные программы",
-    "Лига Квебека",
-    "Скауты НХЛ",
-    "Путь к НХЛ",
-    "Хоккейная экипировка",
-    "Юниорский хоккей",
-    "Молодежные турниры",
-    "Скаутинг хоккеистов",
-    "Разбор матчей",
-    "Хоккейные стратегии",
-    "Тренировки на льду",
-    "Хоккейные тренажеры",
-    "Развитие скорости",
-    "Тренировки выносливости",
-    "Подготовка к драфту",
-    "Международные турниры",
-    "Олимпийский хоккей",
-    "Молодые таланты",
-    "Спонсоры в хоккее",
-    "Хоккейные соревнования",
-    "Обучение хоккею",
-    "Психология хоккея",
-    "Травмы хоккеистов",
-    "Реабилитация после травм",
-    "Юниорская сборная",
-    "Контракты хоккеистов",
-    "Рекрутинг игроков",
-    "Семинары для родителей",
-    "Хоккейная техника",
-    "Анализ игровых моментов",
-    "Пассы в хоккее",
-    "Броски в хоккее",
-    "Хоккей на траве",
-    "Профессиональные хоккеисты",
-    "Аренда ледовых арен",
-    "Зимние виды спорта",
-    "Спортивное питание",
-    "Индивидуальные тренировки",
-    "Летние хоккейные лагеря",
-    "Разбор позиций",
-    "Лучшие хоккейные лиги",
-    "Спортивные достижения",
-    "Молодежные команды",
-    "Хоккейные турниры",
-    "Выступления на международной арене",
-    "Тренерский штаб",
-    "Соревнования КХЛ",
-    "Физическая подготовка",
-    "Техническое мастерство",
-    "Выход на профессиональный уровень",
-    "Рекорды хоккеистов",
-    "История хоккея",
-    "Текущие новости хоккея",
+    "хоккейное агентство",
+    "агент хоккеиста",
+    "хоккейные агенты",
+    "представитель хоккеиста",
+    "спортивное представительство",
+    "хоккейный менеджмент",
+    "профессиональный хоккей",
+    "карьера хоккеиста",
+    "сопровождение карьеры хоккеиста",
+    "агентские услуги хоккей",
+    "переговоры с клубами",
+    "контракты КХЛ",
+    "контракты ВХЛ",
+    "контракты МХЛ",
+    "трансферы КХЛ",
+    "трансферы ВХЛ",
+    "трансферы МХЛ",
+    "североамериканские хоккейные лиги",
+    "WINNERS agency",
   ],
   authors: [
     { name: "WINNERS Agency", url: "https://wnrs.ru" },
@@ -107,16 +47,17 @@ export const metadata: Metadata = {
   publisher: "WINNERS Agency",
   metadataBase: new URL("https://wnrs.ru"),
   openGraph: {
-    title: "Главная",
-    description: "Хоккейное агентство WINNERS",
+    title: "WINNERS — хоккейное агентство | Представительство игроков",
+    description:
+      "WINNERS — хоккейное агентство и профессиональное представительство хоккеистов. Ведём карьеру игроков: переговоры с клубами, контракты, юридическое и коммуникационное сопровождение. КХЛ, ВХЛ, МХЛ и североамериканские лиги.",
     url: "https://wnrs.ru",
     siteName: "WINNERS Hockey Agency",
     images: [
       {
-        url: "https://wnrs.ru/assets/img/og-players.png",
-        width: 1200,
-        height: 630,
-        alt: "Хоккейное агентство WINNERS",
+        url: "https://periodic-amendments-crafts-patterns.trycloudflare.com/assets/img/og.png",
+        width: 736,
+        height: 306,
+        alt: "WINNERS - Профессиональное хоккейное агентство для игроков НХЛ и КХЛ",
       },
     ],
     locale: "ru_RU",
@@ -124,21 +65,32 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Главная",
-    description: "Хоккейное агентство WINNERS",
-    images: ["https://wnrs.ru/assets/img/og-players.png"],
+    title: "WINNERS — хоккейное агентство | Представительство игроков",
+    description:
+      "WINNERS — хоккейное агентство и профессиональное представительство хоккеистов. Ведём карьеру игроков: переговоры с клубами, контракты, юридическое и коммуникационное сопровождение. КХЛ, ВХЛ, МХЛ и североамериканские лиги.",
+    images: [
+      "https://periodic-amendments-crafts-patterns.trycloudflare.com/assets/img/og.png",
+    ],
   },
   icons: {
     icon: "/assets/icons/logo/logo.png",
     shortcut: "/assets/icons/logo/logo.png",
     apple: "/assets/icons/logo/logo.png",
   },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    noimageindex: false,
-    nosnippet: false,
+  other: {
+    "article:section": "Sports",
+    "article:tag": "hockey news, NHL, KHL, professional hockey",
+    "telegram:channel": "@winnershockey",
+    "instagram:profile": "@winners.hockey",
+    "whatsapp:business": "+79688658761",
+    "social:telegram": "https://t.me/winnershockey",
+    "social:instagram": "https://www.instagram.com/winners.hockey",
+    "social:whatsapp": "https://wa.me/79688658761",
+    "contact:phone": "+79688658761",
+    "contact:telegram": "@winnershockey",
+    "contact:instagram": "@winners.hockey",
+    "business:contact_data:phone_number": "+79688658761",
+    "business:contact_data:website": "https://wnrs.ru",
   },
 };
 
@@ -162,10 +114,12 @@ export default async function RootLayout({
         className={`${fontBebas.variable} ${fontInter.variable} overflow-x-hidden antialiased`}
       >
         <Providers dehydratedState={dehydratedState}>
-          <Head />
-          <div className="bg-[#171D3D] h-16"></div>
+          <Loader />
+          <Menu />
           {children}
+          <Footer />
         </Providers>
+
         <Suspense>
           <Metrika />
         </Suspense>

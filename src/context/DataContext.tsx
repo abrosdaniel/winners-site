@@ -14,6 +14,8 @@ const DataContext = createContext<DataContextType>({
     players: [],
     agency: [],
     video: [],
+    about_gallery: [],
+    contacts: null,
   },
   isLoading: false,
   error: null,
@@ -32,6 +34,8 @@ export function DataProvider({
       players: [],
       agency: [],
       video: [],
+      about_gallery: [],
+      contacts: null,
     }
   );
   const [isLoading] = useState(false);
