@@ -15,35 +15,50 @@ export default function Loader() {
         return 0;
       }
 
-      const navigation = performance.getEntriesByType(
-        "navigation"
-      )[0] as PerformanceNavigationTiming;
-      if (!navigation) return 0;
+      const readyState = document.readyState;
+      if (readyState === "complete") {
+        return 100;
+      }
 
       const resources = performance.getEntriesByType(
         "resource"
       ) as PerformanceResourceTiming[];
+
       const totalResources = resources.length;
+
+      if (totalResources === 0) {
+        return readyState === "interactive" ? 50 : 10;
+      }
+
       const loadedResources = resources.filter(
-        (resource) => resource.transferSize > 0
+        (resource) => resource.responseEnd > 0
       ).length;
 
-      const resourceProgress =
-        totalResources > 0 ? (loadedResources / totalResources) * 80 : 0;
+      const resourceProgress = (loadedResources / totalResources) * 80;
 
-      const documentProgress = document.readyState === "complete" ? 20 : 10;
+      let documentProgress = 0;
+      if (readyState === "interactive") {
+        documentProgress = 15;
+      } else if (readyState === "loading") {
+        documentProgress = 5;
+      }
 
-      return Math.min(100, Math.round(resourceProgress + documentProgress));
+      return Math.min(99, Math.round(resourceProgress + documentProgress));
     };
 
     const updateProgress = () => {
       const currentProgress = calculateProgress();
-      setProgress(currentProgress);
+      setProgress((prev) => {
+        if (currentProgress > prev) {
+          return currentProgress;
+        }
+        return prev;
+      });
     };
 
     const interval = setInterval(updateProgress, 100);
 
-    const observer = new PerformanceObserver((list) => {
+    const observer = new PerformanceObserver(() => {
       updateProgress();
     });
 
@@ -77,14 +92,10 @@ export default function Loader() {
 
   useEffect(() => {
     if (!isPageLoaded) return;
-    const minTimer = setTimeout(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setShouldUnmount(true);
-      }, 500);
-    }, 2000);
-
-    return () => clearTimeout(minTimer);
+    setIsVisible(false);
+    setTimeout(() => {
+      setShouldUnmount(true);
+    }, 500);
   }, [isPageLoaded]);
 
   if (shouldUnmount) return null;

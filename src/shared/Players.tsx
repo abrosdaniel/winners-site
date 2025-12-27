@@ -234,7 +234,12 @@ function PlayersTitle({
   className?: string;
 }) {
   return (
-    <h2 className={cn("font-bold text-6xl text-[#171D3D] h-14", className)}>
+    <h2
+      className={cn(
+        "font-bold text-5xl lg:text-6xl text-[#171D3D] h-10 lg:h-14",
+        className
+      )}
+    >
       {children}
     </h2>
   );

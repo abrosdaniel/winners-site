@@ -154,7 +154,9 @@ export default function Form() {
       />
       <Wrapper size="none" classWrapper="py-10 lg:py-[60px]">
         <div className="px-2 mb-7">
-          <h2 className="font-bold text-6xl text-[#171D3D]">анкета</h2>
+          <h2 className="font-bold text-5xl lg:text-6xl text-[#171D3D] h-10 lg:h-14">
+            анкета
+          </h2>
           <h3 className="font-inter font-normal text-sm bg-orange-500 text-white rounded-full py-1 px-5 text-center w-max">
             АНКЕТЫ РАССМАТРИВАЮТСЯ В ТЕЧЕНИЕ 14 ДНЕЙ
           </h3>

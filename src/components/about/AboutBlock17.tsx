@@ -26,7 +26,7 @@ export default function AboutBlock17() {
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <img
-              className="rounded-xl aspect-square object-cover object-center"
+              className="rounded-xl aspect-square object-cover object-right"
               src="/assets/img/about/b17-3.jpeg"
             />
             <p className="text-base text-[#B1B1B1] text-right">
@@ -72,7 +72,9 @@ export default function AboutBlock17() {
               className="rounded-xl aspect-square object-cover object-center"
               src="/assets/img/about/b17-8.jpg"
             />
-            <p className="text-base text-[#B1B1B1] text-right">Иван Бочаров</p>
+            <p className="text-base text-[#B1B1B1] text-right">
+              Александр Радулов
+            </p>
           </div>
           <div className="flex flex-col gap-1 flex-1">
             <img
