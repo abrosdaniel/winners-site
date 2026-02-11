@@ -10,6 +10,25 @@ interface NewsProps {
   data: any[];
 }
 
+const formatDate = (isoDate: string) => {
+  const date = new Date(isoDate);
+  const months = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+  ];
+  return `${date.getDate()} ${months[date.getMonth()]}`;
+};
+
 function NewsPreview({ data }: NewsProps) {
   const [mounted, setMounted] = useState(false);
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
@@ -108,7 +127,7 @@ function NewsPreview({ data }: NewsProps) {
                     <div className="font-inter flex flex-col justify-center gap-2.5">
                       <div className="flex justify-between items-center">
                         <p className="font-medium text-[#D0D0D0] text-[10px]">
-                          {item.date_created.day} {item.date_created.month}
+                          {formatDate(item.date_created)}
                         </p>
                         <span className="py-[1.5px] px-3 font-normal text-xs text-[#D2D2D2] rounded-full border border-[#D2D2D2]">
                           ПОСЛЕДНИЕ НОВОСТИ
@@ -119,7 +138,7 @@ function NewsPreview({ data }: NewsProps) {
                       </p>
                     </div>
                   </Link>
-                )
+                ),
             )}
           </div>
         </div>

@@ -1,6 +1,8 @@
 "use client";
 
-import { useDataContext } from "@/context/DataContext";
+import { useQuery } from "@tanstack/react-query";
+import directus from "@/services/directus";
+import { readItems } from "@directus/sdk";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 import { Wrapper } from "@/components/Wrapper";
@@ -15,7 +17,17 @@ import {
 } from "@/shared/Players";
 
 export default function PlayersPage() {
-  const { data } = useDataContext();
+  const { data, isLoading } = useQuery({
+    queryKey: ["players"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("players", {
+          fields: ["*.*"],
+          filter: { status: { _eq: "published" } },
+          limit: -1,
+        }),
+      ),
+  });
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   return (
@@ -29,7 +41,8 @@ export default function PlayersPage() {
       />
       <Wrapper size="small">
         <Players
-          data={data?.players}
+          data={data}
+          isLoading={isLoading}
           pageItems={isDesktop ? 16 : 8}
           className="flex flex-col gap-5 lg:gap-10"
         >

@@ -1,6 +1,8 @@
 "use client";
 
-import { useDataContext } from "@/context/DataContext";
+import { useQuery } from "@tanstack/react-query";
+import directus from "@/services/directus";
+import { readItems } from "@directus/sdk";
 import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
 import { Photo } from "@/components/Photo";
@@ -12,8 +14,22 @@ type RecomendateArticleProps = {
 export default function RecomendateArticle({
   currentArticleId,
 }: RecomendateArticleProps) {
-  const { data } = useDataContext();
   const [isDesktop, setIsDesktop] = useState(false);
+  const { data } = useQuery({
+    queryKey: ["other-news", currentArticleId],
+    queryFn: async () =>
+      await directus.request(
+        readItems("news", {
+          fields: ["*.*"],
+          filter: {
+            status: { _eq: "published" },
+            id: { _neq: currentArticleId },
+          },
+          sort: ["-date_created"],
+          limit: 5,
+        }),
+      ),
+  });
 
   useEffect(() => {
     const updateIsDesktop = () => {
@@ -25,54 +41,38 @@ export default function RecomendateArticle({
     return () => window.removeEventListener("resize", updateIsDesktop);
   }, []);
 
-  const parseDate = (dateStr: { day: string; month: string; year: number }) => {
-    const months: { [key: string]: number } = {
-      января: 0,
-      февраля: 1,
-      марта: 2,
-      апреля: 3,
-      мая: 4,
-      июня: 5,
-      июля: 6,
-      августа: 7,
-      сентября: 8,
-      октября: 9,
-      ноября: 10,
-      декабря: 11,
-    };
-    return new Date(
-      dateStr.year,
-      months[dateStr.month.toLowerCase()],
-      parseInt(dateStr.day)
-    );
+  const formatDate = (isoDate: string) => {
+    const date = new Date(isoDate);
+    const months = [
+      "января",
+      "февраля",
+      "марта",
+      "апреля",
+      "мая",
+      "июня",
+      "июля",
+      "августа",
+      "сентября",
+      "октября",
+      "ноября",
+      "декабря",
+    ];
+    return `${date.getDate()} ${months[date.getMonth()]}`;
   };
 
-  const getRandomArticles = () => {
-    if (!data?.news) return [];
+  const getArticles = () => {
+    if (!data) return [];
 
-    const otherArticles = data.news.filter(
-      (item: any) => item.id !== currentArticleId
-    );
-
-    const sortedArticles = otherArticles.sort((a: any, b: any) => {
-      const dateA = parseDate(a.date_created);
-      const dateB = parseDate(b.date_created);
-      return dateB.getTime() - dateA.getTime();
-    });
-
-    const latestArticles = sortedArticles.slice(0, isDesktop ? 5 : 2);
+    const latestArticles = data.slice(0, isDesktop ? 5 : 2);
 
     return latestArticles;
   };
 
-  const recommendedArticles = useMemo(
-    () => getRandomArticles(),
-    [data, isDesktop]
-  );
+  const recommendedArticles = useMemo(() => getArticles(), [data, isDesktop]);
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-8">
-      {recommendedArticles.map((item: any) => (
+      {recommendedArticles.map((item) => (
         <Link
           key={item.id}
           href={`/news/${item.id}`}
@@ -80,7 +80,7 @@ export default function RecomendateArticle({
         >
           <Photo
             className="w-full aspect-video rounded-xl"
-            src={`/api/img/${item.image}`}
+            src={`/api/img/${item.image.id}`}
             alt={item.title}
           />
           <div className="flex flex-col">
@@ -88,7 +88,7 @@ export default function RecomendateArticle({
               {item.title}
             </h3>
             <p className="font-inter font-medium text-[#888888] text-xs">
-              {item.date_created.day} {item.date_created.month}
+              {formatDate(item.date_created)}
             </p>
           </div>
         </Link>

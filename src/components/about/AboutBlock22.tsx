@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { useDataContext } from "@/context/DataContext";
+import { useQuery } from "@tanstack/react-query";
+import directus from "@/services/directus";
+import { readItems } from "@directus/sdk";
 import gsap from "gsap";
 
 // Определяем интерфейс для элемента галереи
@@ -11,7 +13,16 @@ interface GalleryItem {
 }
 
 export default function AboutBlock22() {
-  const { data, isLoading } = useDataContext();
+  const { data, isLoading } = useQuery({
+    queryKey: ["about_gallery"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("about_gallery", {
+          fields: ["*"],
+          limit: -1,
+        }),
+      ),
+  });
   const [mounted, setMounted] = useState(false);
   const [currentImages, setCurrentImages] = useState<string[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -24,10 +35,10 @@ export default function AboutBlock22() {
 
   // Предварительная загрузка изображений
   useEffect(() => {
-    if (!mounted || isLoading || !data?.about_gallery) return;
+    if (!mounted || isLoading || !data) return;
 
     const preloadImages = () => {
-      const imagePromises = data.about_gallery.map((item: GalleryItem) => {
+      const imagePromises = data.map((item: any) => {
         return new Promise((resolve, reject) => {
           const img = new Image();
           img.src = getImageUrl(item.image);
@@ -50,18 +61,12 @@ export default function AboutBlock22() {
   }, [mounted, isLoading, data]);
 
   useEffect(() => {
-    if (
-      !mounted ||
-      isLoading ||
-      !data?.about_gallery ||
-      !galleryRef.current ||
-      !imagesLoaded
-    )
+    if (!mounted || isLoading || !data || !galleryRef.current || !imagesLoaded)
       return;
 
     const getRandomImages = () => {
-      const shuffled = [...data.about_gallery].sort(() => Math.random() - 0.5);
-      return shuffled.slice(0, 4).map((item: GalleryItem) => item.image);
+      const shuffled = [...data].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 4).map((item: any) => item.image);
     };
 
     setCurrentImages(getRandomImages());
@@ -90,8 +95,7 @@ export default function AboutBlock22() {
     return () => clearInterval(interval);
   }, [mounted, isLoading, data, imagesLoaded]);
 
-  if (!mounted || isLoading || !data?.about_gallery || !imagesLoaded)
-    return null;
+  if (!mounted || isLoading || !data || !imagesLoaded) return null;
 
   return (
     <div className="relative lg:mx-56">

@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 
-import { useDataContext } from "@/context/DataContext";
 import {
   useState,
   useEffect,
@@ -57,6 +56,7 @@ interface AgentsProps {
   className?: string;
   maxItems?: number;
   itemsPerPage?: number;
+  isLoading?: boolean;
 }
 
 function Agents({
@@ -65,8 +65,8 @@ function Agents({
   className,
   maxItems,
   itemsPerPage: itemsPerPageProp,
+  isLoading,
 }: AgentsProps) {
-  const { isLoading } = useDataContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [isDesktop, setIsDesktop] = useState(false);
   const [filterType, setFilterType] = useState("all");
@@ -104,8 +104,8 @@ function Agents({
         searchWords.length === 0 ||
         searchWords.every((searchWord: string) =>
           agentNameParts.some((namePart: string) =>
-            namePart.includes(searchWord)
-          )
+            namePart.includes(searchWord),
+          ),
         );
 
       const matchesRole =
@@ -125,7 +125,7 @@ function Agents({
 
   const totalPages = useMemo(
     () => Math.ceil(filteredAgents.length / itemsPerPage),
-    [filteredAgents, itemsPerPage]
+    [filteredAgents, itemsPerPage],
   );
 
   // Сбрасываем страницу на 1 при изменении поиска или фильтра
@@ -160,11 +160,11 @@ function Agents({
     const pages = [];
     const middleStart = Math.max(
       2,
-      currentPage - Math.floor(maxVisiblePages / 2)
+      currentPage - Math.floor(maxVisiblePages / 2),
     );
     const middleEnd = Math.min(
       totalPages - 1,
-      middleStart + maxVisiblePages - 1
+      middleStart + maxVisiblePages - 1,
     );
 
     pages.push(1);
@@ -217,7 +217,7 @@ function AgentsTitle({
     <h2
       className={cn(
         "font-bold text-5xl lg:text-6xl text-[#171D3D] h-10 lg:h-14",
-        className
+        className,
       )}
     >
       {children}
@@ -233,7 +233,7 @@ function AgentsFilters({ className }: { className?: string }) {
     <div
       className={cn(
         "flex flex-col gap-1 font-inter lg:flex-row lg:gap-2",
-        className
+        className,
       )}
     >
       <Input

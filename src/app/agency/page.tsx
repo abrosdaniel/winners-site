@@ -1,6 +1,8 @@
 "use client";
 
-import { useDataContext } from "@/context/DataContext";
+import { useQuery } from "@tanstack/react-query";
+import directus from "@/services/directus";
+import { readItems } from "@directus/sdk";
 import { MenuShape } from "@/components/MenuShape";
 import { Photo } from "@/components/Photo";
 import { Wrapper } from "@/components/Wrapper";
@@ -8,7 +10,16 @@ import { Agents, AgentsTitle, AgentsList } from "@/shared/Agents";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function Agency() {
-  const { data } = useDataContext();
+  const { data, isLoading } = useQuery({
+    queryKey: ["agency"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("agency", {
+          fields: ["*"],
+          limit: -1,
+        }),
+      ),
+  });
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   return (
@@ -21,7 +32,11 @@ export default function Agency() {
         position={isDesktop ? "center" : "top"}
       />
       <Wrapper size="small">
-        <Agents className="flex flex-col gap-5 lg:gap-10" data={data.agency}>
+        <Agents
+          className="flex flex-col gap-5 lg:gap-10"
+          data={data}
+          isLoading={isLoading}
+        >
           <AgentsTitle>команда агентства</AgentsTitle>
           <AgentsList className="gap-x-2 gap-y-5 lg:gap-x-5 lg:gap-y-8" />
         </Agents>

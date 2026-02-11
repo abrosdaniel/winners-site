@@ -6,7 +6,6 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { DataProvider } from "@/context/DataContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,10 +28,8 @@ export function Providers({
   return (
     <QueryClientProvider client={queryClient}>
       <HydrationBoundary state={dehydratedState}>
-        <DataProvider initialData={dehydratedState?.queries[0]?.state?.data}>
-          {children}
-          <ReactQueryDevtools initialIsOpen={false} />
-        </DataProvider>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
       </HydrationBoundary>
     </QueryClientProvider>
   );

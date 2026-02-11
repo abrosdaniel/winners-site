@@ -1,6 +1,8 @@
 "use client";
 
-import { useDataContext } from "@/context/DataContext";
+import { useQuery } from "@tanstack/react-query";
+import directus from "@/services/directus";
+import { readItems } from "@directus/sdk";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 import Hero from "@/shared/Hero";
@@ -16,7 +18,39 @@ import { Partners } from "@/shared/Partners";
 import { Wrapper } from "@/components/Wrapper";
 
 export default function Page() {
-  const { data } = useDataContext();
+  const { data: players, isLoading: isPlayersLoading } = useQuery({
+    queryKey: ["players"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("players", {
+          fields: ["*.*"],
+          filter: { status: { _eq: "published" } },
+          limit: -1,
+        }),
+      ),
+  });
+  const { data: news, isLoading: isNewsLoading } = useQuery({
+    queryKey: ["news"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("news", {
+          fields: ["*"],
+          filter: { status: { _eq: "published" } },
+          sort: ["-date_created"],
+          limit: -1,
+        }),
+      ),
+  });
+  const { data: agency, isLoading: isAgencyLoading } = useQuery({
+    queryKey: ["agency"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("agency", {
+          fields: ["*"],
+          limit: -1,
+        }),
+      ),
+  });
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   return (
@@ -25,7 +59,8 @@ export default function Page() {
       <Wrapper>
         <Players
           className="flex flex-col gap-5 lg:gap-10"
-          data={data.players}
+          data={players}
+          isLoading={isPlayersLoading}
           maxItems={isDesktop ? 8 : 4}
           filter={[{ key: "league.name", value: "КХЛ" }]}
         >
@@ -35,7 +70,7 @@ export default function Page() {
         </Players>
       </Wrapper>
       <Wrapper variant="blue">
-        <NewsPreview data={data.news} />
+        <NewsPreview data={news || []} />
       </Wrapper>
       <Wrapper>
         <Partners />
@@ -43,7 +78,8 @@ export default function Page() {
       <Wrapper classWrapper="!pt-0">
         <Agents
           className="flex flex-col gap-5 lg:gap-10"
-          data={data.agency}
+          data={agency}
+          isLoading={isAgencyLoading}
           maxItems={isDesktop ? 4 : 2}
         >
           <AgentsTitle>наша команда</AgentsTitle>

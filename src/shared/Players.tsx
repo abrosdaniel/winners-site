@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 
-import { useDataContext } from "@/context/DataContext";
 import {
   useState,
   useEffect,
@@ -57,6 +56,7 @@ interface PlayersProps {
   maxItems?: number;
   pageItems?: number;
   filter?: { key: string; value: string }[];
+  isLoading?: boolean;
 }
 
 function Players({
@@ -66,8 +66,8 @@ function Players({
   maxItems,
   pageItems,
   filter,
+  isLoading,
 }: PlayersProps) {
-  const { isLoading } = useDataContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [isDesktop, setIsDesktop] = useState(false);
   const [filterRole, setFilterRole] = useState("all");
@@ -124,8 +124,8 @@ function Players({
         searchWords.length === 0 ||
         searchWords.every((searchWord: string) =>
           playerNameParts.some((namePart: string) =>
-            namePart.includes(searchWord)
-          )
+            namePart.includes(searchWord),
+          ),
         );
 
       const matchesRole =
@@ -145,7 +145,7 @@ function Players({
 
   const totalPages = useMemo(
     () => Math.ceil(filteredPlayers.length / itemsPerPage),
-    [filteredPlayers, itemsPerPage]
+    [filteredPlayers, itemsPerPage],
   );
 
   // Сбрасываем страницу на 1 при изменении поиска или фильтра
@@ -180,11 +180,11 @@ function Players({
     const pages = [];
     const middleStart = Math.max(
       2,
-      currentPage - Math.floor(maxVisiblePages / 2)
+      currentPage - Math.floor(maxVisiblePages / 2),
     );
     const middleEnd = Math.min(
       totalPages - 1,
-      middleStart + maxVisiblePages - 1
+      middleStart + maxVisiblePages - 1,
     );
 
     pages.push(1);
@@ -237,7 +237,7 @@ function PlayersTitle({
     <h2
       className={cn(
         "font-bold text-5xl lg:text-6xl text-[#171D3D] h-10 lg:h-14",
-        className
+        className,
       )}
     >
       {children}
@@ -253,7 +253,7 @@ function PlayersFilters({ className }: { className?: string }) {
     <div
       className={cn(
         "flex flex-col gap-5 font-inter lg:flex-row lg:gap-4",
-        className
+        className,
       )}
     >
       <Input
@@ -302,7 +302,7 @@ function PlayerCard({ item }: { item: any }) {
       <div className="absolute top-0 left-0 w-0 h-0 border rounded-xl border-transparent border-t-[#171D3D] border-l-[#171D3D] group-hover:w-full group-hover:h-full transition-all duration-1000 z-20" />
       <div className="flex flex-col rounded-xl bg-white relative z-30 m-[1px] overflow-hidden">
         <Photo
-          src={getImageUrl(item.photo)}
+          src={getImageUrl(item.photo.id)}
           alt={item.name}
           className="w-full aspect-[6/5]"
           fit="cover"

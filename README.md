@@ -5,7 +5,7 @@
 </p>
 <div align="center">
 
-[![Site/Version](https://img.shields.io/badge/wnrs.ru-v_1.2-2A8F3B)](https://wnrs.ru)
+[![Site/Version](https://img.shields.io/badge/wnrs.ru-v_1.3-2A8F3B)](https://wnrs.ru)
 [![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js)](https://nextjs.org)
 [![Directus](https://img.shields.io/badge/Directus-263238?logo=directus)](https://directus.io)
 [![N8N](https://img.shields.io/badge/N8N-EA4B71?logo=n8n&logoColor=white)](https://n8n.io)
@@ -41,23 +41,23 @@ Built with Next.js and powered by a headless CMS architecture, the website exemp
 ## Stack
 
 - **Frontend:**
-  ![Next.js](https://img.shields.io/badge/Next.js-^16.0.8-white?logo=next.js)
-  ![TanStack Query](https://img.shields.io/badge/TanStack_Query-^5.61.5-FF4154?logo=tanstack)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-^5-3178C6?logo=typescript&logoColor=white)
-  ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-^3.4.1-06B6D4?logo=tailwindcss&logoColor=white)
-  ![PostCSS](https://img.shields.io/badge/PostCSS-^8-DD3A0A?logo=postcss)
+  ![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js)
+  ![TanStack Query](https://img.shields.io/badge/TanStack_Query-FF4154?logo=tanstack)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+  ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)
+  ![PostCSS](https://img.shields.io/badge/PostCSS-DD3A0A?logo=postcss)
   ![Radix UI](https://img.shields.io/badge/Radix_UI-161618?logo=radixui)
   ![shadcn/ui](https://img.shields.io/badge/shadcn/ui-black?logo=shadcnui)
-  ![Embla Carousel](https://img.shields.io/badge/Embla_Carousel-^8.5.1-8FB3F6)
-  ![Motion](https://img.shields.io/badge/Motion-^12.23.26-F7DF1E)
-  ![GSAP](https://img.shields.io/badge/GSAP-^3.12.5-0AE448?logo=gsap&logoColor=white)
-  ![Lucide](https://img.shields.io/badge/Lucide-^0.462.0-F56565?logo=lucide&logoColor=white)
+  ![Embla Carousel](https://img.shields.io/badge/Embla_Carousel-8FB3F6)
+  ![Motion](https://img.shields.io/badge/Motion-F7DF1E)
+  ![GSAP](https://img.shields.io/badge/GSAP-0AE448?logo=gsap&logoColor=white)
+  ![Lucide](https://img.shields.io/badge/Lucide-F56565?logo=lucide&logoColor=white)
   ![reCAPTCHA](https://img.shields.io/badge/reCAPTCHA-4285F4)
   ![Yandex Metrics](https://img.shields.io/badge/Yandex_Metrics-F90000)
 
 - **Backend:**
-  ![Directus](https://img.shields.io/badge/Directus-^11.3.2-263238?logo=directus)
-  ![N8N](https://img.shields.io/badge/N8N-^1.71.2-EA4B71?logo=n8n&logoColor=white)
+  ![Directus](https://img.shields.io/badge/Directus-263238?logo=directus)
+  ![N8N](https://img.shields.io/badge/N8N-EA4B71?logo=n8n&logoColor=white)
 
 - **Tools & Services:**
   ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)

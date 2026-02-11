@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${id}`
+      `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${id}`,
     );
 
     if (!response.ok) {

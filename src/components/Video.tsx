@@ -78,7 +78,7 @@ export function Video({
   const handleVideoClick = (
     newVideo: string,
     newTitle: string,
-    newId: number
+    newId: number,
   ) => {
     setVideoError(null);
     setCurrentTitle(newTitle);

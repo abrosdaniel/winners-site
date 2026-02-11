@@ -16,10 +16,16 @@ import { MenuIcon, MoveLeft } from "lucide-react";
 import { Photo } from "@/components/Photo";
 
 export default function Menu() {
+  const [mounted, setMounted] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const updateScreenSize = () => {
       setIsLargeScreen(window.innerWidth >= 1024);
     };
@@ -35,7 +41,7 @@ export default function Menu() {
       window.removeEventListener("resize", updateScreenSize);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [mounted]);
 
   return (
     <>
@@ -120,6 +126,7 @@ export default function Menu() {
               <h1 className="text-3xl leading-none font-bold">WINNERS</h1>
             </Link>
           </div>
+          {mounted ? (
           <Sheet>
             <SheetTrigger asChild>
               <MenuIcon className="h-10 w-10 text-white" />
@@ -232,6 +239,9 @@ export default function Menu() {
               </div>
             </SheetContent>
           </Sheet>
+          ) : (
+            <MenuIcon className="h-10 w-10 text-white" aria-hidden />
+          )}
         </nav>
       )}
     </>

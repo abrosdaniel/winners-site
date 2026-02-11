@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useDataContext } from "@/context/DataContext";
+import { useQuery } from "@tanstack/react-query";
+import directus from "@/services/directus";
+import { readItems } from "@directus/sdk";
 import { useState, useEffect, useMemo } from "react";
 import { Wrapper } from "@/components/Wrapper";
 import { MenuShape } from "@/components/MenuShape";
@@ -23,8 +25,7 @@ interface NewsItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
   image: string;
   title: string;
   article: string;
-  day: string;
-  month: string;
+  date: string;
 }
 
 const PaginationComponent = ({
@@ -105,15 +106,34 @@ const generatePaginationItems = (currentPage: number, totalPages: number) => {
         currentPage,
         currentPage + 1,
         "ellipsis-end",
-        totalPages
+        totalPages,
       );
     }
   }
   return items;
 };
 
+const formatDate = (isoDate: string) => {
+  const date = new Date(isoDate);
+  const months = [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря",
+  ];
+  return `${date.getDate()} ${months[date.getMonth()]}`;
+};
+
 const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
-  ({ className, type, image, title, article, day, month, ...props }, ref) => {
+  ({ className, type, image, title, article, date, ...props }, ref) => {
     return (
       <Link
         className="flex flex-col border border-[#D0D0D0] rounded-xl overflow-hidden justify-center"
@@ -142,18 +162,41 @@ const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
               dangerouslySetInnerHTML={{ __html: sanitizeHtml(article) }}
             />
             <p className="text-xs font-medium text-[#B3B3B3]">
-              {day} {month}
+              {formatDate(date)}
             </p>
           </div>
         </div>
       </Link>
     );
-  }
+  },
 );
 NewsItem.displayName = "NewsItem";
 
 export default function News() {
-  const { data, isLoading } = useDataContext();
+  const { data: news, isLoading: isNewsLoading } = useQuery({
+    queryKey: ["news"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("news", {
+          fields: ["*"],
+          filter: { status: { _eq: "published" } },
+          sort: ["-date_created"],
+          limit: -1,
+        }),
+      ),
+  });
+  const { data: video, isLoading: isVideoLoading } = useQuery({
+    queryKey: ["video"],
+    queryFn: async () =>
+      await directus.request(
+        readItems("video", {
+          fields: ["*"],
+          filter: { status: { _eq: "published" } },
+          sort: ["-date_created"],
+          limit: -1,
+        }),
+      ),
+  });
   const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -163,10 +206,10 @@ export default function News() {
 
   const { totalPages, totalVideoPages } = useMemo(
     () => ({
-      totalPages: Math.ceil((data?.news?.length || 0) / itemsPerPage),
-      totalVideoPages: Math.ceil((data?.video?.length || 0) / itemsPerPage),
+      totalPages: Math.ceil((news?.length || 0) / itemsPerPage),
+      totalVideoPages: Math.ceil((video?.length || 0) / itemsPerPage),
     }),
-    [data?.news?.length, data?.video?.length]
+    [news?.length, video?.length],
   );
 
   const { paginationItems, videoPaginationItems } = useMemo(
@@ -174,15 +217,15 @@ export default function News() {
       paginationItems: generatePaginationItems(currentPage, totalPages),
       videoPaginationItems: generatePaginationItems(
         currentVideoPage,
-        totalVideoPages
+        totalVideoPages,
       ),
     }),
-    [currentPage, currentVideoPage, totalPages, totalVideoPages]
+    [currentPage, currentVideoPage, totalPages, totalVideoPages],
   );
 
   const desktopVideos = useMemo(() => {
-    return data?.video?.slice(0, itemsPerPage) || [];
-  }, [data?.video]);
+    return video?.slice(0, itemsPerPage) || [];
+  }, [video]);
 
   const { paginatedNews, paginatedVideos } = useMemo(() => {
     const paginate = (items: any[], page: number) => {
@@ -191,12 +234,12 @@ export default function News() {
     };
 
     return {
-      paginatedNews: paginate(data?.news, currentPage),
+      paginatedNews: paginate(news || [], currentPage),
       paginatedVideos: isDesktop
         ? desktopVideos
-        : paginate(data?.video, currentVideoPage),
+        : paginate(video || [], currentVideoPage),
     };
-  }, [data, currentPage, currentVideoPage, isDesktop, desktopVideos]);
+  }, [news, video, currentPage, currentVideoPage, isDesktop, desktopVideos]);
 
   useEffect(() => {
     setMounted(true);
@@ -208,7 +251,7 @@ export default function News() {
     return () => window.removeEventListener("resize", updateIsDesktop);
   }, []);
 
-  if (!mounted || isLoading) return null;
+  if (!mounted || isNewsLoading || isVideoLoading) return null;
 
   const DesktopLayout = () => (
     <Wrapper size="none" classContainer="flex flex-row gap-12">
@@ -225,8 +268,7 @@ export default function News() {
               image={item.image}
               title={item.title}
               article={item.article}
-              day={item.date_created.day}
-              month={item.date_created.month}
+              date={item.date_created}
             />
           ))}
         </div>
@@ -287,8 +329,7 @@ export default function News() {
                 image={item.image}
                 title={item.title}
                 article={item.article}
-                day={item.date_created.day}
-                month={item.date_created.month}
+                date={item.date_created}
               />
             ))}
           </div>
@@ -308,7 +349,7 @@ export default function News() {
                 video={video.video}
                 preview={video.preview}
                 title={video.title}
-                allVideos={data.video}
+                allVideos={paginatedVideos}
                 currentId={video.id}
               />
             ))}
