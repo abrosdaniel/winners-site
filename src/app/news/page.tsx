@@ -12,6 +12,7 @@ import { Video } from "@/components/Video";
 import { Photo } from "@/components/Photo";
 import Link from "next/link";
 import { sanitizeHtml } from "@/lib/sanitize-html";
+import { useFormatDate } from "@/hooks/useFormatDate";
 import {
   Pagination,
   PaginationContent,
@@ -26,6 +27,7 @@ interface NewsItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
   title: string;
   article: string;
   date: string;
+  formatDate: (isoDate: string) => string;
 }
 
 const PaginationComponent = ({
@@ -113,27 +115,11 @@ const generatePaginationItems = (currentPage: number, totalPages: number) => {
   return items;
 };
 
-const formatDate = (isoDate: string) => {
-  const date = new Date(isoDate);
-  const months = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
-  ];
-  return `${date.getDate()} ${months[date.getMonth()]}`;
-};
-
 const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
-  ({ className, type, image, title, article, date, ...props }, ref) => {
+  (
+    { className, type, image, title, article, date, formatDate, ...props },
+    ref,
+  ) => {
     return (
       <Link
         className="flex flex-col border border-[#D0D0D0] rounded-xl overflow-hidden justify-center"
@@ -173,6 +159,10 @@ const NewsItem = React.forwardRef<React.ElementRef<typeof Link>, NewsItemProps>(
 NewsItem.displayName = "NewsItem";
 
 export default function News() {
+  const formatDate = useFormatDate({
+    format: "d MMMM",
+    locale: "ru",
+  });
   const { data: news, isLoading: isNewsLoading } = useQuery({
     queryKey: ["news"],
     queryFn: async () =>
@@ -269,6 +259,7 @@ export default function News() {
               title={item.title}
               article={item.article}
               date={item.date_created}
+              formatDate={formatDate}
             />
           ))}
         </div>
@@ -330,6 +321,7 @@ export default function News() {
                 title={item.title}
                 article={item.article}
                 date={item.date_created}
+                formatDate={formatDate}
               />
             ))}
           </div>

@@ -6,6 +6,7 @@ import { readItems } from "@directus/sdk";
 import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
 import { Photo } from "@/components/Photo";
+import { useFormatDate } from "@/hooks/useFormatDate";
 
 type RecomendateArticleProps = {
   currentArticleId: string;
@@ -15,6 +16,10 @@ export default function RecomendateArticle({
   currentArticleId,
 }: RecomendateArticleProps) {
   const [isDesktop, setIsDesktop] = useState(false);
+  const formatDate = useFormatDate({
+    format: "d MMMM",
+    locale: "ru",
+  });
   const { data } = useQuery({
     queryKey: ["other-news", currentArticleId],
     queryFn: async () =>
@@ -40,25 +45,6 @@ export default function RecomendateArticle({
     window.addEventListener("resize", updateIsDesktop);
     return () => window.removeEventListener("resize", updateIsDesktop);
   }, []);
-
-  const formatDate = (isoDate: string) => {
-    const date = new Date(isoDate);
-    const months = [
-      "января",
-      "февраля",
-      "марта",
-      "апреля",
-      "мая",
-      "июня",
-      "июля",
-      "августа",
-      "сентября",
-      "октября",
-      "ноября",
-      "декабря",
-    ];
-    return `${date.getDate()} ${months[date.getMonth()]}`;
-  };
 
   const getArticles = () => {
     if (!data) return [];

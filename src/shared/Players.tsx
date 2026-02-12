@@ -12,6 +12,7 @@ import {
 } from "react";
 import Link from "next/link";
 import { Photo } from "@/components/Photo";
+import { useFormatDate } from "@/hooks/useFormatDate";
 
 import { Button } from "@ui/button";
 import { Input } from "@ui/input";
@@ -75,7 +76,6 @@ function Players({
   const [shuffledPlayers, setShuffledPlayers] = useState<any[]>(data || []);
   const [isMounted, setIsMounted] = useState(false);
   const [usePagination, setUsePagination] = useState(false);
-
   // По умолчанию 16 элементов на страницу, если не указано иное
   const defaultItemsPerPage = 16;
   const itemsPerPage = pageItems ?? defaultItemsPerPage;
@@ -291,6 +291,10 @@ function PlayerCard({ item }: { item: any }) {
     const [first, ...rest] = name.trim().split(/\s+/);
     return { first, rest: rest.join(" ") };
   };
+  const formatDate = useFormatDate({
+    format: "yyyy",
+    locale: "ru",
+  });
 
   return (
     <Link
@@ -333,7 +337,7 @@ function PlayerCard({ item }: { item: any }) {
         <div className="flex justify-between p-2">
           <div>
             <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
-              {item.birthday}
+              {formatDate(item.birthday)}
             </p>
             <p className="font-inter font-normal text-base text-[#5B5B5B] lg:text-lg">
               {item.height}/{item.weight}

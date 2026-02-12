@@ -5,33 +5,19 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Photo } from "@/components/Photo";
 import { sanitizeHtml } from "@/lib/sanitize-html";
+import { useFormatDate } from "@/hooks/useFormatDate";
 
 interface NewsProps {
   data: any[];
 }
 
-const formatDate = (isoDate: string) => {
-  const date = new Date(isoDate);
-  const months = [
-    "января",
-    "февраля",
-    "марта",
-    "апреля",
-    "мая",
-    "июня",
-    "июля",
-    "августа",
-    "сентября",
-    "октября",
-    "ноября",
-    "декабря",
-  ];
-  return `${date.getDate()} ${months[date.getMonth()]}`;
-};
-
 function NewsPreview({ data }: NewsProps) {
   const [mounted, setMounted] = useState(false);
   const getImageUrl = (fileId: string) => `/api/img/${fileId}`;
+  const formatDate = useFormatDate({
+    format: "d MMMM",
+    locale: "ru",
+  });
 
   const leagues = [
     {
